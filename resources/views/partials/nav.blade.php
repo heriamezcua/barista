@@ -1,3 +1,3 @@
 <nav>
-    NAVIGATION
+    <h2>NAVIGATION</h2>
 </nav>

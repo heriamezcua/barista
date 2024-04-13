@@ -1,0 +1,23 @@
+.form {
+    width: 500px;
+    margin: 0 auto;
+    border: 2px solid black;
+
+    &__group {
+        display: flex;
+
+        &:not(:last-child){
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 2rem;
+            margin-right: auto;
+        }
+
+        input {
+            font-size: 1.6rem;
+            padding: .5rem 1rem;
+        }
+    }
+}

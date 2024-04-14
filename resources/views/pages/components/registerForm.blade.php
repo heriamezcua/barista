@@ -40,5 +40,4 @@
     <div class="form__group">
         <button type="submit" class="btn btn--form">Register</button>
     </div>
-
 </form>

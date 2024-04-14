@@ -4,7 +4,7 @@
     <section class="section-login">
         <div class="login">
             <h2>REGISTER</h2>
-                @include('pages.components.authForm')
+            @include('pages.components.registerForm')
         </div>
     </section>
 @endsection

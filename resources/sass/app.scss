@@ -1,28 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap');
+@import './abstract/mixins';
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import './base/base';
+@import './base/typography';
+@import './base/utilities';
+@import './base/animations';
 
-body {
-    font-family: 'outfit', sans-serif;
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-    text-align: center;
-}
+@import 'components/authForm';
+@import 'components/buttons';
 
-header{
-    height: 20%;
-}
+@import './layout/header';
+@import './layout/footer';
 
-main{
-    height: 60%;
-    border: 1px solid rebeccapurple;
-}
-
-footer{
-    height: 20%;
-}
+@import './pages/home';

@@ -3,5 +3,10 @@
 @section('title', 'Login')
 
 @section('content')
-    <div>Login</div>
+    <section class="section-login">
+        <div class="login">
+            <h2>LOGIN</h2>
+            @include('pages.components.loginForm')
+        </div>
+    </section>
 @endsection

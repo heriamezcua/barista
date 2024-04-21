@@ -1,12 +1,8 @@
-header{
-    height: 20%;
+main {
+    height: 500px;
 }
 
-main{
-    height: 60%;
-    border: 1px solid rebeccapurple;
-}
-
-footer{
-    height: 20%;
+// FEATURED SECTION
+#featured-card:not(:last-child){
+    padding-right: 30px;
 }

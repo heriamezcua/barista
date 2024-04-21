@@ -5,11 +5,12 @@
 @import './base/utilities';
 @import './base/animations';
 
+
 @import 'components/authForm';
 @import 'components/buttons';
 
-@import './layout/header';
 @import './layout/footer';
+@import "layout/nav";
 
 @import './pages/home';
 

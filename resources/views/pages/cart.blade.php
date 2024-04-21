@@ -3,6 +3,6 @@
 @section('title', 'Home')
 
 @section('content')
-    <h2>HOME</h2>
+    <h2>CART</h2>
 
 @endsection

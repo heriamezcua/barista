@@ -10,12 +10,14 @@
     @vite(['resources/sass/app.scss'])
 </head>
 <body>
-    <header>
-        @include('partials.nav')
-    </header>
-    <main>
-        @yield('content')
-    </main>
-    @include('partials.footer')
+
+<header>
+    @include('partials.nav')
+</header>
+
+<main>
+    @yield('content')
+</main>
+@include('partials.footer')
 </body>
 </html>

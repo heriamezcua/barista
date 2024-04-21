@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class PageController extends Controller
 {
     public function home()
     {
-        return view('pages.home');
+        $products = Product::orderBy('created_at', 'desc')->get();
+        return view('pages.home', ['products' => $products]);
     }
 
     public function cart()
@@ -24,5 +26,11 @@ class PageController extends Controller
     public function account()
     {
         return view('pages.account');
+    }
+
+    public function product($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('pages.product', ['product' => $product]);
     }
 }

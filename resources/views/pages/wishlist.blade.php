@@ -3,6 +3,9 @@
 @section('title', 'Home')
 
 @section('content')
-    <h2>WISHLIST</h2>
-
+    <section class="section-wishlist">
+        <div class="container">
+            <h2>Wishlist</h2>
+        </div>
+    </section>
 @endsection

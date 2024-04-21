@@ -1,11 +1,8 @@
-header{
-    height: 80px;
-}
-
-main{
+main {
     height: 500px;
 }
 
-footer{
-    //height: 200px;
+// FEATURED SECTION
+#featured-card:not(:last-child){
+    padding-right: 30px;
 }

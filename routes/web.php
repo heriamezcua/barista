@@ -22,6 +22,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/wishlist', [PageController::class, 'wishlist'])->name('wishlist');
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 Route::get('/account', [PageController::class, 'account'])->name('account')->middleware('auth');
+Route::get('/product/{id}', [PageController::class, 'product'])->name('product');
 
 // Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register')->middleware('guest');

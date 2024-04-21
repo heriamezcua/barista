@@ -72,7 +72,7 @@
                                     <div class="form-group mb-3">
                                         <label for="description">Discount</label>
                                         <input type="number" name="discount" id="discount" min="0" max="99" step="1"
-                                               value="0"
+                                               value="{{$product->discount}}"
                                                class="form-control @error('discount') is-invalid @enderror"
                                                value="{{old('discount')}}">
                                         @error('discount')

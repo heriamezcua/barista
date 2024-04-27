@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::get('/wishlist', [PageController::class, 'wishlist'])->name('wishlist');
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 Route::get('/account', [PageController::class, 'account'])->name('account')->middleware('auth');
 Route::get('/product/{id}', [PageController::class, 'product'])->name('product');
+Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout')->middleware('auth');
+
+// Cart
+Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+Route::post('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+
 
 // Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register')->middleware('guest');

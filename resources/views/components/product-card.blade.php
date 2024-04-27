@@ -19,7 +19,6 @@
 
         <h4 class="fs-5 text-secondary">Category</h4>
 
-
         <div class="d-flex flex-row user-ratings">
             <div class="ratings">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -42,8 +41,6 @@
         </div>
 
         <p class="fs-3">{{$product->price / 100}} €</p>
-
-
         <button class="btn btn-danger">Add to cart</button>
     </div>
 

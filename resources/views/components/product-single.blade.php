@@ -51,30 +51,39 @@
 
             <p class="mt-3">{{$product->description}}</p>
 
-            <div class="row d-flex align-items-center justify-content-between mt-4">
-                <div class="col-md-6">
-                    <div class="d-flex align-items-center">
-                        <p class="m-0">Quantity:</p>
-                        <select style="width: 50px" class="mx-2" name="quantity" id="quantity">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
+            <form action="{{route('addToCart',  $product->id)}}" method="post">
+                @csrf
+
+                <div class="row d-flex align-items-center justify-content-between mt-4">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <p class="m-0">Quantity:</p>
+                            <select style="width: 50px" class="mx-2" name="quantity" id="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h2 class="text-tertiary mt-3">{{$product->price / 100}}€</h2>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <h2 class="text-tertiary mt-3">{{$product->price / 100}}€</h2>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <button class="btn"
+                                style="width: 100%; background-color: #8d4c1e; color: white; font-weight: 500">
+                            Add to cart
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn" style="width: 100%; border: 2px solid #8d4c1e; font-weight: 500">Buy it
+                            now
+                        </button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <button class="btn" style="width: 100%; background-color: #8d4c1e; color: white; font-weight: 500">Add to cart</button>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn" style="width: 100%; border: 2px solid #8d4c1e; font-weight: 500">Buy it now</button>
-                </div>
-            </div>
+            </form>
 
         </div>
     </div>

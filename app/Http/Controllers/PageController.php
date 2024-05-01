@@ -38,4 +38,9 @@ class PageController extends Controller
     {
         return view('pages.checkout');
     }
+
+    public function success()
+    {
+        return 'The purchase has been made successfully';
+    }
 }

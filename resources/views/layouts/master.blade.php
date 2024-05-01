@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
 
     @vite(['resources/sass/app.scss'])
+    @yield('head')
 </head>
 <body>
 

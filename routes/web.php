@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\CartController;
 |
 */
 
+Route::get('/success', [PageController::class, 'success'])->name('success');
+
 // Pages
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/wishlist', [PageController::class, 'wishlist'])->name('wishlist');
@@ -30,6 +33,8 @@ Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout')->
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::post('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
+// Stripe
+Route::post('/stripe-checkout', [CheckoutController::class, 'stripeCheckout'])->name('stripeCheckout')->middleware('auth');
 
 // Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register')->middleware('guest');

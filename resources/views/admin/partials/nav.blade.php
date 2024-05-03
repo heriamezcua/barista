@@ -21,6 +21,13 @@
                 Products
             </a>
         </li>
+        <li>
+            <a href="{{route('adminpanel.orders')}}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16">
+                </svg>
+                Orders
+            </a>
+        </li>
     </ul>
     @auth
         <form action="{{route('logout')}}" method="post">

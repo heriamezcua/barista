@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
@@ -47,8 +48,10 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middle
 // Adminpanel Routes
 Route::group(['prefix' => 'adminpanel', 'middleware' => 'admin'], function () {
 
+    // Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('adminpanel');
 
+    // Products
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('adminpanel.products');
         Route::get('/create', [ProductController::class, 'create'])->name('adminpanel.products.create');
@@ -56,5 +59,12 @@ Route::group(['prefix' => 'adminpanel', 'middleware' => 'admin'], function () {
         Route::get('/{id}', [ProductController::class, 'edit'])->name('adminpanel.products.edit');
         Route::put('/{id}', [ProductController::class, 'update'])->name('adminpanel.products.edit');
         Route::delete('/{id}', [ProductController::class, 'destroy'])->name('adminpanel.products.destroy');
+    });
+
+    // Orders
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('adminpanel.orders');
+        Route::get('/{id}', [OrderController::class, 'view'])->name('adminpanel.orders.view');
+        Route::post('/{id}', [OrderController::class, 'updateStatus'])->name('adminpanel.orders.status.update');
     });
 });

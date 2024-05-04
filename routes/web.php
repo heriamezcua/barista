@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
@@ -33,6 +34,11 @@ Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout')->
 // Cart
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::post('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+
+// Wishlist
+Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('addToWishlist')->middleware('auth');
+Route::post('/remove-from-wishlist/{id}', [WishlistController::class, 'removeFromWishlist'])->name('removeFromWishlist')->middleware('auth');
+
 
 // Stripe
 Route::post('/stripe-checkout', [CheckoutController::class, 'stripeCheckout'])->name('stripeCheckout')->middleware('auth');

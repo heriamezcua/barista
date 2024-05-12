@@ -23,6 +23,7 @@ class ProductController extends Controller
         // Validation
         $request->validate([
             'title' => 'required|max:255',
+            'category' => 'required|in:beans,capsules,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -32,9 +33,27 @@ class ProductController extends Controller
         $image_name = time() . rand(0, 9999) . '.' . $request->image->getClientOriginalExtension();
         $request->image->storeAs('public/products', $image_name);
 
+        // select the new category id
+        $category_id = null;
+        switch ($request->category) {
+            case 'beans':
+                $category_id = '1';
+                break;
+            case 'capsules':
+                $category_id = '2';
+                break;
+            case 'machines':
+                $category_id = '3';
+                break;
+            case 'accessories':
+                $category_id = '4';
+                break;
+        }
+
         // Store product in DB
         $product = Product::create([
             'title' => $request->title,
+            'category_id' => $category_id,
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,
@@ -46,7 +65,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product= Product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         return view('admin.pages.products.edit', ['product' => $product]);
     }
@@ -56,6 +75,7 @@ class ProductController extends Controller
         // Validation
         $request->validate([
             'title' => 'required|max:255',
+            'category' => 'required|in:beans,capsules,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -71,9 +91,27 @@ class ProductController extends Controller
             $request->image->storeAs('public/products/', $image_name);
         }
 
+        // select the new category id
+        $category_id = null;
+        switch ($request->category) {
+            case 'beans':
+                $category_id = '1';
+                break;
+            case 'capsules':
+                $category_id = '2';
+                break;
+            case 'machines':
+                $category_id = '3';
+                break;
+            case 'accessories':
+                $category_id = '4';
+                break;
+        }
+
         // Update product in DB
         $product->update([
             'title' => $request->title,
+            'category_id' => $category_id,
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,
@@ -86,7 +124,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product= Product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->delete();
 
         return back()->with('success', 'Product deleted successfully');

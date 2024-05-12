@@ -22,6 +22,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Title</th>
+                                <th>Category</th>
                                 <th>Price</th>
                                 <th>Image</th>
                                 <th>Discount</th>
@@ -34,15 +35,33 @@
                                 <tr>
                                     <td>{{$product->id}}</td>
                                     <td>{{$product->title}}</td>
-                                    <td>{{$product->price}}</td>
                                     <td>
-                                        <img src="{{asset('storage/products/'. $product->image)}}" alt="" style="height: 40px">
+                                        @switch($product->category_id)
+                                            @case(1)
+                                                <p>Beans</p>
+                                                @break
+                                            @case(2)
+                                                <p>Capsules</p>
+                                                @break
+                                            @case(3)
+                                                <p>Machines</p>
+                                                @break
+                                            @case(4)
+                                                <p>Accessories</p>
+                                                @break
+                                           @endswitch
                                     </td>
-                                    <td>{{$product->discount}} %</td>
+                                    <td>{{$product->price / 100}}€</td>
+                                    <td>
+                                        <img src="{{asset('storage/products/'. $product->image)}}" alt=""
+                                             style="height: 40px">
+                                    </td>
+                                    <td>{{$product->discount}}%</td>
                                     <td>{{Carbon\Carbon::parse($product->created_at)->format('d/m/Y')}}</td>
                                     <td>
                                         <div class="d-flex" style="gap: 5px">
-                                            <a href="{{route('adminpanel.products.edit', $product->id)}}" class="btn btn-secondary">Edit</a>
+                                            <a href="{{route('adminpanel.products.edit', $product->id)}}"
+                                               class="btn btn-secondary">Edit</a>
                                             <form action="{{route('adminpanel.products.destroy', $product->id)}}"
                                                   method="post">
                                                 @csrf

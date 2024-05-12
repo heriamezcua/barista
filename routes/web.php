@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
@@ -25,11 +26,22 @@ Route::get('/success', [PageController::class, 'success'])->name('success');
 
 // Pages
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/wishlist', [PageController::class, 'wishlist'])->name('wishlist');
+Route::get('/wishlist', [PageController::class, 'wishlist'])->name('wishlist')->middleware('auth');
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 Route::get('/account', [PageController::class, 'account'])->name('account')->middleware('auth');
 Route::get('/product/{id}', [PageController::class, 'product'])->name('product');
 Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout')->middleware('auth');
+
+// Search
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/', [SearchController::class, 'index'])->name('search');
+    Route::get('/popular', [SearchController::class, 'popular'])->name('search.popular');
+    Route::get('/lowest', [SearchController::class, 'lowest'])->name('search.lowest');
+    Route::get('/highest', [SearchController::class, 'highest'])->name('search.highest');
+    Route::get('/bestsellers', [SearchController::class, 'bestsellers'])->name('search.bestsellers');
+    Route::get('/newest', [SearchController::class, 'newest'])->name('search.newest');
+});
+
 
 // Cart
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
@@ -38,7 +50,6 @@ Route::post('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])
 // Wishlist
 Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('addToWishlist')->middleware('auth');
 Route::post('/remove-from-wishlist/{id}', [WishlistController::class, 'removeFromWishlist'])->name('removeFromWishlist')->middleware('auth');
-
 
 // Stripe
 Route::post('/stripe-checkout', [CheckoutController::class, 'stripeCheckout'])->name('stripeCheckout')->middleware('auth');

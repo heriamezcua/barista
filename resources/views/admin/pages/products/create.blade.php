@@ -15,7 +15,7 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="title">Title</label>
                                         <input type="text" name="title" id="title"
@@ -30,7 +30,38 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+
+                                    <div class="form-group mb-3">
+                                        <label for="category">Category</label>
+
+                                        <select name="category" id="category"
+                                                class="form-control @error('category') is-invalid @enderror">
+                                            <option value="">-- Select Category --</option>
+                                            <option value="beans">
+                                                Beans
+                                            </option>
+                                            <option value="capsules">
+                                                Capsules
+                                            </option>
+                                            <option value="machines">
+                                                Machines
+                                            </option>
+                                            <option
+                                                value="accessories">
+                                                Accessories
+                                            </option>
+                                        </select>
+                                        @error('category')
+                                        <span class="invalid-feedback">
+                                                <strong>{{$message}}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
 
                                     <div class="form-group mb-3">
                                         <label for="price">Price</label>
@@ -44,6 +75,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                             </div> <!-- row -->
 
                             <div class="row mb-3">

@@ -11,4 +11,10 @@ class Product extends Model
 
     protected $guarded = [];
 
+    // Has one category
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

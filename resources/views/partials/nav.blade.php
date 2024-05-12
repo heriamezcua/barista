@@ -1,7 +1,26 @@
 <nav class="menu">
     <h2>Barista</h2>
 
+
+    <form action="{{route('search')}}" method="get" class="form-inline my-2 my-lg-0 d-flex">
+        <input name="search" class="form-control mr-sm-2 mx-2" type="search" placeholder="Search" aria-label="Search"
+               value="{{( isset($searchTerm) && $searchTerm !== 'All Products' ) ? $searchTerm : ''}}">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
     <ul>
+        <li>
+            <form action="{{route('search')}}" method="get">
+                <input name="search" type="hidden" value="">
+                <button class="btn btn-outline text-white p-0 m-0" type="submit">All Products</button>
+            </form>
+        </li>
+        <li>
+            <form action="{{route('search')}}" method="get">
+                <input name="search" type="hidden" value="">
+                <button class="btn btn-outline text-white p-0 m-0" type="submit">Recipes</button>
+            </form>
+        </li>
         <li>
             <a href="{{route('home')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">

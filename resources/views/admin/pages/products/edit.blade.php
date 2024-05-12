@@ -16,7 +16,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="title">Title</label>
                                         <input type="text" name="title" id="title"
@@ -27,11 +27,40 @@
                                                 <strong>{{$message}}</strong>
                                             </span>
                                         @enderror
-
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+
+                                    <div class="form-group mb-3">
+                                        <label for="category">Category</label>
+
+                                        <select name="category" id="category"
+                                                class="form-control @error('category') is-invalid @enderror">
+                                            <option value="">-- Select Category --</option>
+                                            <option value="beans" {{$product->category_id === 1 ? 'selected' : ''}}>
+                                                Beans
+                                            </option>
+                                            <option value="capsules" {{$product->category_id === 2 ? 'selected' : ''}}>
+                                                Capsules
+                                            </option>
+                                            <option value="machines" {{$product->category_id === 3 ? 'selected' : ''}}>
+                                                Machines
+                                            </option>
+                                            <option
+                                                value="accessories" {{$product->category_id === 4 ? 'selected' : ''}}>
+                                                Accessories
+                                            </option>
+                                        </select>
+                                        @error('category')
+                                        <span class="invalid-feedback">
+                                                <strong>{{$message}}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
 
                                     <div class="form-group mb-3">
                                         <label for="price">Price</label>

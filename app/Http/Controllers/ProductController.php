@@ -10,6 +10,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('created_at', 'desc')->get();
+
         return view('admin.pages.products.index', ['products' => $products]);
     }
 
@@ -26,12 +27,25 @@ class ProductController extends Controller
             'category' => 'required|in:beans,capsules,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // Store image
-        $image_name = time() . rand(0, 9999) . '.' . $request->image->getClientOriginalExtension();
-        $request->image->storeAs('public/products', $image_name);
+        $images = [];
+
+        foreach ($request->images as $image) {
+            // Create a random name
+            $image_name = time() . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+
+            // Store the image in my app
+            $image->storeAs('public/products', $image_name);
+
+            // Agregar la ruta de la imagen al array
+            $images[] = $image_name;
+        }
+
+        // Convert the image names array to JSON
+        $images_json = json_encode($images);
 
         // select the new category id
         $category_id = null;
@@ -57,20 +71,22 @@ class ProductController extends Controller
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,
-            'image' => $image_name,
+            'images' => $images_json,
         ]);
 
         return back()->with('success', 'Product created successfully');
     }
 
-    public function edit($id)
+    public
+    function edit($id)
     {
         $product = Product::findOrFail($id);
 
         return view('admin.pages.products.edit', ['product' => $product]);
     }
 
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         // Validation
         $request->validate([
@@ -122,7 +138,8 @@ class ProductController extends Controller
         return back()->with('success', 'Product updated successfully!!');
     }
 
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $product = Product::findOrFail($id);
         $product->delete();

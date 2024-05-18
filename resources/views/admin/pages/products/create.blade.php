@@ -26,7 +26,6 @@
                                                 <strong>{{$message}}</strong>
                                             </span>
                                         @enderror
-
                                     </div>
                                 </div>
 
@@ -60,7 +59,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-md-4">
 
                                     <div class="form-group mb-3">
@@ -80,23 +78,27 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="image">Image</label>
-                                        <input type="file" name="image" id="image"
-                                               class="form-control @error('image') is-invalid @enderror"
-                                               value="{{old('image')}}">
-                                        @error('image')
-                                        <span class="invalid-feedback">
-                                            <strong>{{$message}}</strong>
-                                        </span>
-                                        @enderror
+                                    <div id="images-group" class="form-group mb-3">
+                                        <div class="image-upload-group">
+                                            <label for="images[]">Image 1:</label>
+                                            <input type="file" name="images[]" accept="image/*"
+                                                   value="{{old('image')}}">
+                                            @error('images[]')
+                                            <span class="invalid-feedback">
+                                                <strong>{{$message}}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
                                     </div>
+                                    <button type="button" id="add-image-button" class="btn btn-primary">Add image
+                                    </button>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="description">Discount</label>
-                                        <input type="number" name="discount" id="discount" min="0" max="99" step="1" value="0"
+                                        <input type="number" name="discount" id="discount" min="0" max="99" step="1"
+                                               value="0"
                                                class="form-control @error('discount') is-invalid @enderror"
                                                value="{{old('discount')}}">
                                         @error('discount')
@@ -133,4 +135,51 @@
                 </div>
             </div>
         </div>
+
+
+        <script>
+            // Script to allow user to insert more than 1 image
+            const addImageBtnEl = document.getElementById('add-image-button');
+            let imageCount = 1;
+
+            addImageBtnEl.addEventListener('click', function () {
+                const container = document.getElementById('images-group');
+                imageCount = container.getElementsByClassName('image-upload-group').length;
+                const newImageGroup = document.createElement('div');
+                newImageGroup.className = 'image-upload-group';
+                newImageGroup.innerHTML = `
+                                           <label for="images[]">Image ${imageCount + 1}:</label>
+                                                <input type="file" name="images[]" accept="image/*">
+                                                @error('images[]')
+                <span class="invalid-feedback">
+                    <strong>{{$message}}</strong>
+                                                </span>
+                                                @enderror
+                <button type="button" class="btn btn-danger delete-image-button">Delete</button>`;
+                container.appendChild(newImageGroup);
+
+                // Delete btn event when deleting images
+                const deleteButtons = document.querySelectorAll('.delete-image-button');
+                deleteButtons.forEach(deleteBtnEl => {
+                    deleteBtnEl.removeEventListener('click', deleteImageHandler);
+                    deleteBtnEl.addEventListener('click', deleteImageHandler);
+                });
+            });
+
+            // Function to handle image deletion
+            function deleteImageHandler() {
+                const container = document.getElementById('images-group');
+                if (container.getElementsByClassName('image-upload-group').length > 1) {
+                    this.parentNode.remove();
+                } else {
+                    alert("You need to upload at least 1 product image!");
+                }
+            }
+
+            // Assign events to the btns delete images
+            const deleteButtons = document.querySelectorAll('.delete-image-button');
+            deleteButtons.forEach(deleteBtnEl => {
+                deleteBtnEl.addEventListener('click', deleteImageHandler);
+            });
+        </script>
 @endsection

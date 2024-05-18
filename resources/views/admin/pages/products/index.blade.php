@@ -24,7 +24,7 @@
                                 <th>Title</th>
                                 <th>Category</th>
                                 <th>Price</th>
-                                <th>Image</th>
+                                <th>Main Image</th>
                                 <th>Discount</th>
                                 <th>Published</th>
                                 <th>Action</th>
@@ -49,12 +49,17 @@
                                             @case(4)
                                                 <p>Accessories</p>
                                                 @break
-                                           @endswitch
+                                        @endswitch
                                     </td>
                                     <td>{{$product->price / 100}}€</td>
                                     <td>
-                                        <img src="{{asset('storage/products/'. $product->image)}}" alt=""
-                                             style="height: 40px">
+                                        @php
+                                            // Obtain the product main image, if not found set not found image
+                                            $imagesArray = json_decode($product->images);
+                                            $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
+                                        @endphp
+                                        <img src="{{ $firstImage ? asset('storage/products/' . $firstImage) : '' }}"
+                                             alt="" style="height: 40px">
                                     </td>
                                     <td>{{$product->discount}}%</td>
                                     <td>{{Carbon\Carbon::parse($product->created_at)->format('d/m/Y')}}</td>

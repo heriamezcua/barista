@@ -1,5 +1,9 @@
 <nav class="menu">
-    <h2>Barista</h2>
+    <h2>
+        <a href="{{route('home')}}" style="text-decoration: none; color: white;">
+            Barista
+        </a>
+    </h2>
 
 
     <form action="{{route('search')}}" method="get" class="form-inline my-2 my-lg-0 d-flex">
@@ -14,21 +18,6 @@
                 <input name="search" type="hidden" value="">
                 <button class="btn btn-outline text-white p-0 m-0" type="submit">All Products</button>
             </form>
-        </li>
-        <li>
-            <form action="{{route('search')}}" method="get">
-                <input name="search" type="hidden" value="">
-                <button class="btn btn-outline text-white p-0 m-0" type="submit">Recipes</button>
-            </form>
-        </li>
-        <li>
-            <a href="{{route('home')}}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
-                    <path fill="currentColor" fill-rule="evenodd"
-                          d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707z"
-                          clip-rule="evenodd"/>
-                </svg>
-            </a>
         </li>
         <li>
             <a href="{{route('wishlist')}}">

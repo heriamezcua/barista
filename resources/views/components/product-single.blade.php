@@ -8,20 +8,29 @@
                 $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
                 $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';
             @endphp
+            @if($imagesArray)
 
-            @foreach($imagesArray as $index => $image)
-                @if(!$index)
-                    <img
-                        src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
-                        alt="" width="450px">
-                @else
-                    <div class="row">
+                @foreach($imagesArray as $index => $image)
+                    @if(!$index)
                         <img
-                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
-                            alt="" style="width: 200px !important; height: 150px !important;" >
-                    </div>
-                @endif
-            @endforeach
+                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                            alt="" width="450px">
+                    @else
+                        <div class="row">
+                            <img
+                                src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                                alt="" style="width: 200px !important; height: 150px !important;">
+                        </div>
+                    @endif
+                @endforeach
+
+            @else
+
+                <img
+                    src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                    alt="" width="450px">
+
+            @endif
         </div>
         <div class="col-md-6 d-flex flex-column justify-content-between">
 

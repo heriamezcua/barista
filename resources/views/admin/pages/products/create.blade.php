@@ -77,10 +77,12 @@
                             </div> <!-- row -->
 
                             <div class="row">
+                                <!-- Bean options -->
                                 <div class="col-md-6 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="bean_format">Format</label>
                                         <select name="bean_format" id="bean_format" class="form-control">
+                                            <option value="">-- Select Format --</option>
                                             <option value="250">250g</option>
                                             <option value="1000">1kg</option>
                                             <option value="3000">3kg</option>
@@ -91,7 +93,7 @@
                                     <div class="form-group mb-6">
                                         <label for="bean_type">Type</label>
                                         <select name="bean_type" id="bean_type" class="form-control">
-                                            <option value="">-- Select Category --</option>
+                                            <option value="">-- Select Type --</option>
                                             <option value="whole_bean">Whole Bean Coffee</option>
                                             <option value="french_press">French Press Ground</option>
                                             <option value="aeropress">AeroPress Ground</option>
@@ -102,6 +104,31 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <!-- Pods options -->
+                                <div class="col-md-6 pod-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label for="pod_quantity">Pods Quantity</label>
+                                        <select name="pod_quantity" id="pod_quantity" class="form-control">
+                                            <option value="">-- Select Quantity --</option>
+                                            <option value="12">x12</option>
+                                            <option value="24">x24</option>
+                                            <option value="36">x36</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pod-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label for="pod_size">Cup size</label>
+                                        <select name="pod_size" id="pod_size" class="form-control">
+                                            <option value="">-- Select Size --</option>
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div> <!-- row -->
 
                             <div class="row mb-3">
@@ -215,15 +242,28 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const categorySelect = document.getElementById('category');
                 const beanOptionsDiv = document.querySelectorAll('.bean-options');
+                const podOptionsDiv = document.querySelectorAll('.pod-options');
+
+                // Function to hide all unselected elements
+                const hideAllOptions = function (beanOptionsDiv, podOptionsDiv) {
+                    beanOptionsDiv.forEach(beanOption => {
+                        beanOption.style.display = 'none';
+                    });
+                    podOptionsDiv.forEach(podOption => {
+                        podOption.style.display = 'none';
+                    });
+                }
 
                 categorySelect.addEventListener('change', function () {
+                    hideAllOptions(beanOptionsDiv, podOptionsDiv);
+
                     if (categorySelect.value === 'beans') {
                         beanOptionsDiv.forEach(beanOption => {
                             beanOption.style.display = 'block';
                         });
-                    } else {
-                        beanOptionsDiv.forEach(beanOption => {
-                            beanOption.style.display = 'none';
+                    } else if (categorySelect.value === 'pods') {
+                        podOptionsDiv.forEach(podOption => {
+                            podOption.style.display = 'block';
                         });
                     }
                 });

@@ -25,7 +25,6 @@
                 @endforeach
 
             @else
-
                 <img
                     src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
                     alt="" width="450px">
@@ -93,9 +92,9 @@
                 <a href="#" class="text-sencondary px-2">3 reviews</a>
             </div>
 
-            <h2 class="text-secondary mt-3">{{$product->title}}</h2>
+            <h2 class="text-secondary mt-3">{{ucwords($product->title)}}</h2>
 
-            <h4 class="text-tertiary mt-3">Category</h4>
+            <h4 class="text-tertiary mt-3">{{ucwords($product->category)}}</h4>
 
             <p class="mt-3">{{$product->description}}</p>
 

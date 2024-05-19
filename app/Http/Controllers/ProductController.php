@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bean;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -21,14 +22,29 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validation
+        // Validation of product fields
         $request->validate([
             'title' => 'required|max:255',
-            'category' => 'required|in:beans,capsules,machines,accessories',
+            'category' => 'required|in:beans,pods,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        // Validation of subproduct (Bean, Capsule, Machine) fields
+        switch ($request->category) {
+            case 'beans':
+                // Validation of beans fields
+                $request->validate([
+                    'bean_format' => 'required_if:category,beans|in:250g,1000,3000',
+                    'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                ]);
+                break;
+//            case 'pods':
+//                break;
+//            case 'machines':
+//                break;
+        }
 
         // Store image
         $images = [];
@@ -50,32 +66,24 @@ class ProductController extends Controller
         // Convert the image names array to JSON
         $images_json = json_encode($images);
 
-        // select the new category id
-        $category_id = null;
-        switch ($request->category) {
-            case 'beans':
-                $category_id = '1';
-                break;
-            case 'capsules':
-                $category_id = '2';
-                break;
-            case 'machines':
-                $category_id = '3';
-                break;
-            case 'accessories':
-                $category_id = '4';
-                break;
-        }
-
         // Store product in DB
         $product = Product::create([
             'title' => $request->title,
-            'category_id' => $category_id,
+            'category' => $request->category,
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,
             'images' => $images_json,
         ]);
+
+        // Create the subproduct depending on the category selected
+        if ($request->category === 'beans') {
+            $bean = new Bean();
+            $bean->format = $request->bean_format;
+            $bean->type = $request->bean_type;
+            // Asocia el producto recién creado con el bean
+            $product->bean()->save($bean);
+        }
 
         return back()->with('success', 'Product created successfully');
     }
@@ -94,7 +102,7 @@ class ProductController extends Controller
         // Validation
         $request->validate([
             'title' => 'required|max:255',
-            'category' => 'required|in:beans,capsules,machines,accessories',
+            'category' => 'required|in:beans,pods,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -126,27 +134,10 @@ class ProductController extends Controller
         // Convert the image names array to JSON
         $images_json = json_encode($images);
 
-        // select the new category id
-        $category_id = null;
-        switch ($request->category) {
-            case 'beans':
-                $category_id = '1';
-                break;
-            case 'capsules':
-                $category_id = '2';
-                break;
-            case 'machines':
-                $category_id = '3';
-                break;
-            case 'accessories':
-                $category_id = '4';
-                break;
-        }
-
         // Update product in DB
         $product->update([
             'title' => $request->title,
-            'category_id' => $category_id,
+            'category' => $request->category,
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,

@@ -34,22 +34,9 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{$product->id}}</td>
-                                    <td>{{$product->title}}</td>
+                                    <td>{{ucwords($product->title)}}</td>
                                     <td>
-                                        @switch($product->category_id)
-                                            @case(1)
-                                                <p>Beans</p>
-                                                @break
-                                            @case(2)
-                                                <p>Capsules</p>
-                                                @break
-                                            @case(3)
-                                                <p>Machines</p>
-                                                @break
-                                            @case(4)
-                                                <p>Accessories</p>
-                                                @break
-                                        @endswitch
+                                        {{ucwords($product->category)}}
                                     </td>
                                     <td>{{$product->price / 100}}€</td>
                                     <td>

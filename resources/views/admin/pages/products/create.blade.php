@@ -40,8 +40,8 @@
                                             <option value="beans">
                                                 Beans
                                             </option>
-                                            <option value="capsules">
-                                                Capsules
+                                            <option value="pods">
+                                                Pods
                                             </option>
                                             <option value="machines">
                                                 Machines
@@ -74,6 +74,34 @@
                                     </div>
                                 </div>
 
+                            </div> <!-- row -->
+
+                            <div class="row">
+                                <div class="col-md-6 bean-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label for="bean_format">Format</label>
+                                        <select name="bean_format" id="bean_format" class="form-control">
+                                            <option value="250">250g</option>
+                                            <option value="1000">1kg</option>
+                                            <option value="3000">3kg</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 bean-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label for="bean_type">Type</label>
+                                        <select name="bean_type" id="bean_type" class="form-control">
+                                            <option value="">-- Select Category --</option>
+                                            <option value="whole_bean">Whole Bean Coffee</option>
+                                            <option value="french_press">French Press Ground</option>
+                                            <option value="aeropress">AeroPress Ground</option>
+                                            <option value="v60">V60 Ground</option>
+                                            <option value="chemex">Chemex Ground</option>
+                                            <option value="italian_moka">Italian Moka Ground</option>
+                                            <option value="espresso">Espresso Ground</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div> <!-- row -->
 
                             <div class="row mb-3">
@@ -180,6 +208,25 @@
             const deleteButtons = document.querySelectorAll('.delete-image-button');
             deleteButtons.forEach(deleteBtnEl => {
                 deleteBtnEl.addEventListener('click', deleteImageHandler);
+            });
+        </script>
+        <script>
+            // script to handle dynamically the subproducts options
+            document.addEventListener('DOMContentLoaded', function () {
+                const categorySelect = document.getElementById('category');
+                const beanOptionsDiv = document.querySelectorAll('.bean-options');
+
+                categorySelect.addEventListener('change', function () {
+                    if (categorySelect.value === 'beans') {
+                        beanOptionsDiv.forEach(beanOption => {
+                            beanOption.style.display = 'block';
+                        });
+                    } else {
+                        beanOptionsDiv.forEach(beanOption => {
+                            beanOption.style.display = 'none';
+                        });
+                    }
+                });
             });
         </script>
 @endsection

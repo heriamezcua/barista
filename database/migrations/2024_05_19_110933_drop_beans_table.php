@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('image', 'images');
-        });
+        Schema::dropIfExists('beans');
     }
 
     /**
@@ -21,6 +19,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('beans', function (Blueprint $table) {
+            //
+        });
     }
 };

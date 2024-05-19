@@ -37,14 +37,14 @@
             @endphp
             <img
                 src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
-                alt="" width="200px">
+                alt="" width="200px" style="min-height: 200px">
         </div>
 
         <a href="{{route('product', $product->id)}}" style="text-decoration: none; color: black">
 
-            <h1 class="fs-4" style="max-width: 200px; min-height: 50px">{{$product->title}}</h1>
+            <h1 class="fs-4" style="max-width: 200px; min-height: 50px">{{ucfirst(strtolower($product->title))}}</h1>
 
-            <h4 class="fs-5 text-secondary">Category</h4>
+            <h4 class="fs-5 text-secondary">{{ ucwords($product->category) }}</h4>
 
             <div class="d-flex flex-row user-ratings">
                 <div class="ratings">

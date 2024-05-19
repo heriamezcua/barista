@@ -38,17 +38,17 @@
                                         <select name="category" id="category"
                                                 class="form-control @error('category') is-invalid @enderror">
                                             <option value="">-- Select Category --</option>
-                                            <option value="beans" {{$product->category_id === 1 ? 'selected' : ''}}>
+                                            <option value="beans" {{$product->category === 'beans' ? 'selected' : ''}}>
                                                 Beans
                                             </option>
-                                            <option value="capsules" {{$product->category_id === 2 ? 'selected' : ''}}>
-                                                Capsules
+                                            <option value="pods" {{$product->category === 'pods' ? 'selected' : ''}}>
+                                                Pods
                                             </option>
-                                            <option value="machines" {{$product->category_id === 3 ? 'selected' : ''}}>
+                                            <option value="machines" {{$product->category === 'machines' ? 'selected' : ''}}>
                                                 Machines
                                             </option>
                                             <option
-                                                value="accessories" {{$product->category_id === 4 ? 'selected' : ''}}>
+                                                value="accessories" {{$product->category === 'accessories' ? 'selected' : ''}}>
                                                 Accessories
                                             </option>
                                         </select>

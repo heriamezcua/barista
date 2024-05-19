@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Bean extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 }

@@ -44,7 +44,8 @@
                                             <option value="pods" {{$product->category === 'pods' ? 'selected' : ''}}>
                                                 Pods
                                             </option>
-                                            <option value="machines" {{$product->category === 'machines' ? 'selected' : ''}}>
+                                            <option
+                                                value="machines" {{$product->category === 'machines' ? 'selected' : ''}}>
                                                 Machines
                                             </option>
                                             <option
@@ -61,7 +62,6 @@
                                 </div>
 
                                 <div class="col-md-4">
-
                                     <div class="form-group mb-3">
                                         <label for="price">Price</label>
                                         <input type="number" name="price" id="price"
@@ -76,50 +76,75 @@
                                 </div>
                             </div> <!-- row -->
 
-                            <div class="row mb-3 d-flex align-items-end">
-                                {{--                                                                <div class="col-md-6">--}}
-                                {{--                                                                    <div class="form-group mb-3">--}}
-                                {{--                                                                        <div class="d-flex align-items-end justify-content-between">--}}
-                                {{--                                                                            <label for="image">Image</label>--}}
-                                {{--                                                                            <img class="align-self-end"--}}
-                                {{--                                                                                 src="{{asset('storage/products/'. $product->image)}}" alt=""--}}
-                                {{--                                                                                 style="height: 150px; margin: 10px 0">--}}
+                            <div class="row">
+                                @if($product->category === 'beans')
+                                    <div class="col-md-6 bean-options">
+                                        <div class="form-group mb-6">
 
-                                {{--                                                                        </div>--}}
-                                {{--                                                                        <input type="file" name="image" id="image"--}}
-                                {{--                                                                               class="form-control @error('image') is-invalid @enderror"--}}
-                                {{--                                                                               value="{{old('image')}}">--}}
-                                {{--                                                                        @error('image')--}}
-                                {{--                                                                        <span class="invalid-feedback">--}}
-                                {{--                                                                            <strong>{{$message}}</strong>--}}
-                                {{--                                                                        </span>--}}
-                                {{--                                                                        @enderror--}}
-                                {{--                                                                    </div>--}}
-                                {{--                                                                </div>--}}
+                                            <label for="bean_format">Format</label>
+                                            <select name="bean_format" id="bean_format" class="form-control">
+                                                <option value="">-- Select Format --</option>
+                                                <option
+                                                    value="250" {{($product->bean->format === 250) ? 'selected' : ''}}>
+                                                    250g
+                                                </option>
+                                                <option
+                                                    value="1000" {{($product->bean->format === 1000) ? 'selected' : ''}}>
+                                                    1kg
+                                                </option>
+                                                <option
+                                                    value="3000" {{($product->bean->format === 3000) ? 'selected' : ''}}>
+                                                    3kg
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 bean-options">
+                                        <div class="form-group mb-6">
+                                            <label for="bean_type">Type</label>
+                                            <select name="bean_type" id="bean_type" class="form-control">
+                                                <option value="">-- Select Type --</option>
+                                                <option value="whole_bean" {{($product->bean->type == 'whole_bean') ? 'selected' : ''}}>Whole Bean Coffee</option>
+                                                <option value="french_press" {{($product->bean->type == 'french_press') ? 'selected' : ''}}>French Press Ground</option>
+                                                <option value="aeropress" {{($product->bean->type == 'aeropress') ? 'selected' : ''}}>AeroPress Ground</option>
+                                                <option value="v60" {{($product->bean->type == 'v60') ? 'selected' : ''}}>V60 Ground</option>
+                                                <option value="chemex" {{($product->bean->type == 'chemex') ? 'selected' : ''}}>Chemex Ground</option>
+                                                <option value="italian_moka" {{($product->bean->type == 'italian_moka') ? 'selected' : ''}}>Italian Moka Ground</option>
+                                                <option value="espresso" {{($product->bean->type == 'espresso') ? 'selected' : ''}}>Espresso Ground</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div> <!-- row -->
+
+
+                            <div class="row mb-3 d-flex align-items-end">
 
                                 <div class="col-md-6">
                                     <div id="images-group" class="form-group mb-3">
                                         <label for="images[]">Images:</label>
-{{--                                        <div class="image-upload-group">--}}
-                                            @foreach(json_decode($product->images) as $index => $image)
-                                                @php
-                                                    $folderName = !empty($image) ? explode('_', $image)[0] : 'no-image.png';
-                                                @endphp
-                                                <div class="image-upload-group">
-                                                    <label for="images[]">Image {{$index + 1}}:</label>
-                                                    <input type="file" name="images[]" accept="image/*"
-                                                           class="edit-image-input" value="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}">
-                                                    <img
-                                                        src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
-                                                        alt="Image {{$index + 1}}" style="height: 100px;">
-                                                    @if($index!== 0)
-                                                        <button type="button"
-                                                                class="btn btn-danger delete-image-button">Delete
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                            @endforeach
-{{--                                        </div>--}}
+                                        {{--                                        <div class="image-upload-group">--}}
+                                        @foreach(json_decode($product->images) as $index => $image)
+                                            @php
+                                                $folderName = !empty($image) ? explode('_', $image)[0] : 'no-image.png';
+                                            @endphp
+                                            <div class="image-upload-group">
+                                                <label for="images[]">Image {{$index + 1}}:</label>
+                                                <input type="file" name="images[]" accept="image/*"
+                                                       class="edit-image-input"
+                                                       value="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}">
+                                                <img
+                                                    src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                                                    alt="Image {{$index + 1}}" style="height: 100px;">
+                                                @if($index!== 0)
+                                                    <button type="button"
+                                                            class="btn btn-danger delete-image-button">Delete
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                        {{--                                        </div>--}}
                                     </div>
                                     <button type="button" id="add-image-button" class="btn btn-primary">Add
                                         image
@@ -212,6 +237,25 @@
             const deleteButtons = document.querySelectorAll('.delete-image-button');
             deleteButtons.forEach(deleteBtnEl => {
                 deleteBtnEl.addEventListener('click', deleteImageHandler);
+            });
+        </script>
+        <script>
+            // script to handle dynamically the subproducts options
+            document.addEventListener('DOMContentLoaded', function () {
+                const categorySelect = document.getElementById('category');
+                const beanOptionsDiv = document.querySelectorAll('.bean-options');
+
+                categorySelect.addEventListener('change', function () {
+                    if (categorySelect.value === 'beans') {
+                        beanOptionsDiv.forEach(beanOption => {
+                            beanOption.style.display = 'block';
+                        });
+                    } else {
+                        beanOptionsDiv.forEach(beanOption => {
+                            beanOption.style.display = 'none';
+                        });
+                    }
+                });
             });
         </script>
 @endsection

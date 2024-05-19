@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bean;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -36,7 +37,7 @@ class ProductController extends Controller
             case 'beans':
                 // Validation of beans fields
                 $request->validate([
-                    'bean_format' => 'required_if:category,beans|in:250g,1000,3000',
+                    'bean_format' => 'required_if:category,beans|in:250,1000,3000',
                     'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
                 ]);
                 break;
@@ -99,7 +100,7 @@ class ProductController extends Controller
     public
     function update(Request $request, $id)
     {
-        // Validation
+        // Validation of product fields
         $request->validate([
             'title' => 'required|max:255',
             'category' => 'required|in:beans,pods,machines,accessories',
@@ -108,44 +109,70 @@ class ProductController extends Controller
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // Fetching the existing product
-        $product = Product::findOrFail($id);
-
-        // Store new image if exists
-        $images = json_decode($product->images);
-
-        if ($request->images) {
-            $images = [];
-            foreach ($request->images as $image) {
-                // First part of the name to create folder
-                $first_part = time();
-
-                // Create a random name
-                $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
-
-                // Store the image in my app
-                $image->storeAs('public/products/' . $first_part, $image_name);
-
-                // Agregar la ruta de la imagen al array
-                $images[] = $image_name;
-            }
+        // Validation of subproduct (Bean, Capsule, Machine) fields
+        switch ($request->category) {
+            case 'beans':
+                // Validation of beans fields
+                $request->validate([
+                    'bean_format' => 'required_if:category,beans|in:250,1000,3000',
+                    'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                ]);
+                break;
+//            case 'pods':
+//                break;
+//            case 'machines':
+//                break;
         }
 
-        // Convert the image names array to JSON
-        $images_json = json_encode($images);
+        // Transaction to ensure consistency in DB
+        DB::beginTransaction();
+        try {
+            // Fetching the existing product
+            $product = Product::findOrFail($id);
 
-        // Update product in DB
-        $product->update([
-            'title' => $request->title,
-            'category' => $request->category,
-            'price' => $request->price * 100,
-            'discount' => $request->discount,
-            'description' => $request->description,
-            'images' => $images_json,
-        ]);
+            // set new images if exists
+            $images = json_decode($product->images);
 
-        // Return Response
-        return back()->with('success', 'Product updated successfully!!');
+            if ($request->hasFile('images')) {
+                $images = [];
+                foreach ($request->file('images') as $image) {
+                    $first_part = time();
+                    $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/products/' . $first_part, $image_name);
+                    $images[] = $image_name;
+                }
+            }
+
+            $images_json = json_encode($images);
+
+            // Update product in DB
+            $product->update([
+                'title' => $request->title,
+                'category' => $request->category,
+                'price' => $request->price * 100,
+                'discount' => $request->discount,
+                'description' => $request->description,
+                'images' => $images_json,
+            ]);
+
+            // Create or update subproduct based on the category
+            if ($request->category === 'beans') {
+                $bean = Bean::where('product_id', $product->id)->firstOrFail();
+                $bean->format = $request->bean_format;
+                $bean->type = $request->bean_type;
+                $bean->save();
+            }
+
+            // Confirm transaction
+            DB::commit();
+
+            return back()->with('success', 'Product updated successfully!!');
+        } catch (Exception $e) {
+
+            // Rollback transaction
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong!!' . $e->getMessage());
+        }
     }
 
     public

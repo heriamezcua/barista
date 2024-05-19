@@ -57,9 +57,11 @@
                                             // Obtain the product main image, if not found set not found image
                                             $imagesArray = json_decode($product->images);
                                             $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
+                                            $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';
                                         @endphp
-                                        <img src="{{ $firstImage ? asset('storage/products/' . $firstImage) : '' }}"
-                                             alt="" style="height: 40px">
+                                        <img
+                                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                                            alt="" style="height: 40px">
                                     </td>
                                     <td>{{$product->discount}}%</td>
                                     <td>{{Carbon\Carbon::parse($product->created_at)->format('d/m/Y')}}</td>

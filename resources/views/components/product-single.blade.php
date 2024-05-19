@@ -2,7 +2,26 @@
 
     <div class="row">
         <div class="col-md-6">
-            <img src="{{asset('storage/products/' . $product->image)}}" width="450px" alt="">
+            @php
+                // Obtain the product main image, if not found set not found image
+                $imagesArray = json_decode($product->images);
+                $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
+                $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';
+            @endphp
+
+            @foreach($imagesArray as $index => $image)
+                @if(!$index)
+                    <img
+                        src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                        alt="" width="450px">
+                @else
+                    <div class="row">
+                        <img
+                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                            alt="" style="width: 200px !important; height: 150px !important;" >
+                    </div>
+                @endif
+            @endforeach
         </div>
         <div class="col-md-6 d-flex flex-column justify-content-between">
 

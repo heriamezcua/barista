@@ -77,47 +77,53 @@
                             </div> <!-- row -->
 
                             <div class="row mb-3 d-flex align-items-end">
-{{--                                                                <div class="col-md-6">--}}
-{{--                                                                    <div class="form-group mb-3">--}}
-{{--                                                                        <div class="d-flex align-items-end justify-content-between">--}}
-{{--                                                                            <label for="image">Image</label>--}}
-{{--                                                                            <img class="align-self-end"--}}
-{{--                                                                                 src="{{asset('storage/products/'. $product->image)}}" alt=""--}}
-{{--                                                                                 style="height: 150px; margin: 10px 0">--}}
+                                {{--                                                                <div class="col-md-6">--}}
+                                {{--                                                                    <div class="form-group mb-3">--}}
+                                {{--                                                                        <div class="d-flex align-items-end justify-content-between">--}}
+                                {{--                                                                            <label for="image">Image</label>--}}
+                                {{--                                                                            <img class="align-self-end"--}}
+                                {{--                                                                                 src="{{asset('storage/products/'. $product->image)}}" alt=""--}}
+                                {{--                                                                                 style="height: 150px; margin: 10px 0">--}}
 
-{{--                                                                        </div>--}}
-{{--                                                                        <input type="file" name="image" id="image"--}}
-{{--                                                                               class="form-control @error('image') is-invalid @enderror"--}}
-{{--                                                                               value="{{old('image')}}">--}}
-{{--                                                                        @error('image')--}}
-{{--                                                                        <span class="invalid-feedback">--}}
-{{--                                                                            <strong>{{$message}}</strong>--}}
-{{--                                                                        </span>--}}
-{{--                                                                        @enderror--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                {{--                                                                        </div>--}}
+                                {{--                                                                        <input type="file" name="image" id="image"--}}
+                                {{--                                                                               class="form-control @error('image') is-invalid @enderror"--}}
+                                {{--                                                                               value="{{old('image')}}">--}}
+                                {{--                                                                        @error('image')--}}
+                                {{--                                                                        <span class="invalid-feedback">--}}
+                                {{--                                                                            <strong>{{$message}}</strong>--}}
+                                {{--                                                                        </span>--}}
+                                {{--                                                                        @enderror--}}
+                                {{--                                                                    </div>--}}
+                                {{--                                                                </div>--}}
 
                                 <div class="col-md-6">
                                     <div id="images-group" class="form-group mb-3">
                                         <label for="images[]">Images:</label>
-                                        <div class="image-upload-group">
+{{--                                        <div class="image-upload-group">--}}
                                             @foreach(json_decode($product->images) as $index => $image)
+                                                @php
+                                                    $folderName = !empty($image) ? explode('_', $image)[0] : 'no-image.png';
+                                                @endphp
                                                 <div class="image-upload-group">
                                                     <label for="images[]">Image {{$index + 1}}:</label>
                                                     <input type="file" name="images[]" accept="image/*"
-                                                           class="edit-image-input">
-                                                    <img src="{{ asset('storage/products/' . $image) }}"
-                                                         alt="Image {{$index + 1}}" style="height: 100px;">
-                                                    <button type="button"
-                                                            class="btn btn-danger delete-edit-image-button">Delete
-                                                    </button>
+                                                           class="edit-image-input" value="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}">
+                                                    <img
+                                                        src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                                                        alt="Image {{$index + 1}}" style="height: 100px;">
+                                                    @if($index!== 0)
+                                                        <button type="button"
+                                                                class="btn btn-danger delete-image-button">Delete
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             @endforeach
-                                        </div>
-                                        <button type="button" id="add-edit-image-button" class="btn btn-primary">Add
-                                            image
-                                        </button>
+{{--                                        </div>--}}
                                     </div>
+                                    <button type="button" id="add-image-button" class="btn btn-primary">Add
+                                        image
+                                    </button>
                                 </div>
 
                                 <div class="col-md-6">
@@ -168,6 +174,7 @@
             let imageCount = 1;
 
             addImageBtnEl.addEventListener('click', function () {
+                console.log('hello world!');
                 const container = document.getElementById('images-group');
                 imageCount = container.getElementsByClassName('image-upload-group').length;
                 const newImageGroup = document.createElement('div');

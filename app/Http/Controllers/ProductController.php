@@ -34,11 +34,14 @@ class ProductController extends Controller
         $images = [];
 
         foreach ($request->images as $image) {
+            // First part of the name to create folder
+            $first_part = time();
+
             // Create a random name
-            $image_name = time() . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+            $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
 
             // Store the image in my app
-            $image->storeAs('public/products', $image_name);
+            $image->storeAs('public/products/' . $first_part, $image_name);
 
             // Agregar la ruta de la imagen al array
             $images[] = $image_name;
@@ -94,18 +97,34 @@ class ProductController extends Controller
             'category' => 'required|in:beans,capsules,machines,accessories',
             'price' => 'required|min:0.5|max:9999',
             'discount' => 'integer|min:0|max:99',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // Fetching the existing product
         $product = Product::findOrFail($id);
 
         // Store new image if exists
-        $image_name = $product->image;
-        if ($request->image) {
-            $image_name = time() . rand(0, 9999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->storeAs('public/products/', $image_name);
+        $images = json_decode($product->images);
+
+        if ($request->images) {
+            $images = [];
+            foreach ($request->images as $image) {
+                // First part of the name to create folder
+                $first_part = time();
+
+                // Create a random name
+                $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+
+                // Store the image in my app
+                $image->storeAs('public/products/' . $first_part, $image_name);
+
+                // Agregar la ruta de la imagen al array
+                $images[] = $image_name;
+            }
         }
+
+        // Convert the image names array to JSON
+        $images_json = json_encode($images);
 
         // select the new category id
         $category_id = null;
@@ -131,7 +150,7 @@ class ProductController extends Controller
             'price' => $request->price * 100,
             'discount' => $request->discount,
             'description' => $request->description,
-            'image' => $image_name,
+            'images' => $images_json,
         ]);
 
         // Return Response

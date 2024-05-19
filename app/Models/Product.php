@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->hasOne(Bean::class);
     }
+
+    public function pod()
+    {
+        return $this->hasOne(Pod::class);
+    }
 }

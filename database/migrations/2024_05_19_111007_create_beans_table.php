@@ -15,7 +15,7 @@ return new class extends Migration {
 
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->bigInteger('format')->default(500);
+            $table->bigInteger('format')->default(250);
             $table->string('type')->default('beans');
 
             $table->timestamps();

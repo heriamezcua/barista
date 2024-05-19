@@ -24,7 +24,7 @@
                                 <th>Title</th>
                                 <th>Category</th>
                                 <th>Price</th>
-                                <th>Image</th>
+                                <th>Main Image</th>
                                 <th>Discount</th>
                                 <th>Published</th>
                                 <th>Action</th>
@@ -34,27 +34,21 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{$product->id}}</td>
-                                    <td>{{$product->title}}</td>
+                                    <td>{{ucwords($product->title)}}</td>
                                     <td>
-                                        @switch($product->category_id)
-                                            @case(1)
-                                                <p>Beans</p>
-                                                @break
-                                            @case(2)
-                                                <p>Capsules</p>
-                                                @break
-                                            @case(3)
-                                                <p>Machines</p>
-                                                @break
-                                            @case(4)
-                                                <p>Accessories</p>
-                                                @break
-                                           @endswitch
+                                        {{ucwords($product->category)}}
                                     </td>
                                     <td>{{$product->price / 100}}€</td>
                                     <td>
-                                        <img src="{{asset('storage/products/'. $product->image)}}" alt=""
-                                             style="height: 40px">
+                                        @php
+                                            // Obtain the product main image, if not found set not found image
+                                            $imagesArray = json_decode($product->images);
+                                            $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
+                                            $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';
+                                        @endphp
+                                        <img
+                                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                                            alt="" style="height: 40px">
                                     </td>
                                     <td>{{$product->discount}}%</td>
                                     <td>{{Carbon\Carbon::parse($product->created_at)->format('d/m/Y')}}</td>

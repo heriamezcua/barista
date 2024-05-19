@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bean;
+use App\Models\Pod;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     public function index()
     {
         $products = Product::orderBy('created_at', 'desc')->get();
+
         return view('admin.pages.products.index', ['products' => $products]);
     }
 
@@ -20,109 +26,228 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validation
-        $request->validate([
-            'title' => 'required|max:255',
-            'category' => 'required|in:beans,capsules,machines,accessories',
-            'price' => 'required|min:0.5|max:9999',
-            'discount' => 'integer|min:0|max:99',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        try {
+            // Validation of product fields
+            $request->validate([
+                'title' => 'required|max:255',
+                'category' => 'required|in:beans,pods,machines,accessories',
+                'price' => 'required|min:0.5|max:9999',
+                'discount' => 'integer|min:0|max:99',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
+            ]);
 
-        // Store image
-        $image_name = time() . rand(0, 9999) . '.' . $request->image->getClientOriginalExtension();
-        $request->image->storeAs('public/products', $image_name);
+            // Validation of subproduct (Bean, Capsule, Machine) fields
+            switch ($request->category) {
+                case 'beans':
+                    // Validation of beans fields
+                    $request->validate([
+                        'bean_format' => 'required_if:category,beans|in:250,1000,3000',
+                        'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                    ]);
+                    break;
+                case 'pods':
+                    // Validation of beans fields
+                    $request->validate([
+                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                    ]);
+                    break;
+//            case 'machines':
+//                break;
+            }
 
-        // select the new category id
-        $category_id = null;
-        switch ($request->category) {
-            case 'beans':
-                $category_id = '1';
-                break;
-            case 'capsules':
-                $category_id = '2';
-                break;
-            case 'machines':
-                $category_id = '3';
-                break;
-            case 'accessories':
-                $category_id = '4';
-                break;
+            // Store image
+            $images = [];
+
+            foreach ($request->images as $image) {
+                // First part of the name to create folder
+                $first_part = time();
+
+                // Create a random name
+                $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+
+                // Store the image in my app
+                $image->storeAs('public/products/' . $first_part, $image_name);
+
+                // Agregar la ruta de la imagen al array
+                $images[] = $image_name;
+            }
+
+            // Convert the image names array to JSON
+            $images_json = json_encode($images);
+
+            // Transaction to ensure consistency in DB
+            DB::beginTransaction();
+
+            // Store product in DB
+            $product = Product::create([
+                'title' => $request->title,
+                'category' => $request->category,
+                'price' => $request->price * 100,
+                'discount' => $request->discount,
+                'description' => $request->description,
+                'images' => $images_json,
+            ]);
+
+            // Create the subproduct depending on the category selected
+            if ($request->category === 'beans') {
+                $bean = new Bean();
+                $bean->format = $request->bean_format;
+                $bean->type = $request->bean_type;
+                // Asocia el producto recién creado con el bean
+                $product->bean()->save($bean);
+            } elseif ($request->category === 'pods') {
+                $pod = new Pod();
+                $pod->quantity = $request->pod_quantity;
+                $pod->size = $request->pod_size;
+                // Asocia el producto recién creado con el bean
+                $product->pod()->save($pod);
+            }
+
+            // Confirm transaction
+            DB::commit();
+
+            return back()->with('success', 'Product CREATED successfully!!');
+        } catch (Exception $e) {
+
+            // Rollback transaction
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong!!' . $e->getMessage());
         }
-
-        // Store product in DB
-        $product = Product::create([
-            'title' => $request->title,
-            'category_id' => $category_id,
-            'price' => $request->price * 100,
-            'discount' => $request->discount,
-            'description' => $request->description,
-            'image' => $image_name,
-        ]);
-
-        return back()->with('success', 'Product created successfully');
     }
 
-    public function edit($id)
+    public
+    function edit($id)
     {
         $product = Product::findOrFail($id);
 
         return view('admin.pages.products.edit', ['product' => $product]);
     }
 
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
-        // Validation
-        $request->validate([
-            'title' => 'required|max:255',
-            'category' => 'required|in:beans,capsules,machines,accessories',
-            'price' => 'required|min:0.5|max:9999',
-            'discount' => 'integer|min:0|max:99',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        try {
+            // Validation of product fields
+            $request->validate([
+                'title' => 'required|max:255',
+                'category' => 'required|in:beans,pods,machines,accessories',
+                'price' => 'required|min:0.5|max:9999',
+                'discount' => 'integer|min:0|max:99',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+                'description' => 'required|string|max:1000'
+            ]);
 
-        // Fetching the existing product
-        $product = Product::findOrFail($id);
+            // Validation of subproduct (Bean, Capsule, Machine) fields
+            switch ($request->category) {
+                case 'beans':
+                    // Validation of beans fields
+                    $request->validate([
+                        'bean_format' => 'required_if:category,beans|in:250,1000,3000',
+                        'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                    ]);
+                    break;
+                case 'pods':
+                    // Validation of beans fields
+                    $request->validate([
+                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                    ]);
+                    break;
+//            case 'machines':
+//                break;
+            }
 
-        // Store new image if exists
-        $image_name = $product->image;
-        if ($request->image) {
-            $image_name = time() . rand(0, 9999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->storeAs('public/products/', $image_name);
+            // Transaction to ensure consistency in DB
+            DB::beginTransaction();
+
+            // Fetching the existing product
+            $product = Product::findOrFail($id);
+
+            // set new images if exists
+            $images = json_decode($product->images);
+
+            if ($request->hasFile('images')) {
+                $images = [];
+                foreach ($request->file('images') as $image) {
+                    $first_part = time();
+                    $image_name = $first_part . '_' . rand(0, 9999) . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/products/' . $first_part, $image_name);
+                    $images[] = $image_name;
+                }
+            }
+
+            $images_json = json_encode($images);
+
+            // Store the old category to delete old subproduct if nec
+            $oldCategory = $product->category;
+
+            // Update product in DB
+            $product->update([
+                'title' => $request->title,
+                'category' => $request->category,
+                'price' => $request->price * 100,
+                'discount' => $request->discount,
+                'description' => $request->description,
+                'images' => $images_json,
+            ]);
+
+            if ($oldCategory === $product->category) {
+                // Create or update subproduct based on the category
+                if ($request->category === 'beans') {
+                    $bean = Bean::where('product_id', $product->id)->firstOrFail();
+                    $bean->format = $request->bean_format;
+                    $bean->type = $request->bean_type;
+                    $bean->save();
+                } elseif ($request->category === 'pods') {
+                    $pod = Pod::where('product_id', $product->id)->firstOrFail();
+                    $pod->quantity = $request->pod_quantity;
+                    $pod->size = $request->pod_size;
+                    $product->pod()->save($pod);
+                }
+            } else {
+                // Delete old subproduct
+                switch ($oldCategory) {
+                    case 'beans':
+                        $bean = Bean::where('product_id', $product->id);
+                        $bean->delete();
+                        break;
+                    case 'pods':
+                        $pod = Pod::where('product_id', $product->id);
+                        $pod->delete();
+                        break;
+                }
+
+                if ($request->category === 'beans') {
+                    $bean = new Bean();
+                    $bean->format = $request->bean_format;
+                    $bean->type = $request->bean_type;
+                    // Asocia el producto recién creado con el bean
+                    $product->bean()->save($bean);
+                } elseif ($request->category === 'pods') {
+                    $pod = new Pod();
+                    $pod->quantity = $request->pod_quantity;
+                    $pod->size = $request->pod_size;
+                    // Asocia el producto recién creado con el bean
+                    $product->pod()->save($pod);
+                }
+            }
+
+
+            // Confirm transaction
+            DB::commit();
+
+            return back()->with('success', 'Product UPDATED successfully!!');
+        } catch (Exception $e) {
+
+            // Rollback transaction
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong!!' . $e->getMessage());
         }
-
-        // select the new category id
-        $category_id = null;
-        switch ($request->category) {
-            case 'beans':
-                $category_id = '1';
-                break;
-            case 'capsules':
-                $category_id = '2';
-                break;
-            case 'machines':
-                $category_id = '3';
-                break;
-            case 'accessories':
-                $category_id = '4';
-                break;
-        }
-
-        // Update product in DB
-        $product->update([
-            'title' => $request->title,
-            'category_id' => $category_id,
-            'price' => $request->price * 100,
-            'discount' => $request->discount,
-            'description' => $request->description,
-            'image' => $image_name,
-        ]);
-
-        // Return Response
-        return back()->with('success', 'Product updated successfully!!');
     }
 
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $product = Product::findOrFail($id);
         $product->delete();

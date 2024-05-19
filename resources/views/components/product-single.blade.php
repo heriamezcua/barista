@@ -2,7 +2,34 @@
 
     <div class="row">
         <div class="col-md-6">
-            <img src="{{asset('storage/products/' . $product->image)}}" width="450px" alt="">
+            @php
+                // Obtain the product main image, if not found set not found image
+                $imagesArray = json_decode($product->images);
+                $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';
+                $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';
+            @endphp
+            @if($imagesArray)
+
+                @foreach($imagesArray as $index => $image)
+                    @if(!$index)
+                        <img
+                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                            alt="" width="450px">
+                    @else
+                        <div class="row">
+                            <img
+                                src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                                alt="" style="width: 200px !important; height: 150px !important;">
+                        </div>
+                    @endif
+                @endforeach
+
+            @else
+                <img
+                    src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"
+                    alt="" width="450px">
+
+            @endif
         </div>
         <div class="col-md-6 d-flex flex-column justify-content-between">
 
@@ -65,9 +92,9 @@
                 <a href="#" class="text-sencondary px-2">3 reviews</a>
             </div>
 
-            <h2 class="text-secondary mt-3">{{$product->title}}</h2>
+            <h2 class="text-secondary mt-3">{{ucwords($product->title)}}</h2>
 
-            <h4 class="text-tertiary mt-3">Category</h4>
+            <h4 class="text-tertiary mt-3">{{ucwords($product->category)}}</h4>
 
             <p class="mt-3">{{$product->description}}</p>
 

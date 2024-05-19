@@ -11,10 +11,13 @@ class Product extends Model
 
     protected $guarded = [];
 
-    // Has one category
-    public function category()
+    public function bean()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(Bean::class);
     }
 
+    public function pod()
+    {
+        return $this->hasOne(Pod::class);
+    }
 }

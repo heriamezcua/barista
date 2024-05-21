@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WishlistController;
@@ -83,5 +84,13 @@ Route::group(['prefix' => 'adminpanel', 'middleware' => 'admin'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('adminpanel.orders');
         Route::get('/{id}', [OrderController::class, 'view'])->name('adminpanel.orders.view');
         Route::post('/{id}', [OrderController::class, 'updateStatus'])->name('adminpanel.orders.status.update');
+    });
+
+    // Colors
+    Route::group(['prefix' => 'colors'], function () {
+        Route::get('/', [ColorController::class, 'index'])->name('adminpanel.colors');
+        Route::get('/create', [ColorController::class, 'create'])->name('adminpanel.colors.create');
+        Route::post('/create', [ColorController::class, 'store'])->name('adminpanel.color.store');
+        Route::delete('/{id}', [ColorController::class, 'destroy'])->name('adminpanel.color.destroy');
     });
 });

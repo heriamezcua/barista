@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bean;
+use App\Models\Machine;
 use App\Models\Pod;
 use App\Models\Product;
 use Exception;
@@ -52,8 +53,17 @@ class ProductController extends Controller
                         'pod_size' => 'required_if:category,pods|in:small,medium,large'
                     ]);
                     break;
-//            case 'machines':
-//                break;
+                case 'machines':
+                    // Validation of beans fields
+                    $request->validate([
+                        'machine_is_auto' => 'accepted',
+                        'machine_capacity' => 'required_if:category,machines|min:0|max:9999',
+                        // specs validation
+                        'specifications' => 'required|array',
+                        'specifications.*.name' => 'required|string|max:255',
+                        'specifications.*.value' => 'required|string|max:255',
+                    ]);
+                    break;
             }
 
             // Store image
@@ -102,6 +112,13 @@ class ProductController extends Controller
                 $pod->size = $request->pod_size;
                 // Asocia el producto recién creado con el bean
                 $product->pod()->save($pod);
+            } elseif ($request->category === 'machines') {
+                $machine = new Machine();
+
+                $machine->isAuto = ($request->machine_is_auto === 'on') ? 1 : 0;
+                $machine->capacity = $request->machine_capacity;
+                $machine->specs = json_encode($request->specifications);
+                $product->machine()->save($machine);
             }
 
             // Confirm transaction

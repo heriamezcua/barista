@@ -89,7 +89,6 @@ Route::group(['prefix' => 'adminpanel', 'middleware' => 'admin'], function () {
     // Colors
     Route::group(['prefix' => 'colors'], function () {
         Route::get('/', [ColorController::class, 'index'])->name('adminpanel.colors');
-        Route::get('/create', [ColorController::class, 'create'])->name('adminpanel.colors.create');
         Route::post('/create', [ColorController::class, 'store'])->name('adminpanel.color.store');
         Route::delete('/{id}', [ColorController::class, 'destroy'])->name('adminpanel.color.destroy');
     });

@@ -20,4 +20,9 @@ class Product extends Model
     {
         return $this->hasOne(Pod::class);
     }
+
+    public function machine()
+    {
+        return $this->hasOne(Machine::class);
+    }
 }

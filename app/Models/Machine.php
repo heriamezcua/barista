@@ -10,4 +10,9 @@ class Machine extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class)->withTimestamps();
+    }
 }

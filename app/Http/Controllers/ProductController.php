@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bean;
+use App\Models\Color;
 use App\Models\Machine;
 use App\Models\Pod;
 use App\Models\Product;
@@ -22,7 +23,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.pages.products.create');
+        $colors = Color::all();
+        return view('admin.pages.products.create', ['colors' => $colors]);
     }
 
     public function store(Request $request)
@@ -62,6 +64,7 @@ class ProductController extends Controller
                         'specifications' => 'required|array',
                         'specifications.*.name' => 'required|string|max:255',
                         'specifications.*.value' => 'required|string|max:255',
+                        'colors.*' => 'integer|exists:colors,id',
                     ]);
                     break;
             }
@@ -119,6 +122,8 @@ class ProductController extends Controller
                 $machine->capacity = $request->machine_capacity;
                 $machine->specs = json_encode($request->specifications);
                 $product->machine()->save($machine);
+
+                $machine->colors()->attach($request->colors);
             }
 
             // Confirm transaction

@@ -130,7 +130,7 @@
                                 </div>
 
                                 <!-- Machine options -->
-                                <div class="col-md-6 machine-options" style="display:none;">
+                                <div class="col-md-4 machine-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
                                                class="form-check-input"
@@ -138,11 +138,29 @@
                                         <label class="form-check-label" for="machine_is_auto">Automatic</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 machine-options" style="display:none;">
+                                <div class="col-md-4 machine-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
                                         <input type="number" min="0" max="9999" name="machine_capacity"
                                                id="machine_capacity" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <p>Available Colors</p>
+                                        @foreach($colors as $color)
+                                            <div class="d-flex align-items-center">
+                                                <input type="checkbox" name="colors[]" value="{{$color->id}}"
+                                                       class="form-check-input" style="width: 24px; height: 24px;">
+                                                <div class="d-flex flex-column align-items-center mx-2 my-1"
+                                                     style="min-width: 50px;">
+                                                    <label class="form-check-label"
+                                                           for="colors[]">{{$color->name}}</label>
+                                                    <span class="mx-2"
+                                                          style="display: block; background-color: {{$color->code}}; width: 13px; height: 13px;">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -322,4 +340,5 @@
                 });
             });
         </script>
+        // script to add more specifications to the machine table
 @endsection

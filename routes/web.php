@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -33,17 +34,6 @@ Route::get('/account', [PageController::class, 'account'])->name('account')->mid
 Route::get('/product/{id}', [PageController::class, 'product'])->name('product');
 Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout')->middleware('auth');
 
-// Search
-Route::group(['prefix' => 'search'], function () {
-    Route::get('/', [SearchController::class, 'index'])->name('search');
-    Route::get('/popular', [SearchController::class, 'popular'])->name('search.popular');
-    Route::get('/lowest', [SearchController::class, 'lowest'])->name('search.lowest');
-    Route::get('/highest', [SearchController::class, 'highest'])->name('search.highest');
-    Route::get('/bestsellers', [SearchController::class, 'bestsellers'])->name('search.bestsellers');
-    Route::get('/newest', [SearchController::class, 'newest'])->name('search.newest');
-});
-
-
 // Cart
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::post('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
@@ -62,6 +52,23 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login')->middl
 Route::post('/register', [AuthController::class, 'registerUser'])->name('register')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login')->middleware('guest');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Search
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/', [SearchController::class, 'index'])->name('search');
+    Route::get('/popular', [SearchController::class, 'popular'])->name('search.popular');
+    Route::get('/lowest', [SearchController::class, 'lowest'])->name('search.lowest');
+    Route::get('/highest', [SearchController::class, 'highest'])->name('search.highest');
+    Route::get('/bestsellers', [SearchController::class, 'bestsellers'])->name('search.bestsellers');
+    Route::get('/newest', [SearchController::class, 'newest'])->name('search.newest');
+});
+
+// Product Reviews
+Route::post('product/{id}/reviews', [ReviewController::class, 'store'])->name('product.reviews.store');
+Route::get('reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+Route::put('reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
+Route::delete('reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
 
 // Adminpanel Routes
 Route::group(['prefix' => 'adminpanel', 'middleware' => 'admin'], function () {

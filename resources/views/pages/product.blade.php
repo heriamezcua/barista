@@ -31,14 +31,138 @@
                 <div class="container">
                     <h2 class="text-center mb-4">RATINGS & REVIEWS</h2>
 
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="rating-box">
+                                @php
+                                    // calc average rating
+                                    $rating = 0;
+                                    $totalReviews= count($product->reviews->where('status', 'approved'));
+
+                                    if($totalReviews!=0){
+                                    foreach ($product->reviews->where('status', 'approved') as $review){
+
+                                        $rating+= $review->rating / $totalReviews;
+                                    }
+
+                                        // calc each number of rating numbers
+                                        $numRatingOne = $product->reviews->where('status', 'approved')->where('rating', 1)->count();
+                                        $numRatingTwo = $product->reviews->where('status', 'approved')->where('rating', 2)->count();
+                                        $numRatingThree = $product->reviews->where('status', 'approved')->where('rating', 3)->count();
+                                        $numRatingFour = $product->reviews->where('status', 'approved')->where('rating', 4)->count();
+                                        $numRatingFive = $product->reviews->where('status', 'approved')->where('rating', 5)->count();
+                                    }
+
+                                @endphp
+
+                                <h2>{{$rating}}</h2>
+                                <p class="text-secondary">{{$totalReviews !== 0 ? 'Based on '. $totalReviews .' reviews' : 'There are no reviews yet, be the first to post one!'}}</p>
+
+                                <div class="progress-box">
+                                    <div class="progress mb-3">
+                                        <p style="margin-right: 10px;">1
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                            </svg>
+                                        </p>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{$totalReviews !== 0 ? $numRatingOne : 0}}"
+                                             aria-valuemin="0"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingOne / $totalReviews)*100 : 0}}%;"
+                                             aria-valuemax="{{$totalReviews}}"></div>
+                                        <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingOne : 0}}</p>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <p style="margin-right: 10px;">2
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                            </svg>
+                                        </p>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{$totalReviews !== 0 ? $numRatingTwo : 0}}"
+                                             aria-valuemin="0"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingTwo / $totalReviews)*100 : 0}}%;"
+                                             aria-valuemax="{{$totalReviews}}"></div>
+                                        <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingTwo : 0}}</p>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <p style="margin-right: 10px;">3
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                            </svg>
+                                        </p>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{$totalReviews !== 0 ? $numRatingThree : 0}}"
+                                             aria-valuemin="0"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingThree / $totalReviews)*100 : 0}}%;"
+                                             aria-valuemax="{{$totalReviews}}"></div>
+                                        <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingThree : 0}}</p>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <p style="margin-right: 10px;">4
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                            </svg>
+                                        </p>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{$totalReviews !== 0 ? $numRatingFour : 0}}"
+                                             aria-valuemin="0"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
+                                             aria-valuemax="{{$totalReviews}}"></div>
+                                        <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingFour : 0}}</p>
+                                    </div>
+                                    <div class="progress">
+                                        <p style="margin-right: 10px;">5
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                            </svg>
+                                        </p>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{$totalReviews !== 0 ? $numRatingFive : 0}}"
+                                             aria-valuemin="0"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
+                                             aria-valuemax="{{$totalReviews}}"></div>
+                                        <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingFive : 0}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+
                     @if(auth()->user())
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{session('success')}}
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{session('error')}}
+                            </div>
+                        @endif
+
                         <div class="row pb-4">
                             <div class="col-md-6 mx-auto">
                                 <h3>My review for {{ucwords($product->title)}}</h3>
                                 <p class="text-secondary">Required fields are marked with an <span
                                         class="text-danger">*</span></p>
 
-                                <form action="#" method="post">
+                                <form action="{{route('product.reviews.store', $product->id)}}" method="post">
                                     @csrf
 
                                     <!-- rating -->
@@ -100,4 +224,23 @@ with much higher prices.">
 
         </div>
     </section>
+
+    <!-- Script to select only 1 checkbox -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxEls = document.querySelectorAll('input[type="checkbox"]');
+
+            checkboxEls.forEach(checkboxEl => {
+                checkboxEl.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkboxEls.forEach(checkboxEl => {
+                            if (checkboxEl !== this) {
+                                checkboxEl.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

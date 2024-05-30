@@ -175,7 +175,11 @@
                                             <tr>
                                                 <th>Specification Name</th>
                                                 <th>Value</th>
-                                                <th>Action</th>
+                                                <th class="text-center">
+                                                    <button type="button" class="btn btn-primary" id="btnAddSpec">Add
+                                                        Spec
+                                                    </button>
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -184,10 +188,6 @@
                                                            class="form-control"></td>
                                                 <td><input type="text" name="specifications[0][value]"
                                                            class="form-control"></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary">Add</button>
-                                                    <button type="button" class="btn btn-danger">Remove</button>
-                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -340,5 +340,47 @@
                 });
             });
         </script>
-        // script to add more specifications to the machine table
+
+        <!-- add and delete specs -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const btnAddSpecEl = document.querySelector('#btnAddSpec');
+
+                // Add specification functionality
+                let specsCount = 0;
+                btnAddSpecEl.addEventListener('click', function () {
+                    //Selecting table
+                    const tbodyEl = document.querySelector('#specsTable tbody');
+                    specsCount++;
+                    newSpecHtml = `
+                    <tr>
+                        <td>
+                            <input type="text" name="specifications[${specsCount}][name]"
+                                   class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="specifications[${specsCount}][value]"
+                                   class="form-control">
+                        </td>
+                        <td>
+                            <button type="button" class="btnDeleteSpec btn btn-danger">Remove</button>
+                        </td>
+                    </tr>
+                    `
+
+                    tbodyEl.insertAdjacentHTML('beforeend', newSpecHtml);
+
+                    // delete spec functionality
+                    const btnsDeleteEl = document.querySelectorAll('.btnDeleteSpec');
+
+                    btnsDeleteEl.forEach(btnDelete => {
+                        btnDelete.addEventListener('click', function () {
+                            const closestTrEl = btnDelete.closest('tr');
+                            closestTrEl.remove();
+                        });
+                    });
+                });
+
+            });
+        </script>
 @endsection

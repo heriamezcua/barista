@@ -49,16 +49,15 @@ class ProductController extends Controller
                     ]);
                     break;
                 case 'pods':
-                    // Validation of beans fields
+                    // Validation of pods fields
                     $request->validate([
                         'pod_quantity' => 'required_if:category,pods|in:12,24,36',
                         'pod_size' => 'required_if:category,pods|in:small,medium,large'
                     ]);
                     break;
                 case 'machines':
-                    // Validation of beans fields
+                    // Validation of machines fields
                     $request->validate([
-                        'machine_is_auto' => 'accepted',
                         'machine_capacity' => 'required_if:category,machines|min:0|max:9999',
                         // specs validation
                         'specifications' => 'required|array',
@@ -118,9 +117,10 @@ class ProductController extends Controller
             } elseif ($request->category === 'machines') {
                 $machine = new Machine();
 
-                $machine->isAuto = ($request->machine_is_auto === 'on') ? 1 : 0;
+                $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
                 $machine->capacity = $request->machine_capacity;
                 $machine->specs = json_encode($request->specifications);
+
                 $product->machine()->save($machine);
 
                 $machine->colors()->attach($request->colors);
@@ -142,8 +142,9 @@ class ProductController extends Controller
     function edit($id)
     {
         $product = Product::findOrFail($id);
+        $colors = Color::all();
 
-        return view('admin.pages.products.edit', ['product' => $product]);
+        return view('admin.pages.products.edit', ['product' => $product, 'colors' => $colors]);
     }
 
     public
@@ -176,8 +177,17 @@ class ProductController extends Controller
                         'pod_size' => 'required_if:category,pods|in:small,medium,large'
                     ]);
                     break;
-//            case 'machines':
-//                break;
+                case 'machines':
+                    // Validation of beans fields
+                    $request->validate([
+                        'machine_capacity' => 'required_if:category,machines|min:0|max:9999',
+                        // specs validation
+                        'specifications' => 'required|array',
+                        'specifications.*.name' => 'required|string|max:255',
+                        'specifications.*.value' => 'required|string|max:255',
+                        'colors.*' => 'integer|exists:colors,id',
+                    ]);
+                    break;
             }
 
             // Transaction to ensure consistency in DB
@@ -226,6 +236,16 @@ class ProductController extends Controller
                     $pod->quantity = $request->pod_quantity;
                     $pod->size = $request->pod_size;
                     $product->pod()->save($pod);
+                } elseif ($request->category === 'machines') {
+                    $machine = Machine::where('product_id', $product->id)->firstOrFail();
+
+                    $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
+                    $machine->capacity = $request->machine_capacity;
+                    $machine->specs = json_encode($request->specifications);
+
+                    $product->machine()->save($machine);
+
+                    $machine->colors()->sync($request->colors);
                 }
             } else {
                 // Delete old subproduct
@@ -237,6 +257,10 @@ class ProductController extends Controller
                     case 'pods':
                         $pod = Pod::where('product_id', $product->id);
                         $pod->delete();
+                        break;
+                    case 'machines':
+                        $machine = Machine::where('product_id', $product->id);
+                        $machine->delete();
                         break;
                 }
 
@@ -252,6 +276,16 @@ class ProductController extends Controller
                     $pod->size = $request->pod_size;
                     // Asocia el producto recién creado con el bean
                     $product->pod()->save($pod);
+                } elseif ($request->category === 'machines') {
+                    $machine = new Machine();
+
+                    $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
+                    $machine->capacity = $request->machine_capacity;
+                    $machine->specs = json_encode($request->specifications);
+
+                    $product->machine()->save($machine);
+
+                    $machine->colors()->attach($request->colors);
                 }
             }
 

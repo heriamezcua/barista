@@ -33,6 +33,7 @@ class PageController extends Controller
     public function product($id)
     {
         $product = Product::findOrFail($id);
+
         return view('pages.product', ['product' => $product]);
     }
 

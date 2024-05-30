@@ -76,7 +76,7 @@
 
                             </div> <!-- row -->
 
-                            <div class="row">
+                            <div class="row mb-4">
                                 <!-- Bean options -->
                                 <div class="col-md-6 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Pods options -->
+                                <!-- Pod options -->
                                 <div class="col-md-6 pod-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="pod_quantity">Pods Quantity</label>
@@ -129,7 +129,71 @@
                                     </div>
                                 </div>
 
+                                <!-- Machine options -->
+                                <div class="col-md-4 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
+                                               class="form-check-input"
+                                               style="width: 24px; height: 24px; margin-right: 14px;">
+                                        <label class="form-check-label" for="machine_is_auto">Automatic</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
+                                        <input type="number" min="0" max="9999" name="machine_capacity"
+                                               id="machine_capacity" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <p>Available Colors</p>
+                                        @foreach($colors as $color)
+                                            <div class="d-flex align-items-center">
+                                                <input type="checkbox" name="colors[]" value="{{$color->id}}"
+                                                       class="form-check-input" style="width: 24px; height: 24px;">
+                                                <div class="d-flex flex-column align-items-center mx-2 my-1"
+                                                     style="min-width: 50px;">
+                                                    <label class="form-check-label"
+                                                           for="colors[]">{{$color->name}}</label>
+                                                    <span class="mx-2"
+                                                          style="display: block; background-color: {{$color->code}}; width: 13px; height: 13px;">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
                             </div> <!-- row -->
+
+                            <div class="row">
+                                <div class="col-md-12 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label class="form-check-label" for="machine_specs">Specifications</label>
+                                        <table class="table table-bordered" id="specsTable">
+                                            <thead>
+                                            <tr>
+                                                <th>Specification Name</th>
+                                                <th>Value</th>
+                                                <th class="text-center">
+                                                    <button type="button" class="btn btn-primary" id="btnAddSpec">Add
+                                                        Spec
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="text" name="specifications[0][name]"
+                                                           class="form-control"></td>
+                                                <td><input type="text" name="specifications[0][value]"
+                                                           class="form-control"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- row -->
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
@@ -180,7 +244,6 @@
                                     </div>
                                 </div>
                             </div><!-- row -->
-
 
                             <div class="form-group text-end">
                                 <button type="submit" class="btn btn-primary">Create</button>
@@ -243,6 +306,7 @@
                 const categorySelect = document.getElementById('category');
                 const beanOptionsDiv = document.querySelectorAll('.bean-options');
                 const podOptionsDiv = document.querySelectorAll('.pod-options');
+                const machineOptionsDiv = document.querySelectorAll('.machine-options');
 
                 // Function to hide all unselected elements
                 const hideAllOptions = function (beanOptionsDiv, podOptionsDiv) {
@@ -251,6 +315,9 @@
                     });
                     podOptionsDiv.forEach(podOption => {
                         podOption.style.display = 'none';
+                    });
+                    machineOptionsDiv.forEach(machineOption => {
+                        machineOption.style.display = 'none';
                     });
                 }
 
@@ -265,8 +332,55 @@
                         podOptionsDiv.forEach(podOption => {
                             podOption.style.display = 'block';
                         });
+                    } else if (categorySelect.value === 'machines') {
+                        machineOptionsDiv.forEach(machineOption => {
+                            machineOption.style.display = 'block';
+                        });
                     }
                 });
+            });
+        </script>
+
+        <!-- add and delete specs -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const btnAddSpecEl = document.querySelector('#btnAddSpec');
+
+                // Add specification functionality
+                let specsCount = 0;
+                btnAddSpecEl.addEventListener('click', function () {
+                    //Selecting table
+                    const tbodyEl = document.querySelector('#specsTable tbody');
+                    specsCount++;
+                    newSpecHtml = `
+                    <tr>
+                        <td>
+                            <input type="text" name="specifications[${specsCount}][name]"
+                                   class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="specifications[${specsCount}][value]"
+                                   class="form-control">
+                        </td>
+                        <td>
+                            <button type="button" class="btnDeleteSpec btn btn-danger">Remove</button>
+                        </td>
+                    </tr>
+                    `
+
+                    tbodyEl.insertAdjacentHTML('beforeend', newSpecHtml);
+
+                    // delete spec functionality
+                    const btnsDeleteEl = document.querySelectorAll('.btnDeleteSpec');
+
+                    btnsDeleteEl.forEach(btnDelete => {
+                        btnDelete.addEventListener('click', function () {
+                            const closestTrEl = btnDelete.closest('tr');
+                            closestTrEl.remove();
+                        });
+                    });
+                });
+
             });
         </script>
 @endsection

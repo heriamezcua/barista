@@ -23,6 +23,9 @@ class ReviewController extends Controller
                 'nickname' => 'required|string|min:3|max:255',
             ]);
 
+            // Transaction to ensure consistency in DB
+            DB::beginTransaction();
+
             // Store the valid Review
             Review::create([
                 'rating' => $request->rating,
@@ -46,13 +49,15 @@ class ReviewController extends Controller
 
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $review = Review::findOrFail($id);
 
         return view('pages.reviews.edit', ['review' => $review]);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         try {
             // Validation of product fields
@@ -65,6 +70,8 @@ class ReviewController extends Controller
 
             $review = Review::findOrFail($id);
 
+            // Transaction to ensure consistency in DB
+            DB::beginTransaction();
 
             // Store the valid Review
             $review->update([
@@ -87,7 +94,38 @@ class ReviewController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function approve(Request $request, $id)
+    {
+        try {
+            // Validation of product fields
+            $request->validate([
+                'action' => 'required|in:approved,rejected',
+            ]);
+
+            $review = Review::findOrFail($id);
+
+            // Transaction to ensure consistency in DB
+            DB::beginTransaction();
+
+            // Update the status in the Review
+            $review->update([
+                'status' => $request->action,
+            ]);
+
+            // Confirm transaction
+            DB::commit();
+
+            return back();
+        } catch (Exception $e) {
+
+            // Rollback transaction
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong!!' . $e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
         $review = Review::findOrFail($id);
         $review->delete();
 

@@ -32,7 +32,7 @@
                     <h2 class="text-center mb-4">RATINGS & REVIEWS</h2>
 
 
-                    <div class="row">
+                    <div class="row mb-5">
                         <div class="col-md-6">
                             <div class="rating-box">
                                 @php
@@ -42,9 +42,10 @@
 
                                     if($totalReviews!=0){
                                     foreach ($product->reviews->where('status', 'approved') as $review){
-
                                         $rating+= $review->rating / $totalReviews;
                                     }
+
+                                    $rating = round($rating, 2);
 
                                         // calc each number of rating numbers
                                         $numRatingOne = $product->reviews->where('status', 'approved')->where('rating', 1)->count();
@@ -116,7 +117,7 @@
                                         <div class="progress-bar" role="progressbar"
                                              aria-valuenow="{{$totalReviews !== 0 ? $numRatingFour : 0}}"
                                              aria-valuemin="0"
-                                             style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
+                                             style="width: {{$totalReviews !== 0 ? ($numRatingFour / $totalReviews)*100 : 0}}%;"
                                              aria-valuemax="{{$totalReviews}}"></div>
                                         <p style="margin-left: auto">{{$totalReviews !== 0 ? $numRatingFour : 0}}</p>
                                     </div>
@@ -139,6 +140,25 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+
+                            @foreach($product->reviews->where('status', 'approved') as $review)
+
+                                <div class="review-box mb-4">
+                                    <div class="author mb-2">
+                                        {{$review->nickname}}
+                                        {{\Carbon\Carbon::parse($review->created_at)->format('d/m/Y')}}
+                                        {{$review->rating}}
+                                    </div>
+
+                                    <div class="review-body">
+                                        <p>{{$review->summary}}</p>
+                                        <p>{{$review->review}}</p>
+                                    </div>
+
+                                    <button class="btn btn-secondary">Show more / less</button>
+                                </div>
+
+                            @endforeach
 
                         </div>
                     </div>

@@ -68,6 +68,8 @@ Route::post('product/{id}/reviews', [ReviewController::class, 'store'])->name('p
 Route::get('reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
 Route::put('reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
 Route::delete('reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+// admin approve
+Route::patch('reviews/{id}', [ReviewController::class, 'approve'])->name('reviews.approve');
 
 
 // Adminpanel Routes

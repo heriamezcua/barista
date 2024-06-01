@@ -12,13 +12,13 @@
 </head>
 <body>
 
-<header>
-    @include('partials.nav')
-</header>
+
+@include('partials.header')
 
 <main>
     @yield('content')
 </main>
+
 @include('partials.footer')
 
 @vite(['resources/js/app.js'])

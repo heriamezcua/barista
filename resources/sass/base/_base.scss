@@ -1,29 +1,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap');
 
+:root {
+    // Font
+    --font-primary: 'outfit', sans-serif;
+    --font-secondary: "Josefin Sans", sans-serif;
+
+    // Font size
+    --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
+    --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
+
+    // Color
+    --color-primary: #d8a168;
+
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    // Grey
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
+
+    --color-grey-dark-1: #111;
+    --color-grey-dark-2: #222;
+    --color-grey-dark-3: #777;
+    --color-grey-dark-4: #999;
+
+    // Line
+    --line-primary: 2px solid var(--color-primary);
+}
+
 *, *::after, *::before {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
 }
 
-html{
-    //font-size: 62.5%; // 1rem = 10px
+html {
     scroll-behavior: smooth;
 }
 
 body {
     font-family: 'outfit', sans-serif;
     box-sizing: border-box;
-    width: 100%;
+    font-size: var(--default-font-size);
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-white);
 }
 
 
 // INPUTS
-input{
+input {
     font-family: 'outfit', sans-serif;
     outline: none;
     border-radius: 0;
     border: none;
     border-bottom: 2px solid gray;
+}
+
+// removing webkit cancel button
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
 }
 

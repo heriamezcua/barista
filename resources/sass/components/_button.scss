@@ -1,8 +1,11 @@
+button{
+    border: none;
+    cursor: pointer;
+}
+
 .btn{
     background: none;
-    border: none;
     font-size: 1.6rem;
-    cursor: pointer;
 
     &--form{
         font-size: 2rem;

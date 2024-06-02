@@ -1,25 +1,23 @@
-button{
+button {
     border: none;
     cursor: pointer;
 }
 
-.btn{
+.btn {
     background: none;
-    font-size: 1.6rem;
+    transition: all .3s;
 
-    &--form{
-        font-size: 2rem;
+    &--cta {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--btn-cta-fs);
         color: white;
-        width: 100%;
-        padding: 1rem 2rem;
-        background-color: maroon;
-    }
+        padding: 0.75rem 1.25rem;
+        background-color: var(--color-primary);
+        text-transform: uppercase;
 
-    &--logout{
-        font-size: 2rem;
-        color: white;
-        padding: 1rem 2rem;
-        background-color: darkblue;
-        text-align: center;
+        &:hover {
+            background-color: var(--color-primary-dark);
+        }
     }
 }

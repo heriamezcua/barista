@@ -9,8 +9,14 @@
     --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
     --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
 
+    --heading-primary-fs: clamp(2.5rem, 2.3472rem + 0.7524vw, 3.25rem); //40px-52px
+
+    --btn-cta-fs: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem);
+
     // Color
     --color-primary: #d8a168;
+    --color-primary-light: #e0b486;
+    --color-primary-dark: #ad8153;
 
     --color-white: #ffffff;
     --color-black: #000000;
@@ -41,11 +47,12 @@ html {
 }
 
 body {
-    font-family: 'outfit', sans-serif;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    color: var(--color-white);
     box-sizing: border-box;
     font-size: var(--default-font-size);
     background-color: var(--color-black);
-    color: var(--color-white);
 }
 
 ::selection {
@@ -53,8 +60,14 @@ body {
     color: var(--color-white);
 }
 
+// Anchors
+a{
+    text-decoration: none;
+    font-family: 'outfit', sans-serif;
+}
 
-// INPUTS
+
+// Inputs
 input {
     font-family: 'outfit', sans-serif;
     outline: none;

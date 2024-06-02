@@ -9,7 +9,8 @@
     --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
     --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
 
-    --heading-primary-fs: clamp(2.5rem, 2.3472rem + 0.7524vw, 3.25rem); //40px-52px
+    --heading-hero-fs: clamp(2.5rem, 2.3472rem + 0.7524vw, 3.25rem); //40px-52px
+    --heading-primary-fs: clamp(1.875rem, 1.6967rem + 0.8777vw, 2.75rem); //30px-44px
 
     --btn-cta-fs: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem);
 
@@ -61,9 +62,10 @@ body {
 }
 
 // Anchors
-a{
+a {
     text-decoration: none;
     font-family: 'outfit', sans-serif;
+    color: var(--color-white);
 }
 
 

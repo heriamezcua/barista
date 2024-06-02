@@ -9,15 +9,14 @@ main {
 
 
 /*********************************
-*           SECTION HERO         *
+*         SECTION HERO           *
 *********************************/
 
 .section-hero {
     height: 100vh;
     width: 100%;
-    margin: 0 auto;
 
-    background-image: url('../../public/assets/img/defi.jpg');
+    background-image: url('../../public/assets/img/home/hero.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -33,7 +32,65 @@ main {
     align-items: center;
 
     &__text-box {
-        max-width: 60%;
+        max-width: 50%;
     }
 }
 
+/*********************************
+*       SECTION CATEGORIES       *
+*********************************/
+
+.section-categories {
+    width: 100%;
+    padding: 5rem 8rem 0 8rem;
+}
+
+.categories {
+    max-width: 87.5rem;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+/*********************************
+*       SECTION SELECTION        *
+*********************************/
+
+.section-selection {
+    width: 100%;
+    padding: 10rem 8rem;
+}
+
+.selection {
+    max-width: 87.5rem;
+    margin: 0 auto;
+
+    display: flex;
+
+    &__text-box {
+        flex: 0 0 350px;
+        padding-right: 20px;
+    }
+}
+
+.product-box {
+    width: 100%;
+    border: 2px solid crimson;
+
+    &__categories {
+        display: flex;
+        align-items: center;
+    }
+
+    &__category {
+        &:not(:last-child) {
+            padding-right: 10px;
+        }
+    }
+
+    &__products {
+        display: flex;
+    }
+}

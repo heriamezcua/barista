@@ -21,6 +21,14 @@
 
 }
 
+.heading-hero{
+    font-size: var(--heading-hero-fs);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
 .heading-primary{
     font-family: var(--font-secondary);
     font-size: var(--heading-primary-fs);

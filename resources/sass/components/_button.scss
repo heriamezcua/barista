@@ -5,7 +5,19 @@ button {
 
 .btn {
     background: none;
-    transition: all .3s;
+    transition: all .2s;
+
+    // styling anchors <a>
+    &,
+    &:link,
+    &:active {
+        display: inline-block;
+        text-decoration: none;
+        position: relative;
+        font-size: var(--default-font-size);
+        font-family: var(--font-primary);
+        transition: all 0.3s;
+    }
 
     &--cta {
         display: inline-block;
@@ -16,8 +28,28 @@ button {
         background-color: var(--color-primary);
         text-transform: uppercase;
 
-        &:hover {
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: var(--color-black);
+            box-shadow: 0 0 3px 3px rgba(#ad8153, 0.7);
+        }
+    }
+
+    &--primary {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--default-font-size);
+        color: white;
+        padding: 0.75rem 1.25rem;
+        background-color: var(--color-primary);
+
+        &:hover,
+        &:focus,
+        &:active {
             background-color: var(--color-primary-dark);
         }
     }
+
+
 }

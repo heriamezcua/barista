@@ -6,6 +6,8 @@
     --font-secondary: "Josefin Sans", sans-serif;
 
     // Font size
+    --big-font-size: clamp(1.5rem, 1.4236rem + 0.3762vw, 1.875rem); //24-30px
+    --medium-font-size: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem); //20-24px
     --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
     --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
 

@@ -8,10 +8,10 @@
         <div class="hero">
 
             <div class="hero__text-box">
-                <p class="heading-hero u-margin-bottom-small">
+                <p class="heading-hero u-margin-bottom-medium">
                     L'OR Barista Doble Espresso
                 </p>
-                <p class="text-normal u-margin-bottom-small">
+                <p class="text-normal u-margin-bottom-medium">
                     Don't miss the opportunity and get the best double capacity coffee machine on the market.
                 </p>
                 <a href="#" class="btn btn--cta">Shop Now</a>
@@ -55,7 +55,7 @@
         <div class="selection">
             <div class="selection__text-box">
                 <h2 class="heading-primary u-margin-bottom-small">Top Selection</h2>
-                <p class="text-normal u-margin-bottom-small">Your favorite coffee with exclusive offers and
+                <p class="text-normal u-margin-bottom-medium">Your favorite coffee with exclusive offers and
                     discounts</p>
                 <a class="btn btn--primary" href="#">Discover more</a>
             </div>
@@ -68,20 +68,11 @@
                     <p class="product-box__category">Accessories</p>
                 </div>
                 <div class="product-box__products">
-                    <!-- PRODUCT -->
-                    <div class="product">
-                        <div class="product__img">
-                            IMAGE
-                        </div>
-                        <div class="product__content">
-                            <p class="product__title">Coffee with milk</p>
-                            <p class="product__category">Coffee Beans</p>
-                            <div class="product__rating-box">
+                            @foreach($products as $product)
 
-                            </div>
-                            <p class="product__price">12€</p>
-                        </div>
-                    </div>
+                                <x-product-card :product="$product"/>
+
+                            @endforeach
                     <!-- PRODUCT -->
                     <div class="product">
                         <div class="product__img">

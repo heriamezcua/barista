@@ -3,8 +3,7 @@
         <li class="header__item">
             <a class="header__link" href="{{route('wishlist')}}">
                 @auth
-                    <span class="header__icon"
-                          style="font-size: 14px; width: 20px; text-align: center; padding: 0.05rem .15rem; position: absolute; right: -0.5rem; top: -0.5rem; border-radius: 4px; background-color: white; color: black;">{{count(auth()->user()->wishlist)}}</span>
+                    <span class="header__icon-number header__icon--heart">{{count(auth()->user()->wishlist)}}</span>
                 @endauth
                 <svg class="header__icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                      viewBox="0 0 24 24">
@@ -14,7 +13,7 @@
             </a>
         </li>
         <li class="header__item">
-            <a class="header__link" href="{{route('cart')}}" style="position: relative;">
+            <a class="header__link" href="{{route('cart')}}">
                 @if(session()->has('cart') && count(session('cart')) !== 0)
                     <span class="header__icon-number">
                                 {{session()->has('cart') ? count(session('cart')) : 0}}

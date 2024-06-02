@@ -18,7 +18,7 @@
         width: 100%;
         max-width: 500px;
         transition: all ease-in-out 0.1s;
-        
+
         input {
             text-decoration: none;
             border: 0;
@@ -70,6 +70,7 @@
     }
 
     &__link {
+        position: relative;
         text-decoration: none;
         font-size: var(--default-font-size);
 
@@ -82,6 +83,10 @@
 
     &__icon {
         font-size: 28px;
+
+        &--heart {
+            background-color: #ff0000 !important;
+        }
     }
 
     &__icon-number {

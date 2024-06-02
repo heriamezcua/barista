@@ -77,7 +77,6 @@ main {
 
 .product-box {
     width: 100%;
-    border: 2px solid crimson;
 
     &__categories {
         display: flex;
@@ -85,6 +84,8 @@ main {
     }
 
     &__category {
+        font-size: var(--medium-font-size);
+
         &:not(:last-child) {
             padding-right: 10px;
         }

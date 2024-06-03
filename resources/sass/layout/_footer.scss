@@ -1,0 +1,52 @@
+.footer {
+    padding: 3.125rem;
+    width: 100%;
+
+    border-top: 2px solid var(--color-primary);
+
+    &__links-box {
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__heading {
+        font-size: var(--normal-font-size);
+        font-weight: 500;
+        color: var(--color-primary);
+
+    }
+
+    &__list {
+        list-style: none;
+
+    }
+
+    &__link {
+        font-size: var(--small-font-size);
+        font-weight: 400;
+        transition: all 0.2s;
+
+        &:hover {
+            color: var(--color-grey-light-4);
+        }
+    }
+
+    &__payments-box {
+        display: flex;
+        flex-flow: row wrap;
+        height: fit-content;
+
+    }
+
+    &__payment {
+        flex: 0 0 33%;
+        height: fit-content;
+    }
+
+}
+
+.footer-box {
+    max-width: 87.5rem;
+    margin: 0 auto;
+}

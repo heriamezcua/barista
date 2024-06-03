@@ -9,7 +9,7 @@
 
             <div class="hero__text-box">
                 <p class="heading-hero u-margin-bottom-medium">
-                    L'OR Barista Doble Espresso
+                    L'OR Barista Sublime
                 </p>
                 <p class="text-normal u-margin-bottom-medium">
                     Don't miss the opportunity and get the best double capacity coffee machine on the market.
@@ -919,6 +919,50 @@
                     Recycling coffee capsules is easier than you think. Many brands offer recycling programs where you
                     can return the empty capsules to be properly processed. </p>
                 <a href="#" class="btn btn--primary">Start recycling</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION SERVICE -->
+    <div class="section-services">
+        <div class="services">
+            <div class="service">
+                <div class="service__icon service__icon--truck">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="70px" viewBox="0 0 16 16">
+                        <path fill="currentColor"
+                              d="M6 3h10v7H6zm9 11a2 2 0 1 1-3.999.001A2 2 0 0 1 15 14m-2-3c1.3 0 2.4.8 2.8 2h.2v-2z"/>
+                        <path fill="currentColor"
+                              d="M5 5H1L0 9v4h1.2c.4-1.2 1.5-2 2.8-2s2.4.8 2.8 2h3.4c.4-1.2 1.5-2 2.8-2H5zM4 9H1l.8-3H4z"/>
+                        <path fill="currentColor" d="M6 14a2 2 0 1 1-3.999.001A2 2 0 0 1 6 14"/>
+                    </svg>
+                </div>
+                <p class="service__text">
+                    Free shipping on orders over €50.
+                </p>
+            </div>
+            <div class="service">
+                <div class="service__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="70px" viewBox="0 0 32 32">
+                        <path fill="currentColor"
+                              d="M13 2a6.007 6.007 0 0 0-6 6h2a4 4 0 0 1 8 0h2a6.007 6.007 0 0 0-6-6"/>
+                        <path fill="currentColor"
+                              d="M21 30h-4.44a4 4 0 0 1-2.708-1.057l-9.2-8.466a2.002 2.002 0 0 1 .118-3.055a2.074 2.074 0 0 1 2.658.173L11 20.857V8a2 2 0 0 1 4 0v7a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6"/>
+                    </svg>
+                </div>
+                <p class="service__text">
+                    Free shipping on orders over €50.
+                </p>
+            </div>
+            <div class="service">
+                <div class="service__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="70px" viewBox="0 0 20 20">
+                        <path fill="currentColor"
+                              d="M19.295 12a.704.704 0 0 1 .705.709v3.204a.704.704 0 0 1-.7.709a.704.704 0 0 1-.7-.709v-1.125C16.779 17.844 13.399 20 9.757 20c-4.41 0-8.106-2.721-9.709-6.915a.712.712 0 0 1 .4-.917c.36-.141.766.04.906.405c1.4 3.662 4.588 6.01 8.403 6.01c3.371 0 6.52-2.182 7.987-5.154l-1.471.01a.704.704 0 0 1-.705-.704a.705.705 0 0 1 .695-.714zm-9.05-12c4.408 0 8.105 2.721 9.708 6.915a.712.712 0 0 1-.4.917a.697.697 0 0 1-.906-.405c-1.4-3.662-4.588-6.01-8.403-6.01c-3.371 0-6.52 2.182-7.987 5.154l1.471-.01a.704.704 0 0 1 .705.704a.705.705 0 0 1-.695.714L.705 8A.704.704 0 0 1 0 7.291V4.087c0-.392.313-.709.7-.709c.386 0 .7.317.7.709v1.125C3.221 2.156 6.601 0 10.243 0"/>
+                    </svg>
+                </div>
+                <p class="service__text">
+                    Free shipping on orders over €50.
+                </p>
             </div>
         </div>
     </div>

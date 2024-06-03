@@ -1,0 +1,38 @@
+/*
+ ---- 01 TYPOGRAPHY SYSTEM
+
+ - FONT SIZES (px):
+    10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+ ---- WHITESPACE
+
+ - Spacing System (px)
+    2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/
+
+.text-normal {
+    font-family: var(--font-primary);
+    font-size: var(--default-font-size);
+    color: var(--text-white);
+    hyphens: auto;
+    font-weight: 400;
+    line-height: 1.4;
+
+}
+
+.heading-hero{
+    font-size: var(--heading-hero-fs);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.heading-primary{
+    font-family: var(--font-secondary);
+    font-size: var(--heading-primary-fs);
+    font-weight: 600;
+    hyphens: auto;
+    line-height: 1.2;
+}

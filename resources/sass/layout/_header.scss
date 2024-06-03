@@ -1,0 +1,108 @@
+.header {
+    width: 100%;
+    padding: 0.25rem 2rem;
+    background-color: #000000;
+
+    position: absolute;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    // Search form
+    &__search {
+        display: flex;
+        color: var(--color-grey-dark-1);
+        background-color: var(--color-white);
+        width: 100%;
+        max-width: 500px;
+        transition: all ease-in-out 0.1s;
+
+        input {
+            text-decoration: none;
+            border: 0;
+            padding: 0 0.5rem;
+            font-size: var(--small-font-size);
+            font-family: var(--font-primary);
+            width: 100%;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+        }
+    }
+
+    // Navigation
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:not(:last-child) {
+            margin-right: 30px;
+        }
+
+        &:hover {
+            .header__icon {
+                path {
+                    transition: all 0.2s;
+                    fill: var(--color-grey-dark-4);
+                }
+            }
+        }
+    }
+
+    &__link {
+        position: relative;
+        text-decoration: none;
+        font-size: var(--default-font-size);
+
+        // svg icons alignment
+        display: flex;
+        align-items: center;
+        color: var(--color-white);
+
+    }
+
+    &__icon {
+        font-size: 28px;
+
+        &--heart {
+            background-color: #ff0000 !important;
+        }
+    }
+
+    &__icon-number {
+        font-size: 14px;
+        width: 20px;
+        text-align: center;
+        padding: 0.05rem .15rem;
+        position: absolute;
+        right: -0.5rem;
+        top: -0.5rem;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+}
+
+.sticky {
+    position: fixed;
+    border-bottom: 3px solid var(--color-primary);
+}

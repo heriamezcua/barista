@@ -1,29 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap');
 
+:root {
+    // Font
+    --font-primary: 'outfit', sans-serif;
+    --font-secondary: "Josefin Sans", sans-serif;
+
+    // Font size
+    --big-font-size: clamp(1.5rem, 1.4236rem + 0.3762vw, 1.875rem); //24-30px
+    --medium-font-size: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem); //20-24px
+    --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
+    --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
+
+    --heading-hero-fs: clamp(2.5rem, 2.3472rem + 0.7524vw, 3.25rem); //40px-52px
+    --heading-primary-fs: clamp(1.875rem, 1.6967rem + 0.8777vw, 2.75rem); //30px-44px
+
+    --btn-cta-fs: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem);
+
+    // Color
+    --color-primary: #d8a168;
+    --color-primary-light: #e0b486;
+    --color-primary-dark: #ad8153;
+
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    // Grey
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
+
+    --color-grey-dark-1: #111;
+    --color-grey-dark-2: #222;
+    --color-grey-dark-3: #777;
+    --color-grey-dark-4: #999;
+
+    // Line
+    --line-primary: 2px solid var(--color-primary);
+}
+
 *, *::after, *::before {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
 }
 
-html{
-    //font-size: 62.5%; // 1rem = 10px
+html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'outfit', sans-serif;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    color: var(--color-white);
     box-sizing: border-box;
-    width: 100%;
+    font-size: var(--default-font-size);
+    background-color: var(--color-black);
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+// Anchors
+a {
+    text-decoration: none;
+    font-family: 'outfit', sans-serif;
+    color: var(--color-white);
 }
 
 
-// INPUTS
-input{
+// Inputs
+input {
     font-family: 'outfit', sans-serif;
     outline: none;
     border-radius: 0;
     border: none;
     border-bottom: 2px solid gray;
+}
+
+// removing webkit cancel button
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
 }
 

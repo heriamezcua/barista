@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- SECTION HERO -->
-    <div class="section-hero">
+    <section class="section-hero">
         <div class="hero">
 
             <div class="hero__text-box">
@@ -17,10 +17,10 @@
                 <a href="#" class="btn btn--cta">Shop Now</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION CATEGORIES -->
-    <div class="section-categories">
+    <section class="section-categories">
 
         <div class="categories">
 
@@ -48,10 +48,10 @@
                 <a class="category__link" href="#">Accesories</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION SELECTION -->
-    <div class="section-selection">
+    <section class="section-selection">
         <div class="selection">
             <div class="selection__text-box">
                 <h2 class="heading-primary u-margin-bottom-small">Top Selection</h2>
@@ -67,29 +67,31 @@
                     <a class="product-box__category" href="#">Machines</a>
                     <a class="product-box__category" href="#">Accessories</a>
                 </div>
-                <!-- btn left -->
-                <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
+                <div class="product-box__carousel">
+                    <!-- btn left -->
+                    <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
                                 fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
                 </span>
-                <div class="product-box__products">
-                    @foreach($products as $product)
+                    <div class="product-box__products">
+                        @foreach($products as $product)
 
-                        <x-product-card :product="$product"/>
+                            <x-product-card :product="$product"/>
 
-                    @endforeach
-                </div>
-                <!-- btn right -->
-                <span class="chev-box chev-box--right" onclick="moveCarousel(1)">
+                        @endforeach
+                    </div>
+                    <!-- btn right -->
+                    <span class="chev-box chev-box--right" onclick="moveCarousel(1)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
                         fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
                 </span>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION BRANDS -->
-    <div class="section-brands">
+    <section class="section-brands">
         <h2 class="heading-primary u-center-text u-margin-bottom-big">The Finest Offerings from Premier Brands</h2>
         <div class="brands">
             <!-- NESCAFE -->
@@ -876,10 +878,10 @@
 </svg>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION BESTSELLERS -->
-    <div class="section-bestsellers">
+    <section class="section-bestsellers">
         <div class="bestsellers">
             <div class="product-box">
                 <!-- btn left -->
@@ -906,10 +908,10 @@
                 <a class="btn btn--primary" href="#">Discover more</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION RECYCLING -->
-    <div class="section-recycling">
+    <section class="section-recycling">
         <div class="recycling">
             <div class="recycling__text-box">
                 <p class="heading-hero u-margin-bottom-medium">
@@ -921,10 +923,10 @@
                 <a href="#" class="btn btn--primary">Start recycling</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- SECTION SERVICE -->
-    <div class="section-services">
+    <section class="section-services">
         <div class="services">
             <div class="service">
                 <div class="service__icon service__icon--truck">
@@ -937,7 +939,7 @@
                     </svg>
                 </div>
                 <p class="service__text">
-                    Free shipping on orders over €50.
+                    Free shipping on orders over €50
                 </p>
             </div>
             <div class="service">
@@ -950,7 +952,7 @@
                     </svg>
                 </div>
                 <p class="service__text">
-                    Free shipping on orders over €50.
+                    Receive your order in 24 hours
                 </p>
             </div>
             <div class="service">
@@ -961,11 +963,11 @@
                     </svg>
                 </div>
                 <p class="service__text">
-                    Free shipping on orders over €50.
+                    Free returns and 24-hour solution guarantee
                 </p>
             </div>
         </div>
-    </div>
+    </section>
 
 
     <!-- Carousel -->

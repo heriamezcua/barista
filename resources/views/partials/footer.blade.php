@@ -502,7 +502,7 @@
 
         <div class="copy-box">
             <ul class="u-margin-bottom-medium">
-                <li>© 2024 Jacobs Douwe Egberts</li>
+                <li>© 2024 Barista</li>
                 <li><a class="text-small" href="#">Terms and conditions</a></li>
                 <li><a class="text-small" href="#">User terms</a></li>
                 <li><a class="text-small" href="#">Privacy policy</a></li>

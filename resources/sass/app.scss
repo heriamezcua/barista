@@ -10,12 +10,13 @@
 @import 'components/button';
 @import 'components/popUp';
 @import 'components/home/category';
-@import 'components/home/product';
+@import 'components/home/product-card';
 
 @import './layout/footer';
 @import "./layout/header";
 
 @import './pages/home';
+@import './pages/product';
 
 // usar bootstrap
 //@import "~bootstrap/scss/bootstrap.scss";

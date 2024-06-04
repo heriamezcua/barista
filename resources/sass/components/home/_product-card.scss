@@ -12,7 +12,17 @@
     }
 
     &__wish-icon {
+        display: inline-block;
+        position: relative;
+        width: 36px;
+        height: 36px;
         background: none;
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     }
 
     &__img-box {

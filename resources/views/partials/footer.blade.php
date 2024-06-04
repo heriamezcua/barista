@@ -1,7 +1,7 @@
 <footer class="footer">
-    <div class="footer-box">
+    <div class="footer__box">
         <!-- LINKS BOX -->
-        <div class="footer__links-box">
+        <div class="footer__links-box u-margin-bottom-medium">
             <!-- LIST BOX -->
             <div class="footer__list-box">
                 <p class="footer__heading u-margin-bottom-small">Barista shop</p>
@@ -498,6 +498,19 @@
                 </div>
             </div>
             <!-- LIST BOX -->
+        </div>
+
+        <div class="copy-box">
+            <ul class="u-margin-bottom-medium">
+                <li>© 2024 Jacobs Douwe Egberts</li>
+                <li><a class="text-small" href="#">Terms and conditions</a></li>
+                <li><a class="text-small" href="#">User terms</a></li>
+                <li><a class="text-small" href="#">Privacy policy</a></li>
+                <li><a class="text-small" href="#">Cookie policy</a></li>
+                <li><a class="text-small" href="#">Company information</a></li>
+            </ul>
+
+            <p class="vat-text">All prices include VAT and exclude any <a href="#"><span>additional (delivery) costs</span></a></p>
         </div>
     </div>
 

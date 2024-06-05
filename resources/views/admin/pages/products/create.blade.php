@@ -78,7 +78,7 @@
 
                             <div class="row mb-4">
                                 <!-- Bean options -->
-                                <div class="col-md-6 bean-options" style="display:none;">
+                                <div class="col-md-4 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="bean_format">Format Available</label>
                                         <select name="bean_format" id="bean_format" class="form-control">
@@ -89,16 +89,25 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 bean-options" style="display:none;">
+                                <div class="col-md-4 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="bean_type">Coffee Type</label>
                                         <select name="bean_type" id="bean_type" class="form-control">
                                             <option value="">-- Select Type --</option>
-                                            <option value="single_origin">Single-origin</option>
+                                            <option value="specialty">Specialty Coffee</option>
                                             <option value="blend">Blend</option>
-                                            <option value="decaf">Decaffeinated</option>
-                                            <option value="pack">Pack</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 bean-options" style="display:none;">
+                                    <div class="d-flex align-items-center">
+                                        <input type="checkbox" name="isDecaf"
+                                               class="form-check-input" style="width: 24px; height: 24px;">
+                                        <div class="d-flex flex-column align-items-center mx-2 my-1"
+                                             style="min-width: 50px;">
+                                            <label class="form-check-label"
+                                                   for="isDecaf">Decaffeinated</label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -133,7 +142,6 @@
                                             <option value="espresso">Espresso</option>
                                             <option value="long_black">Long Black</option>
                                             <option value="white">White</option>
-                                            <option value="decaf">Decaf</option>
                                         </select>
                                     </div>
                                 </div>

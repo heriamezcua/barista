@@ -77,12 +77,11 @@
                             </div> <!-- row -->
 
                             <div class="row">
-                                <!-- bean options -->
-                                <div class="col-md-6 bean-options"
+                                <!-- Bean options -->
+                                <div class="col-md-4 bean-options"
                                      style="{{($product->bean) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
-
-                                        <label for="bean_format">Format</label>
+                                        <label for="bean_format">Format Available</label>
                                         <select name="bean_format" id="bean_format" class="form-control">
                                             <option value="">-- Select Format --</option>
                                             <option
@@ -90,52 +89,44 @@
                                                 250g
                                             </option>
                                             <option
-                                                value="1000" {{($product->bean && $product->bean->format === 1000) ? 'selected' : ''}}>
-                                                1kg
+                                                value="500" {{($product->bean && $product->bean->format === 500) ? 'selected' : ''}}>
+                                                500g
                                             </option>
                                             <option
-                                                value="3000" {{($product->bean && $product->bean->format === 3000) ? 'selected' : ''}}>
-                                                3kg
+                                                value="1000" {{($product->bean && $product->bean->format === 1000) ? 'selected' : ''}}>
+                                                1kg
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6 bean-options"
+                                <div class="col-md-4 bean-options"
                                      style="{{($product->bean) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
-                                        <label for="bean_type">Type</label>
+                                        <label for="bean_type">Coffee Type</label>
                                         <select name="bean_type" id="bean_type" class="form-control">
                                             <option value="">-- Select Type --</option>
                                             <option
-                                                value="whole_bean" {{($product->bean && $product->bean->type == 'whole_bean') ? 'selected' : ''}}>
-                                                Whole Bean Coffee
+                                                value="specialty" {{($product->bean && $product->bean->type == 'specialty') ? 'selected' : ''}}>
+                                                Specialty Coffee
                                             </option>
                                             <option
-                                                value="french_press" {{($product->bean && $product->bean->type == 'french_press') ? 'selected' : ''}}>
-                                                French Press Ground
-                                            </option>
-                                            <option
-                                                value="aeropress" {{($product->bean && $product->bean->type == 'aeropress') ? 'selected' : ''}}>
-                                                AeroPress Ground
-                                            </option>
-                                            <option
-                                                value="v60" {{($product->bean && $product->bean->type == 'v60') ? 'selected' : ''}}>
-                                                V60 Ground
-                                            </option>
-                                            <option
-                                                value="chemex" {{($product->bean && $product->bean->type == 'chemex') ? 'selected' : ''}}>
-                                                Chemex Ground
-                                            </option>
-                                            <option
-                                                value="italian_moka" {{($product->bean && $product->bean->type == 'italian_moka') ? 'selected' : ''}}>
-                                                Italian Moka Ground
-                                            </option>
-                                            <option
-                                                value="espresso" {{($product->bean && $product->bean->type == 'espresso') ? 'selected' : ''}}>
-                                                Espresso Ground
+                                                value="blend" {{($product->bean && $product->bean->type == 'blend') ? 'selected' : ''}}>
+                                                Blend
                                             </option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 bean-options"
+                                     style="{{($product->bean) ? 'display:block' : 'display:none'}};">
+                                    <div class="d-flex align-items-center">
+                                        <input type="checkbox" name="isDecaf"
+                                               {{($product->bean && $product->bean->is_decaff) ? 'checked' : ''}}
+                                               class="form-check-input" style="width: 24px; height: 24px;">
+                                        <div class="d-flex flex-column align-items-center mx-2 my-1"
+                                             style="min-width: 50px;">
+                                            <label class="form-check-label"
+                                                   for="isDecaf">Decaffeinated</label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -214,8 +205,9 @@
                                         @foreach($colors as $color)
                                             <div class="d-flex align-items-center">
                                                 <input type="checkbox" name="colors[]" value="{{$color->id}}"
-                                                       @if($product->machine && in_array($color->id, $machineColorsArr)) checked @endif
-                                                class="form-check-input" style="width: 24px; height: 24px;">
+                                                       @if($product->machine && in_array($color->id, $machineColorsArr)) checked
+                                                       @endif
+                                                       class="form-check-input" style="width: 24px; height: 24px;">
                                                 <div class="d-flex flex-column align-items-center mx-2 my-1"
                                                      style="min-width: 50px;">
                                                     <label class="form-check-label"
@@ -356,7 +348,6 @@
             let imageCount = 1;
 
             addImageBtnEl.addEventListener('click', function () {
-                console.log('hello world!');
                 const container = document.getElementById('images-group');
                 imageCount = container.getElementsByClassName('image-upload-group').length;
                 const newImageGroup = document.createElement('div');

@@ -138,7 +138,7 @@
         </div>
 
         <form action="{{route('addToCart',  $product->id)}}" method="post">
-
+            @csrf
             <div class="properties u-margin-bottom-medium">
                 <div class="property">
                     @if($product->category === 'beans')
@@ -151,9 +151,9 @@
                 <div class="property">
                     @if($product->category === 'beans')
                         <div class="u-margin-bottom-small">
-                            @if($product->bean->type !== 'single_type')
+                            @if($product->bean->type === 'specialty')
                                 <div class="property__bean-icon-box">
-                                    <p>Single Type</p>
+                                    <p>Specialty</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="36px" height="36px"
                                          viewBox="0 0 32 32">
                                         <g fill="currentColor">

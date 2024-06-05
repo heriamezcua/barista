@@ -18,6 +18,7 @@
 
     &__img-box {
         flex: 0 0 50%;
+        padding-right: 2rem;
     }
 
     &__main-img-box {
@@ -55,7 +56,6 @@
             box-shadow: 0px 0px 8px var(--color-primary-light);
         }
 
-
         &:not(:last-child) {
             margin-right: .5rem;
         }
@@ -65,4 +65,30 @@
         flex: 0 0 50%;
         height: 31.25rem;
     }
+
+    &__title{
+        font-family: var(--font-secondary);
+        font-size: var(--product-single-fs);
+    }
+
+    &__rating-box {
+        display: flex;
+        align-items: center;
+    }
+
+    &__rating {
+        margin-right: 10px;
+    }
+
+    .properties {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .property {
+        border: 1px solid crimson;
+        width: 30px;
+        height: 30px;
+    }
 }
+

@@ -66,12 +66,94 @@
     </div>
 
     <div class="product-single__text-box">
+        @if(auth()->check() && auth()->user()->wishlist->contains($product))
+            <form class="u-margin-bottom-samll" action="{{route('removeFromWishlist', $product->id)}}" method="post">
+                @csrf
+                <button type="submit" class="product__wish-icon product__wish-icon--included">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#ff0000"
+                              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/>
+                    </svg>
+                </button>
+            </form>
+        @else
+            <form class="u-margin-bottom-small" action="{{route('addToWishlist', $product->id)}}" method="post">
+                @csrf
+                <button type="submit" class="product__wish-icon product__wish-icon--excluded">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#222222"
+                              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#ff0000"
+                              d="m12.1 18.55l-.1.1l-.11-.1C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5c0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3"/>
+                    </svg>
+                </button>
+            </form>
+        @endif
+
+        <div class="u-margin-bottom-small">
+            <p class="product-single__title">{{ucfirst(strtolower($product->title))}}</p>
+        </div>
+
+        <div class="product-single__rating-box u-margin-bottom-small">
+            <div class="product-single__rating">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                </svg>
+            </div>
+            <p class="product-single__reviews">
+                (127)
+            </p>
+        </div>
+
+        <form action="{{route('addToCart',  $product->id)}}" method="post">
+
+            <div class="properties">
+                <div class="property">
+                    @if($product->category === 'beans')
+                        <label for="format">Format:</label>
+                        <select name="format" id="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    @endif
+
+                </div>
+                <div class="product-single__property">
+
+                </div>
+            </div>
+        </form>
 
     </div>
 
 </div>
 
-<!-- product image carousel -->
+
+<!-- script for product image carousel -->
 <script>
     function changeImg(direction) {
         // Select elements
@@ -110,40 +192,6 @@
 
 
 {{--<div class="container">--}}
-
-{{--    <div class="row">--}}
-{{--        <div class="col-md-6">--}}
-{{--            @php--}}
-{{--                // Obtain the product main image, if not found set not found image--}}
-{{--                $imagesArray = json_decode($product->images);--}}
-{{--                $firstImage = !empty($imagesArray) ? $imagesArray[0] : 'no-image.png';--}}
-{{--                $folderName = !empty($imagesArray) ? explode('_', $firstImage)[0] : 'no-image.png';--}}
-{{--            @endphp--}}
-{{--            @if($imagesArray)--}}
-
-{{--                @foreach($imagesArray as $index => $image)--}}
-{{--                    @if(!$index)--}}
-{{--                        <img--}}
-{{--                            src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"--}}
-{{--                            alt="" width="450px">--}}
-{{--                    @else--}}
-{{--                        <div class="row">--}}
-{{--                            <img--}}
-{{--                                src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"--}}
-{{--                                alt="" style="width: 200px !important; height: 150px !important;">--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                @endforeach--}}
-
-{{--            @else--}}
-{{--                <img--}}
-{{--                    src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }}"--}}
-{{--                    alt="" width="450px">--}}
-
-{{--            @endif--}}
-{{--        </div>--}}
-{{--        <div class="col-md-6 d-flex flex-column justify-content-between">--}}
-
 {{--            <div class="row d-flex align-items-center">--}}
 {{--                <div class="col-md-6">--}}
 {{--                    <h4 class="mt-3"--}}

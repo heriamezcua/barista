@@ -6,16 +6,19 @@
     --font-secondary: "Josefin Sans", sans-serif;
 
     // Font size
-    --big-font-size: clamp(1.5rem, 1.4236rem + 0.3762vw, 1.875rem); //24-30px
-    --medium-font-size: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem); //20-24px
-    --default-font-size: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
-    --small-font-size: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
-    --xs-font-size: 0.875rem; //14px
+    --big-fs: clamp(1.5rem, 1.4236rem + 0.3762vw, 1.875rem); //24-30px
+    --medium-fs: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem); //20-24px
+    --default-fs: clamp(1rem, 0.9491rem + 0.2508vw, 1.25rem); //16-20px
+    --small-fs: clamp(0.875rem, 0.8495rem + 0.1254vw, 1rem); //14px-16px
+    --xs-fs: 0.875rem; //14px
 
     --heading-hero-fs: clamp(2.5rem, 2.3472rem + 0.7524vw, 3.25rem); //40px-52px
     --heading-primary-fs: clamp(1.875rem, 1.6967rem + 0.8777vw, 2.75rem); //30px-44px
 
     --btn-cta-fs: clamp(1.25rem, 1.1991rem + 0.2508vw, 1.5rem);
+
+    --product-single-fs: clamp(1.5rem, 1.1434rem + 1.7555vw, 3.25rem);
+
 
     // Color
     --color-primary: #d8a168;
@@ -55,7 +58,7 @@ body {
     font-weight: 400;
     color: var(--color-white);
     box-sizing: border-box;
-    font-size: var(--default-font-size);
+    font-size: var(--default-fs);
     background-color: var(--color-black);
 }
 

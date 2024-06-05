@@ -27,8 +27,8 @@
     }
 
     &__link {
-        font-size: var(--small-font-size);
-        font-weight: 400;
+        font-size: var(--small-fs);
+        font-weight: 300;
         transition: all 0.2s;
 
         &:hover {
@@ -60,7 +60,7 @@
         justify-content: space-between;
 
         li {
-            font-size: var(--xs-font-size);
+            font-size: var(--small-fs);
             color: var(--color-grey-light-4);
         }
 
@@ -70,7 +70,7 @@
     }
 
     .vat-text {
-        font-size: var(--xs-font-size);
+        font-size: var(--xs-fs);
         color: var(--color-grey-light-4);
 
         span {

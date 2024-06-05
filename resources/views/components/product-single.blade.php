@@ -13,6 +13,14 @@
                 {{-- first image set as main image --}}
                 @if(!$index)
                     <div class="product-single__main-img-box u-margin-bottom-small">
+
+                        <!-- discount -->
+                        @if($product->discount)
+                            <div class="product-single__discount-box">
+                                <p class="product-single__discount">-{{$product->discount}}%</p>
+                            </div>
+                        @endif
+
                         <!-- btn left -->
                         <span class="chev-box chev-box--left" onclick="changeImg(-1)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
@@ -67,7 +75,7 @@
 
     <div class="product-single__text-box">
         @if(auth()->check() && auth()->user()->wishlist->contains($product))
-            <form class="u-margin-bottom-samll" action="{{route('removeFromWishlist', $product->id)}}" method="post">
+            <form class="u-margin-bottom-small" action="{{route('removeFromWishlist', $product->id)}}" method="post">
                 @csrf
                 <button type="submit" class="product__wish-icon product__wish-icon--included">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -96,7 +104,7 @@
             <p class="product-single__title">{{ucfirst(strtolower($product->title))}}</p>
         </div>
 
-        <div class="product-single__rating-box u-margin-bottom-small">
+        <div class="product-single__rating-box u-margin-bottom-big">
             <div class="product-single__rating">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
                      viewBox="0 0 24 24">
@@ -131,7 +139,7 @@
 
         <form action="{{route('addToCart',  $product->id)}}" method="post">
 
-            <div class="properties u-margin-bottom-big">
+            <div class="properties u-margin-bottom-medium">
                 <div class="property">
                     @if($product->category === 'beans')
                         <div class="u-margin-bottom-small">
@@ -190,24 +198,44 @@
                 </div>
             </div>
 
-            <div class="product-single__description u-margin-bottom-small">
+            <div class="product-single__description u-margin-bottom-medium">
                 {{ucwords($product->description)}}
             </div>
 
-            <div class="product-single__price u-margin-bottom-big">
-                {{$product->price/100}}€
+            <div class="product-single__price-box u-margin-bottom-big">
+                @if($product->discount !== 0)
+                    <div class="product-single__price">
+                        <del>
+                            <span class="amount">{{intdiv($product->price, 100)}},<sup>{{str_pad($product->price%100, 2, '0', STR_PAD_LEFT)}}€</sup></span>
+                        </del>
+                        <ins>
+                            <span class="amount">{{intdiv(($product->price - ($product->price * ($product->discount/100))), 100)}},<sup>{{str_pad(($product->price - ($product->price * ($product->discount/100)))%100, 2, '0', STR_PAD_LEFT)}}€</sup></span>
+                        </ins>
+                    </div>
+                @else
+                    <div class="product-single__price">
+                        <p>{{intdiv($product->price, 100)}},{{str_pad($product->price%100, 2, '0', STR_PAD_LEFT)}}€</p>
+                    </div>
+                @endif
+
             </div>
 
             <div class="product-single__actions">
                 <div class="product-single__action">
-                    <div class="u-margin-bottom-small">
-                        <p>Quantity:</p>
+                    <div class="u-margin-bottom-small"><p>Quantity:</p></div>
+                    <div class="product-single__input-quantity-box">
+                        <button class="product-single__quantity-arrow product-single__quantity-arrow--minus">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24">
+                                <path fill="#ffffff" d="M19 12.998H5v-2h14z"/>
+                            </svg>
+                        </button>
+                        <input type="number" min="1" step="1" max="10" value="1"/>
+                        <button class="product-single__quantity-arrow product-single__quantity-arrow--plus">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24">
+                                <path fill="#ffffff" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/>
+                            </svg>
+                        </button>
                     </div>
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
                 </div>
                 <div class="product-single__action">
                     <button class="btn btn--primary">
@@ -258,6 +286,37 @@
             mainImgEl.style.backgroundImage = secImgEls[activeIndex].style.backgroundImage;
         }
     }
+</script>
+
+<!-- script for quantity manipulation -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        (function quantityProducts() {
+            const quantityArrowMinus = document.querySelector(".product-single__quantity-arrow--minus");
+            const quantityArrowPlus = document.querySelector(".product-single__quantity-arrow--plus");
+            const quantityNum = document.querySelector(".product-single__input-quantity-box input");
+
+            quantityArrowMinus.addEventListener('click', quantityMinus);
+            quantityArrowPlus.addEventListener('click', quantityPlus);
+
+            function quantityMinus(e) {
+                e.preventDefault();
+
+                if (parseInt(quantityNum.value) > 1) {
+                    quantityNum.value = parseInt(quantityNum.value) - 1;
+                }
+            }
+
+            function quantityPlus(e) {
+                e.preventDefault();
+
+                quantityNum.value = parseInt(quantityNum.value) + 1;
+            }
+        })();
+
+    });
 </script>
 
 

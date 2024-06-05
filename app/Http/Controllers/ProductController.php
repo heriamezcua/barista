@@ -44,7 +44,7 @@ class ProductController extends Controller
                 case 'beans':
                     // Validation of beans fields
                     $request->validate([
-                        'bean_format.*' => 'required|in:250,1000,3000',
+                        'bean_format' => 'required_if:category,beans|in:250,500,1000',
                         'bean_type' => 'required_if:category,beans|in:single_origin,blend,decaf,pack'
                     ]);
                     break;
@@ -104,7 +104,7 @@ class ProductController extends Controller
             // Create the subproduct depending on the category selected
             if ($request->category === 'beans') {
                 $bean = new Bean();
-                $bean->format = json_encode($request->bean_format);
+                $bean->format = $request->bean_format;
                 $bean->type = $request->bean_type;
                 // Asocia el producto recién creado con el bean
                 $product->bean()->save($bean);

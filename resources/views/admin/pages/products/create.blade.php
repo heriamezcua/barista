@@ -81,32 +81,12 @@
                                 <div class="col-md-6 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="bean_format">Format Available</label>
-                                        <div class="d-flex">
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" name="bean_format[]" value="250"
-                                                       class="form-check-input" style="width: 24px; height: 24px;">
-                                                <div class="d-flex flex-column align-items-center mx-2 my-1">
-                                                    <label class="form-check-label"
-                                                           for="bean_format[]">250g</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-2">
-                                                <input type="checkbox" name="bean_format[]" value="1000"
-                                                       class="form-check-input" style="width: 24px; height: 24px;">
-                                                <div class="d-flex flex-column align-items-center mx-2 my-1">
-                                                    <label class="form-check-label"
-                                                           for="bean_format[]">1kg</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-2">
-                                                <input type="checkbox" name="bean_format[]" value="3000"
-                                                       class="form-check-input" style="width: 24px; height: 24px;">
-                                                <div class="d-flex flex-column align-items-center mx-2 my-1">
-                                                    <label class="form-check-label"
-                                                           for="bean_format[]">3kg</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <select name="bean_format" id="bean_format" class="form-control">
+                                            <option value="">-- Select Format --</option>
+                                            <option value="250">250g</option>
+                                            <option value="500">500g</option>
+                                            <option value="1000">1kg</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 bean-options" style="display:none;">
@@ -145,7 +125,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 pod-options">
+                                <div class="col-md-4 pod-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="pod_variety">Variety</label>
                                         <select name="pod_variety" id="pod_variety" class="form-control">

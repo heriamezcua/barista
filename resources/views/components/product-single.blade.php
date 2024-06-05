@@ -144,15 +144,9 @@
                     @if($product->category === 'beans')
                         <div class="u-margin-bottom-small">
                             <label for="format">Format:</label>
+                            <span>{{$product->bean->format != 250  ? $product->bean->format/1000 . 'kg' : $product->bean->format .'g'}}</span>
                         </div>
-                        <select name="format" id="format">
-                            @foreach(json_decode($product->bean->format) as $format)
-                                <option
-                                    value="{{$format}}">{{$format != 250  ? $format/1000 . 'kg' : $format .'g'}}</option>
-                            @endforeach
-                        </select>
                     @endif
-
                 </div>
                 <div class="property">
                     @if($product->category === 'beans')

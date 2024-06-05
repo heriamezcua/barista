@@ -18,7 +18,7 @@
 
     &__img-box {
         flex: 0 0 50%;
-        padding-right: 2rem;
+        padding-right: 3rem;
     }
 
     &__main-img-box {
@@ -64,9 +64,15 @@
     &__text-box {
         flex: 0 0 50%;
         height: 31.25rem;
+
+        border: 1px solid red;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
     }
 
-    &__title{
+    &__title {
         font-family: var(--font-secondary);
         font-size: var(--product-single-fs);
     }
@@ -86,9 +92,58 @@
     }
 
     .property {
-        border: 1px solid crimson;
-        width: 30px;
-        height: 30px;
+        label {
+            font-size: var(--default-fs);
+        }
+
+        select, option {
+            font-family: var(--font-primary);
+            font-size: var(--small-fs);
+            padding: 0.312rem 0.625rem;
+            background-color: var(--color-grey-light-2);
+            border: 1px solid var(--color-grey-light-2);
+        }
+
+        &__bean-icon-box {
+            display: flex;
+            align-items: center;
+
+            svg {
+                flex: 0 0 36px;
+                margin-left: .75rem;
+            }
+        }
+    }
+
+    &__price {
+        font-size: var(--big-fs);
+    }
+
+    &__actions {
+        align-self: end;
+
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+
+        select, option {
+            font-family: var(--font-primary);
+            font-size: var(--default-font-size);
+            padding: 0.5rem 1rem;
+            font-weight: 400;
+
+            width: 100%;
+            background-color: var(--color-grey-light-2);
+            border: none;
+        }
+    }
+
+    &__action {
+        flex: 0 0 48%;
+
+        .btn--primary {
+            width: 100%;
+        }
     }
 }
 

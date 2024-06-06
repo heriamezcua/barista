@@ -223,7 +223,7 @@
                                 <path fill="#ffffff" d="M19 12.998H5v-2h14z"/>
                             </svg>
                         </button>
-                        <input type="number" min="1" step="1" max="10" value="1"/>
+                        <input name="quantity" type="number" min="1" step="1" max="10" value="1"/>
                         <button class="product-single__quantity-arrow product-single__quantity-arrow--plus">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24">
                                 <path fill="#ffffff" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/>

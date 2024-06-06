@@ -27,11 +27,11 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #ff0000;
+        background-color: #d70000;
         padding: 0.5rem 2rem;
     }
 
-    &__discount{
+    &__discount {
         font-weight: 600;
         font-size: var(--medium-fs);
         font-family: var(--font-secondary);
@@ -145,7 +145,7 @@
     }
 
     &__price {
-        p{
+        p {
             font-size: 2.5rem;
             font-weight: 400;
         }
@@ -251,4 +251,95 @@
     }
 }
 
+/*********************************
+*       SECTION RELATED          *
+*********************************/
 
+.section-related {
+    width: 100%;
+    padding: 7.812rem 5rem;
+}
+
+.related {
+    max-width: 87.5rem;
+    margin: 0 auto;
+
+    .heading-box {
+        display: flex;
+
+        svg {
+            margin-right: 1rem;
+
+
+        }
+    }
+}
+
+.products-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*********************************
+*       SECTION REVIEWS         *
+*********************************/
+
+.section-reviews {
+    width: 100%;
+    padding: 7.812rem 5rem;
+}
+
+.reviews {
+    max-width: 87.5rem;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    .heading-box {
+        display: flex;
+        justify-content: center;
+
+        svg {
+            margin-right: 1rem;
+        }
+    }
+
+    &__content-box {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__ratings {
+        flex: 0 0 45%;
+        border: 1px solid crimson;
+    }
+
+    &__comments {
+        flex: 0 0 45%;
+
+        border: 1px solid yellow;
+    }
+
+    &__star-filter {
+        font-size: var(--small-fs);
+        padding: .25rem .5rem;
+        max-width: fit-content;
+        border: 1px solid var(--color-white);
+    }
+
+}
+
+/*********************************
+*         SECTION WRITE          *
+*********************************/
+
+.section-write {
+    width: 100%;
+    padding: 7.812rem 5rem;
+}
+
+.write {
+    max-width: 87.5rem;
+    margin: 0 auto;
+}

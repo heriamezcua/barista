@@ -41,7 +41,6 @@ class CartController extends Controller
         }
 
         return back()->with('addedToCart', 'Product added to cart successfully!');
-
     }
 
     public function checkItemInCart($item)

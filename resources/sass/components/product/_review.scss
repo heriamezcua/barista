@@ -1,0 +1,47 @@
+.review {
+    border: 1px solid crimson;
+
+
+    &__author-box {
+        display: flex;
+        align-items: center;
+    }
+
+    &__author-icon {
+        margin-right: 1rem;
+    }
+
+    &__author-info {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+    }
+
+    &__author-name {
+        font-size: var(--small-fs);
+    }
+
+    &__date {
+        font-size: var(--small-fs);
+    }
+
+    &__author-rating {
+        display: flex;
+    }
+
+    &__title{
+        font-size: var(--small-fs);
+        text-transform: uppercase;
+        color: var(--color-primary);
+    }
+
+    &__body{
+        font-size: var(--small-fs);
+        line-height: 1.5;
+    }
+
+}
+
+.separator {
+    margin: 0 .7rem;
+}

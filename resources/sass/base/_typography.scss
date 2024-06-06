@@ -16,7 +16,7 @@
     font-size: var(--default-font-size);
     color: var(--text-white);
     hyphens: auto;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.4;
 
 }
@@ -32,6 +32,15 @@
 .heading-primary{
     font-family: var(--font-secondary);
     font-size: var(--heading-primary-fs);
+    font-weight: 600;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+
+.heading-secondary{
+    font-family: var(--font-primary);
+    font-size: var(--heading-secondary-fs);
     font-weight: 600;
     hyphens: auto;
     line-height: 1.2;

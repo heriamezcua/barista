@@ -1,0 +1,36 @@
+.progress {
+
+    &__box {
+        display: flex;
+        align-items: center;
+    }
+
+    &__text-box {
+        margin-right: .5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            font-size: var(--default-fs);
+            margin-right: .5rem;
+        }
+    }
+
+    &__bar-box{
+        width: 100%;
+        margin-right: .5rem;
+        background-color: var(--color-grey-dark-2);
+    }
+
+    &__bar {
+        background-color: var(--color-primary);
+        height: 11px;
+    }
+
+    &__number {
+        text-align: end;
+    }
+
+}

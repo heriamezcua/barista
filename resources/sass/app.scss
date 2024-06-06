@@ -5,17 +5,19 @@
 @import './base/utilities';
 @import './base/animations';
 
-
 @import 'components/authForm';
 @import 'components/button';
 @import 'components/popUp';
 @import 'components/home/category';
-@import 'components/home/product';
+@import 'components/product-card';
+@import 'components/product/progress';
+@import 'components/product/review';
 
 @import './layout/footer';
 @import "./layout/header";
 
 @import './pages/home';
+@import './pages/product';
 
 // usar bootstrap
 //@import "~bootstrap/scss/bootstrap.scss";

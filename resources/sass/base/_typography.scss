@@ -11,17 +11,29 @@
 
 */
 
-.text-normal {
+.text {
     font-family: var(--font-primary);
-    font-size: var(--default-font-size);
     color: var(--text-white);
     hyphens: auto;
-    font-weight: 400;
-    line-height: 1.4;
+    font-weight: 300;
 
+    &--normal {
+        font-size: var(--default-fs);
+        line-height: 1.4;
+    }
+
+    &--small {
+        font-size: var(--small-fs);
+        line-height: 1.2;
+    }
+
+    &--red{
+        color: var(--color-red);
+    }
 }
 
-.heading-hero{
+
+.heading-hero {
     font-size: var(--heading-hero-fs);
     font-family: var(--font-secondary);
     font-weight: 600;
@@ -29,9 +41,18 @@
     line-height: 1.2;
 }
 
-.heading-primary{
+.heading-primary {
     font-family: var(--font-secondary);
     font-size: var(--heading-primary-fs);
+    font-weight: 600;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+
+.heading-secondary {
+    font-family: var(--font-primary);
+    font-size: var(--heading-secondary-fs);
     font-weight: 600;
     hyphens: auto;
     line-height: 1.2;

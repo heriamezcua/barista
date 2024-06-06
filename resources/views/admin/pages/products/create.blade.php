@@ -78,37 +78,43 @@
 
                             <div class="row mb-4">
                                 <!-- Bean options -->
-                                <div class="col-md-6 bean-options" style="display:none;">
+                                <div class="col-md-4 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
-                                        <label for="bean_format">Format</label>
+                                        <label for="bean_format">Format Available</label>
                                         <select name="bean_format" id="bean_format" class="form-control">
                                             <option value="">-- Select Format --</option>
                                             <option value="250">250g</option>
+                                            <option value="500">500g</option>
                                             <option value="1000">1kg</option>
-                                            <option value="3000">3kg</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 bean-options" style="display:none;">
+                                <div class="col-md-4 bean-options" style="display:none;">
                                     <div class="form-group mb-6">
-                                        <label for="bean_type">Type</label>
+                                        <label for="bean_type">Coffee Type</label>
                                         <select name="bean_type" id="bean_type" class="form-control">
                                             <option value="">-- Select Type --</option>
-                                            <option value="whole_bean">Whole Bean Coffee</option>
-                                            <option value="french_press">French Press Ground</option>
-                                            <option value="aeropress">AeroPress Ground</option>
-                                            <option value="v60">V60 Ground</option>
-                                            <option value="chemex">Chemex Ground</option>
-                                            <option value="italian_moka">Italian Moka Ground</option>
-                                            <option value="espresso">Espresso Ground</option>
+                                            <option value="specialty">Specialty Coffee</option>
+                                            <option value="blend">Blend</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 bean-options" style="display:none;">
+                                    <div class="d-flex align-items-center">
+                                        <input type="checkbox" name="isDecaf"
+                                               class="form-check-input" style="width: 24px; height: 24px;">
+                                        <div class="d-flex flex-column align-items-center mx-2 my-1"
+                                             style="min-width: 50px;">
+                                            <label class="form-check-label"
+                                                   for="isDecaf">Decaffeinated</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Pod options -->
-                                <div class="col-md-6 pod-options" style="display:none;">
+                                <div class="col-md-4 pod-options" style="display:none;">
                                     <div class="form-group mb-6">
-                                        <label for="pod_quantity">Pods Quantity</label>
+                                        <label for="pod_quantity">Pods quantity</label>
                                         <select name="pod_quantity" id="pod_quantity" class="form-control">
                                             <option value="">-- Select Quantity --</option>
                                             <option value="12">x12</option>
@@ -117,7 +123,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 pod-options" style="display:none;">
+                                <div class="col-md-4 pod-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <label for="pod_size">Cup size</label>
                                         <select name="pod_size" id="pod_size" class="form-control">
@@ -125,6 +131,17 @@
                                             <option value="small">Small</option>
                                             <option value="medium">Medium</option>
                                             <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pod-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <label for="pod_variety">Variety</label>
+                                        <select name="pod_variety" id="pod_variety" class="form-control">
+                                            <option value="">-- Select Variety --</option>
+                                            <option value="espresso">Espresso</option>
+                                            <option value="long_black">Long Black</option>
+                                            <option value="white">White</option>
                                         </select>
                                     </div>
                                 </div>

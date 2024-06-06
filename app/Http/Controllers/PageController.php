@@ -34,7 +34,9 @@ class PageController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        return view('pages.product', ['product' => $product]);
+        $relatedProducts = Product::limit(3)->get();
+
+        return view('pages.product', ['product' => $product, 'relatedProducts' => $relatedProducts]);
     }
 
     public function checkout()

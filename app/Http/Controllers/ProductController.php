@@ -44,8 +44,8 @@ class ProductController extends Controller
                 case 'beans':
                     // Validation of beans fields
                     $request->validate([
-                        'bean_format' => 'required_if:category,beans|in:250,1000,3000',
-                        'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                        'bean_format' => 'required_if:category,beans|in:250,500,1000',
+                        'bean_type' => 'required_if:category,beans|in:specialty,blend'
                     ]);
                     break;
                 case 'pods':
@@ -106,6 +106,7 @@ class ProductController extends Controller
                 $bean = new Bean();
                 $bean->format = $request->bean_format;
                 $bean->type = $request->bean_type;
+                $bean->is_decaff = (isset($request->isDecaf) ? 1 : 0);
                 // Asocia el producto recién creado con el bean
                 $product->bean()->save($bean);
             } elseif ($request->category === 'pods') {
@@ -166,8 +167,8 @@ class ProductController extends Controller
                 case 'beans':
                     // Validation of beans fields
                     $request->validate([
-                        'bean_format' => 'required_if:category,beans|in:250,1000,3000',
-                        'bean_type' => 'required_if:category,beans|in:whole_bean,french_press,aeropress,v60,chemex,moka,espresso'
+                        'bean_format' => 'required_if:category,beans|in:250,500,1000',
+                        'bean_type' => 'required_if:category,beans|in:specialty,blend'
                     ]);
                     break;
                 case 'pods':
@@ -230,6 +231,7 @@ class ProductController extends Controller
                     $bean = Bean::where('product_id', $product->id)->firstOrFail();
                     $bean->format = $request->bean_format;
                     $bean->type = $request->bean_type;
+                    $bean->is_decaff = (isset($request->isDecaf) ? 1 : 0);
                     $bean->save();
                 } elseif ($request->category === 'pods') {
                     $pod = Pod::where('product_id', $product->id)->firstOrFail();
@@ -264,10 +266,13 @@ class ProductController extends Controller
                         break;
                 }
 
+                // Create the new one
                 if ($request->category === 'beans') {
                     $bean = new Bean();
-                    $bean->format = $request->bean_format;
+                    $bean->format = json_encode($request->bean_format);
                     $bean->type = $request->bean_type;
+                    $bean->is_decaff = $request->isDecaf;
+
                     // Asocia el producto recién creado con el bean
                     $product->bean()->save($bean);
                 } elseif ($request->category === 'pods') {

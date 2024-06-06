@@ -18,11 +18,46 @@
     //}
 }
 
-
-.u-margin-bottom-big{
+.u-margin-bottom-big {
     margin-bottom: 3rem !important;
 
     //@include respond(phone) {
     //    margin-bottom: 1.25rem !important;
     //}
+}
+
+.u-margin-top-small {
+    margin-top: 0.75rem !important;
+}
+
+.u-margin-top-medium {
+    margin-top: 1.5rem !important;
+
+    //@include respond(phone) {
+    //    margin-top: 1.25rem !important;
+    //}
+}
+
+.u-margin-top-big {
+    margin-top: 3rem !important;
+
+    //@include respond(phone) {
+    //    margin-bottom: 1.25rem !important;
+    //}
+}
+
+.u-text-center {
+    text-align: center;
+}
+
+.u-display-flex {
+    display: flex;
+}
+
+.u-align-center {
+    display: flex;
+}
+
+.u-justify-flex {
+    display: flex;
 }

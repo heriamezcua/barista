@@ -312,20 +312,10 @@
 
     &__ratings {
         flex: 0 0 45%;
-        border: 1px solid crimson;
     }
 
     &__comments {
         flex: 0 0 45%;
-
-        border: 1px solid yellow;
-    }
-
-    &__star-filter {
-        font-size: var(--small-fs);
-        padding: .25rem .5rem;
-        max-width: fit-content;
-        border: 1px solid var(--color-white);
     }
 
 }
@@ -336,10 +326,58 @@
 
 .section-write {
     width: 100%;
-    padding: 7.812rem 5rem;
+    padding: 3.125rem 5rem 7rem 5rem;
 }
 
 .write {
-    max-width: 87.5rem;
+    max-width: 42rem;
     margin: 0 auto;
+}
+
+.form-review {
+
+    input[type="text"], textarea {
+        font-family: var(--font-primary);
+        width: 100%;
+        margin-top: .5rem;
+        font-size: var(--default-fs);
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--color-grey-light-4);
+        color: var(--color-white);
+        line-height: 1.4;
+        outline: none;
+        padding: .7rem 0;
+
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid var(--color-primary);
+        }
+
+        &:focus:invalid {
+            border-bottom: 1px solid red;
+        }
+
+        &::-webkit-input-placeholder {
+            color: var(--color-grey-dark-4);
+            font-weight: 300;
+        }
+    }
+
+    textarea {
+        font-weight: 300;
+        height: 12.5rem;
+        resize: none;
+    }
+
+    label {
+        font-weight: 400;
+        font-size: var(--medium-fs);
+        margin-right: 1rem;
+    }
+
+    .rating-box {
+        display: flex;
+        align-items: center;
+    }
 }

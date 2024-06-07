@@ -1,0 +1,41 @@
+.pagination {
+    margin: 0 auto;
+
+    &__list {
+        display: flex;
+        list-style-type: none;
+    }
+
+
+    &__item {
+        .chev-box {
+            position: relative !important;
+            transform: none;
+            top: 0;
+            left: 0;
+
+            &--left {
+                margin-right: 1rem;
+            }
+
+            &__first, &--last {
+                cursor: default;
+            }
+        }
+    }
+
+    &__link {
+        margin-right: 1rem;
+
+        &:hover, &:active {
+            color: var(--color-grey-light-4);
+        }
+
+        &--active {
+            cursor: default;
+            color: var(--color-primary-dark) !important;
+        }
+    }
+
+
+}

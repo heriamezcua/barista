@@ -65,7 +65,6 @@
         background-position: center center;
         background-repeat: no-repeat;
         border: 1px solid var(--color-grey-dark-4);
-        cursor: pointer;
 
         &--active {
             border: 1px solid var(--color-primary);
@@ -257,7 +256,7 @@
 
 .section-related {
     width: 100%;
-    padding: 7.812rem 5rem;
+    padding: 4rem 5rem;
 }
 
 .related {
@@ -305,6 +304,10 @@
         }
     }
 
+    &__rating-heading {
+        font-size: var(--xl-fs);
+    }
+
     &__content-box {
         display: flex;
         justify-content: space-between;
@@ -316,6 +319,10 @@
 
     &__comments {
         flex: 0 0 45%;
+    }
+
+    &__pagination {
+
     }
 
 }

@@ -118,7 +118,7 @@
                         <!-- PROGRESS BOX -->
                         <div class="progress__box u-margin-bottom-small">
                             <div class="progress__text-box">
-                                <p>1</p>
+                                <p>5</p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                      viewBox="0 0 24 24">
                                     <path fill="currentColor"
@@ -128,60 +128,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="50"
+                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingFive : 0}}"
                                      aria-valuemin="0"
-                                     style="width: 50%;"
-                                     aria-valuemax="100">
-                                </div>
-                            </div>
-
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingOne : 0}}</p>
-                        </div>
-
-                        <!-- PROGRESS BOX -->
-                        <div class="progress__box u-margin-bottom-small">
-                            <div class="progress__text-box">
-                                <p>2</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                            </div>
-
-                            <div class="progress__bar-box">
-                                <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingTwo : 0}}"
-                                     aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingTwo / $totalReviews)*100 : 0}}%;"
+                                     style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
                                      aria-valuemax="{{$totalReviews}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingTwo : 0}}</p>
-                        </div>
-
-                        <!-- PROGRESS BOX -->
-                        <div class="progress__box u-margin-bottom-small">
-                            <div class="progress__text-box">
-                                <p>3</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                            </div>
-
-                            <div class="progress__bar-box">
-                                <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingThree : 0}}"
-                                     aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingThree / $totalReviews)*100 : 0}}%;"
-                                     aria-valuemax="{{$totalReviews}}">
-                                </div>
-                            </div>
-
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingThree : 0}}</p>
+                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingFive : 0}}</p>
                         </div>
 
                         <!-- PROGRESS BOX -->
@@ -210,7 +164,7 @@
                         <!-- PROGRESS BOX -->
                         <div class="progress__box u-margin-bottom-small">
                             <div class="progress__text-box">
-                                <p>5</p>
+                                <p>3</p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                      viewBox="0 0 24 24">
                                     <path fill="currentColor"
@@ -220,91 +174,79 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingFive : 0}}"
+                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingThree : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
+                                     style="width: {{$totalReviews !== 0 ? ($numRatingThree / $totalReviews)*100 : 0}}%;"
                                      aria-valuemax="{{$totalReviews}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingFive : 0}}</p>
+                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingThree : 0}}</p>
+                        </div>
+
+                        <!-- PROGRESS BOX -->
+                        <div class="progress__box u-margin-bottom-small">
+                            <div class="progress__text-box">
+                                <p>2</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                     viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                </svg>
+                            </div>
+
+                            <div class="progress__bar-box">
+                                <div class="progress__bar" role="progressbar"
+                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingTwo : 0}}"
+                                     aria-valuemin="0"
+                                     style="width: {{$totalReviews !== 0 ? ($numRatingTwo / $totalReviews)*100 : 0}}%;"
+                                     aria-valuemax="{{$totalReviews}}">
+                                </div>
+                            </div>
+
+                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingTwo : 0}}</p>
+                        </div>
+
+                        <!-- PROGRESS BOX -->
+                        <div class="progress__box u-margin-bottom-small">
+                            <div class="progress__text-box">
+                                <p>1</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                     viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                </svg>
+                            </div>
+
+                            <div class="progress__bar-box">
+                                <div class="progress__bar" role="progressbar"
+                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingOne : 0}}"
+                                     aria-valuemin="0"
+                                     style="width: {{$totalReviews !== 0 ? ($numRatingOne / $totalReviews)*100 : 0}}%"
+                                     aria-valuemax="{{$totalReviews}}">
+                                </div>
+                            </div>
+
+                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingOne : 0}}</p>
                         </div>
                     </div>
                 </div>
 
 
                 <div class="reviews__comments">
+                    @php
+                        $reviews = $product->reviews()->where('status', 'approved')->paginate(1);
+                    @endphp
+                    @foreach($reviews as $review)
 
-                    {{--                    <x-review-card :review="$review"/>--}}
-
-                    <div class="review">
-                        <div class="review__author-box u-margin-bottom-medium">
-                            <div class="review__author-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24">
-                                    <g fill="none" fill-rule="evenodd">
-                                        <path
-                                            d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/>
-                                        <path fill="currentColor"
-                                              d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.985 7.985 0 0 1 12 20a7.985 7.985 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984"/>
-                                    </g>
-                                </svg>
-                            </div>
-
-                            <div class="review__author-info">
-                                <p class="review__author-name">Hoxuro</p>
-                                <p class="separator">-</p>
-                                <p class="review__date">06/03/2024</p>
-                            </div>
-
-                            <div class="review__author-rating">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px"
-                                     viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                                </svg>
-                            </div>
+                        <div class="u-margin-bottom-big">
+                            <x-review-card :review="$review"/>
                         </div>
 
-                        <div class="review__text-box">
-                            <div class="u-margin-bottom-small">
-                                <p class="review__title">BRING BACK REGULAR CAPPUCCINO!</p>
-                            </div>
+                    @endforeach
 
-                            <div class="u-margin-bottom-medium">
-                                <p class="review__body">
-                                    I have been ordering via Dolce since 2014 and they used to sell a straight
-                                    cappuccino -
-                                    NOT SKINNY OR EXTRA CREMOSA which was a great taste. They do not seem to sell the
-                                    straight cappuccino anymore , just skinny or extra cremosa. I love the great foam it
-                                    creates but extra cremosa very sweet and skinny tastes like water. SHAME
-                                </p>
-                            </div>
-
-                            <button class="btn btn--review">Show more/less</button>
-                        </div>
-
-                        <!-- TODO: IMPLEMENTAR PAGINATION -->
-                        <div>PAGINATION</div>
+                    <div class="reviews__pagination">
+                        {{ $reviews->links('vendor.pagination.default') }}
                     </div>
                 </div>
             </div>
@@ -349,7 +291,16 @@
                                 <div>
                                     <input type="checkbox" name="rating" value="{{ $i }}"
                                            id="rating-{{ $i }}">
-                                    <label for="rating-{{ $i }}">{{ $i }}</label><br>
+                                    <label class="rating-star-label" for="rating-{{ $i }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px"
+                                             viewBox="0 0 24 24">
+                                            <path fill="#000000"
+                                                  d="m12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"
+                                                  opacity="0.3"/>
+                                            <path fill="#cccccc"
+                                                  d="m22 9.24l-7.19-.62L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21L12 17.27L18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"/>
+                                        </svg>
+                                    </label><br>
                                 </div>
                             @endfor
                         </div>
@@ -385,50 +336,85 @@
 
             @else
                 <div class="u-text-center">
-                    <p class="text text--normal">Only registered users can write reviews. Please <a class="btn" style="color: #d8a168; text-decoration: underline" href="{{route('login')}}">Sign in</a>
+                    <p class="text text--normal">Only registered users can write reviews. Please <a class="btn"
+                                                                                                    style="color: #d8a168; text-decoration: underline"
+                                                                                                    href="{{route('login')}}">Sign
+                            in</a>
                         or
-                        <a class="btn" style="color: #d8a168; text-decoration: underline" href="{{route('register')}}">Create an account</a></p>
+                        <a class="btn" style="color: #d8a168; text-decoration: underline" href="{{route('register')}}">Create
+                            an account</a></p>
                 </div>
 
             @endif
-
-
-
         </div>
     </section>
 
 
-    {{--                        <div class="col-md-6">--}}
+    <!-- script for product image carousel -->
+    <script>
+        function changeImg(direction) {
+            // Select elements
+            const mainImgEl = document.querySelector('.product-single__main-img');
+            const secImgEls = document.querySelectorAll('.product-single__sec-img');
+            const totalSecImgs = secImgEls.length;
 
-    {{--                            @foreach($product->reviews->where('status', 'approved') as $review)--}}
+            let activeIndex = -1;
 
-    {{--                                <div class="review-box mb-4">--}}
-    {{--                                    <div class="author mb-2">--}}
-    {{--                                        {{$review->nickname}}--}}
-    {{--                                        {{\Carbon\Carbon::parse($review->created_at)->format('d/m/Y')}}--}}
-    {{--                                        {{$review->rating}}--}}
-    {{--                                    </div>--}}
+            // Find the active image
+            secImgEls.forEach((img, index) => {
+                if (img.classList.contains('product-single__sec-img--active')) {
+                    img.classList.remove('product-single__sec-img--active');
+                    activeIndex = index;
+                }
+            });
 
-    {{--                                    <div class="review-body">--}}
-    {{--                                        <p>{{$review->summary}}</p>--}}
-    {{--                                        <p>{{$review->review}}</p>--}}
-    {{--                                    </div>--}}
+            // Change the active index
+            if (direction === -1) {
+                activeIndex = (activeIndex === 0) ? totalSecImgs - 1 : activeIndex - 1;
+            } else if (direction === 1) {
+                activeIndex = (activeIndex === totalSecImgs - 1) ? 0 : activeIndex + 1;
+            }
 
-    {{--                                    <button class="btn btn-secondary">Show more / less</button>--}}
-    {{--                                </div>--}}
+            // Apply the active class and change the main image
+            if (activeIndex === -1) {
+                const lastImgIndex = totalSecImgs - 1;
+                secImgEls[lastImgIndex].classList.add('product-single__sec-img--active');
+                mainImgEl.style.backgroundImage = secImgEls[lastImgIndex].style.backgroundImage;
+            } else if (activeIndex >= 0 && activeIndex < totalSecImgs) {
+                secImgEls[activeIndex].classList.add('product-single__sec-img--active');
+                mainImgEl.style.backgroundImage = secImgEls[activeIndex].style.backgroundImage;
+            }
+        }
+    </script>
 
-    {{--                            @endforeach--}}
+    <!-- script for quantity manipulation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            (function quantityProducts() {
+                const quantityArrowMinus = document.querySelector(".product-single__quantity-arrow--minus");
+                const quantityArrowPlus = document.querySelector(".product-single__quantity-arrow--plus");
+                const quantityNum = document.querySelector(".product-single__input-quantity-box input");
 
-    {{--                        </div>--}}
-    {{--                    </div>--}}
+                quantityArrowMinus.addEventListener('click', quantityMinus);
+                quantityArrowPlus.addEventListener('click', quantityPlus);
 
+                function quantityMinus(e) {
+                    e.preventDefault();
 
+                    if (parseInt(quantityNum.value) > 1) {
+                        quantityNum.value = parseInt(quantityNum.value) - 1;
+                    }
+                }
 
-    {{--                </div>--}}
-    {{--            </div>--}}
+                function quantityPlus(e) {
+                    e.preventDefault();
 
-    {{--        </div>--}}
-    {{--    </section>--}}
+                    quantityNum.value = parseInt(quantityNum.value) + 1;
+                }
+            })();
+
+        });
+    </script>
 
     <!-- Script to select only 1 checkbox -->
     <script>
@@ -443,6 +429,54 @@
                                 checkboxEl.checked = false;
                             }
                         });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ratingCheckboxes = document.querySelectorAll('input[type="checkbox"][name="rating"]');
+
+            // Iterar sobre cada checkbox
+            ratingCheckboxes.forEach(function (checkbox, index) {
+                // Agregar un evento de cambio
+                checkbox.addEventListener('change', function () {
+                    // Marcar todas las estrellas anteriores a la actual
+                    for (let i = 0; i <= index; i++) {
+                        ratingCheckboxes[i].checked = true;
+                    }
+                });
+            });
+
+        });
+    </script>
+
+    <!-- Scrit to show more or less text btn -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviews = document.querySelectorAll('.review');
+
+            reviews.forEach(function (review) {
+                const toggleBtn = review.querySelector('.btn--review');
+                const reviewBody = review.querySelector('.review__body');
+
+                const fullText = reviewBody.textContent.trim();
+                const limitedText = fullText.substring(0, 100);
+
+                // Text when the user enter
+                (limitedText >= fullText) ? reviewBody.textContent = limitedText : reviewBody.textContent = limitedText + '...';
+
+                toggleBtn.addEventListener('click', function () {
+                    if (reviewBody.textContent === fullText) {
+                        // If currently showing full text, switch to limited text
+                        (limitedText >= fullText) ? reviewBody.textContent = limitedText : reviewBody.textContent = limitedText + '...';
+                        toggleBtn.textContent = 'Show more';
+                    } else {
+                        // If currently showing limited text, switch to full text
+                        reviewBody.textContent = fullText;
+                        toggleBtn.textContent = 'Show less';
                     }
                 });
             });

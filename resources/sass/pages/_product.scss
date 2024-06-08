@@ -111,33 +111,26 @@
 
         padding-bottom: .5rem;
         border-bottom: 1px solid var(--color-primary);
-    }
 
-    .property {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        label {
-            font-size: var(--default-fs);
-            padding-right: .5rem;
-        }
-
-        select, option {
-            font-family: var(--font-primary);
-            font-size: var(--small-fs);
-            padding: 0.312rem 0.625rem;
-            background-color: var(--color-grey-light-2);
-            border: 1px solid var(--color-grey-light-2);
-        }
-
-        &__bean-icon-box {
+        .property {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            align-items: end;
+            padding-bottom: .5rem;
 
             svg {
-                flex: 0 0 36px;
-                margin-left: .75rem;
+                align-self: end;
+            }
+
+            &__size {
+                &:not(:last-child) {
+                    margin-right: .25rem;
+                }
+            }
+
+            &__title {
+                padding-right: .5rem;
+                font-size: var(--default-fs);
             }
         }
     }
@@ -335,7 +328,7 @@
         flex: 0 0 45%;
     }
 
-    &__no-comments-box{
+    &__no-comments-box {
         display: flex;
         align-items: center;
         justify-content: center;

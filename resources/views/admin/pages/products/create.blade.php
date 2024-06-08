@@ -63,7 +63,7 @@
 
                                     <div class="form-group mb-3">
                                         <label for="price">Price</label>
-                                        <input type="number" name="price" id="price"
+                                        <input type="number" step="0.01" name="price" id="price"
                                                class="form-control @error('price') is-invalid @enderror"
                                                value="{{old('price')}}">
                                         @error('price')

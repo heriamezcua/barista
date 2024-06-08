@@ -78,10 +78,52 @@
 
     &__rating {
         margin-right: 10px;
+
     }
 
     &__price {
-        font-size: var(--big-font-size);
-        font-weight: 400;
+        p {
+            font-size: var(--large-fs);
+            font-weight: 400;
+        }
+
+        del {
+            color: var(--color-grey-dark-3);
+            text-decoration: none;
+            position: relative;
+            font-size: var(--large-fs);
+            font-weight: 100;
+
+            &:before {
+                content: "";
+                display: block;
+                width: 100%;
+                border-top: 3px solid rgba(#777, 0.8);
+                height: 4px;
+                position: absolute;
+                bottom: 1.25rem;
+                left: 0;
+                transform: rotate(-11deg);
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                border-top: 3px solid rgba(#777, 0.8);
+                height: 4px;
+                position: absolute;
+                bottom: 1.25rem;
+                left: 0;
+                transform: rotate(11deg);
+            }
+        }
+
+        ins {
+            font-size: var(--large-fs);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 1em 1em 1em .5em;
+        }
     }
 }

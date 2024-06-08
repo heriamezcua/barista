@@ -117,9 +117,9 @@
                                         <label for="pod_quantity">Pods quantity</label>
                                         <select name="pod_quantity" id="pod_quantity" class="form-control">
                                             <option value="">-- Select Quantity --</option>
-                                            <option value="12">x12</option>
+                                            <option value="8">x8</option>
+                                            <option value="16">x16</option>
                                             <option value="24">x24</option>
-                                            <option value="36">x36</option>
                                         </select>
                                     </div>
                                 </div>
@@ -142,6 +142,7 @@
                                             <option value="espresso">Espresso</option>
                                             <option value="long_black">Long Black</option>
                                             <option value="white">White</option>
+                                            <option value="decaf">Decaf</option>
                                         </select>
                                     </div>
                                 </div>

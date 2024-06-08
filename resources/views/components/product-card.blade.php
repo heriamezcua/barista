@@ -37,47 +37,66 @@
             <div class="product__img"
                  style="background-image: url({{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }})">
             </div>
+                <!-- discount -->
+                @if($product->discount)
+                    <div class="product-single__discount-box">
+                        <p class="product-single__discount">-{{$product->discount}}%</p>
+                    </div>
+                @endif
         </a>
     </div>
     <div class="product__content">
         <div class="product__content--1">
             <p class="product__title u-margin-bottom-small">{{ucfirst(strtolower($product->title))}}</p>
             <div class="product__rating-box u-margin-bottom-small">
-                <div class="product__rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                         viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                         viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                         viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                         viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                         viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                    </svg>
+                <div class="product__rating u-display-flex u-align-center">
+                    @php
+                        // Calc the avg rating based in the reviews of the product
+                        $approvedReviews = $product->reviews->where('status', 'approved');
+                        $totalReviews = $approvedReviews->count();
+                        $rating = $totalReviews ? round($approvedReviews->avg('rating'), 2) : 0;
+                    @endphp
+
+                    @for ($i = 0; $i < round($rating); $i++)
+                        <div class="main-star full">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentcolor"
+                                      d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                            </svg>
+                        </div>
+                    @endfor
+                    @for ($i = round($rating) + 1; $i <= 5; $i++)
+                        <div class="main-star">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="m12 15.39l-3.76 2.27l.99-4.28l-3.32-2.88l4.38-.37L12 6.09l1.71 4.04l4.38.37l-3.32 2.88l.99 4.28M22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.45 4.73L5.82 21L12 17.27L18.18 21l-1.64-7.03z"/>
+                            </svg>
+                        </div>
+                    @endfor
                 </div>
                 <p class="product__reviews">
-                    (127)
+                    ({{$totalReviews}})
                 </p>
             </div>
             <p class="product__category u-margin-bottom-small">{{ ucwords($product->category) }}</p>
         </div>
         <div class="product__content--2">
-            <p class="product__price">{{$product->price / 100}} €</p>
+{{--            <p class="product__price">{{$product->price / 100}} €</p>--}}
+
+            @if($product->discount !== 0)
+                <div class="product__price">
+                    <del>
+                        <span class="amount">{{intdiv($product->price, 100)}},<sup>{{str_pad($product->price%100, 2, '0', STR_PAD_LEFT)}}€</sup></span>
+                    </del>
+                    <ins>
+                        <span class="amount">{{intdiv(($product->price - ($product->price * ($product->discount/100))), 100)}},<sup>{{str_pad(($product->price - ($product->price * ($product->discount/100)))%100, 2, '0', STR_PAD_LEFT)}}€</sup></span>
+                    </ins>
+                </div>
+            @else
+                <div class="product__price">
+                    <p>{{intdiv($product->price, 100)}},{{str_pad($product->price%100, 2, '0', STR_PAD_LEFT)}}€</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

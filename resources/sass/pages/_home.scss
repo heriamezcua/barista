@@ -60,13 +60,15 @@
     display: flex;
 
     &__text-box {
-        flex: 0 0 350px;
+        //flex: 0 0 350px;
+        flex: 0 0 25%;
         padding-right: 3.125rem;
     }
 }
 
 .product-box {
-    width: 100%;
+    flex: 0 0 75%;
+    max-width: 75%;
     height: 100%;
     position: relative;
 
@@ -76,9 +78,9 @@
     }
 
     &__carousel {
+        //width: 100%;
         position: relative;
         z-index: 1;
-
     }
 
     &__category {
@@ -101,6 +103,8 @@
     }
 
     &__products {
+        width: 100%;
+
         display: flex;
         overflow: hidden;
         scroll-behavior: smooth;
@@ -141,7 +145,7 @@
     display: flex;
 
     &__text-box {
-        flex: 0 0 350px;
+        flex: 0 0 25%;
         padding-left: 3.125rem;
     }
 }

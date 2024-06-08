@@ -105,36 +105,26 @@
         </div>
 
         <div class="product-single__rating-box u-margin-bottom-big">
-            <div class="product-single__rating">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                     viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                     viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                     viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                     viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.5em"
-                     viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                          d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                </svg>
-            </div>
-            <p class="product-single__reviews">
-                (127)
-            </p>
+
+            @for ($i = 0; $i < round($ratingInfo['rating']); $i++)
+                <div class="main-star full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentcolor"
+                              d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                    </svg>
+                </div>
+            @endfor
+            @for ($i = round($ratingInfo['rating']) + 1; $i <= 5; $i++)
+                <div class="main-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                              d="m12 15.39l-3.76 2.27l.99-4.28l-3.32-2.88l4.38-.37L12 6.09l1.71 4.04l4.38.37l-3.32 2.88l.99 4.28M22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.45 4.73L5.82 21L12 17.27L18.18 21l-1.64-7.03z"/>
+                    </svg>
+                </div>
+            @endfor
+
+            <p class="product-single__total-reviews">({{$ratingInfo['totalReviews']}})</p>
+
         </div>
 
         <form action="{{route('addToCart',  $product->id)}}" method="post">
@@ -144,7 +134,7 @@
                     @if($product->category === 'beans')
                         <div class="u-margin-bottom-small">
                             <label for="format">Format:</label>
-                            <span>{{$product->bean->format != 250  ? $product->bean->format/1000 . 'kg' : $product->bean->format .'g'}}</span>
+                            <span>{{$product->bean->format == 1000  ? $product->bean->format/1000 . 'kg' : $product->bean->format .'g'}}</span>
                         </div>
                     @endif
                 </div>

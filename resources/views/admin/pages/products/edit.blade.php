@@ -131,28 +131,28 @@
                                 </div>
 
                                 <!-- Pods options -->
-                                <div class="col-md-6 pod-options"
+                                <div class="col-md-4 pod-options"
                                      style="{{($product->pod) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
                                         <label for="pod_quantity">Pods Quantity</label>
                                         <select name="pod_quantity" id="pod_quantity" class="form-control">
                                             <option value="">-- Select Quantity --</option>
                                             <option
-                                                value="12" {{($product->pod && $product->pod->quantity == '12') ? 'selected' : ''}}>
-                                                x12
+                                                value="8" {{($product->pod && $product->pod->quantity == '8') ? 'selected' : ''}}>
+                                                x8
+                                            </option>
+                                            <option
+                                                value="16" {{($product->pod && $product->pod->quantity == '16') ? 'selected' : ''}}>
+                                                x16
                                             </option>
                                             <option
                                                 value="24" {{($product->pod && $product->pod->quantity == '24') ? 'selected' : ''}}>
                                                 x24
                                             </option>
-                                            <option
-                                                value="36" {{($product->pod && $product->pod->quantity == '36') ? 'selected' : ''}}>
-                                                x36
-                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 pod-options"
+                                <div class="col-md-4 pod-options"
                                      style="{{($product->pod) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
                                         <label for="pod_size">Cup size</label>
@@ -170,6 +170,18 @@
                                                 value="large" {{($product->pod && $product->pod->size == 'large') ? 'selected' : ''}}>
                                                 Large
                                             </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pod-options" style="{{($product->pod) ? 'display:block' : 'display:none'}};">
+                                    <div class="form-group mb-6">
+                                        <label for="pod_variety">Variety</label>
+                                        <select name="pod_variety" id="pod_variety" class="form-control">
+                                            <option value="">-- Select Variety --</option>
+                                            <option value="espresso" {{($product->pod && $product->pod->variety == 'espresso') ? 'selected' : ''}}>Espresso</option>
+                                            <option value="long_black" {{($product->pod && $product->pod->variety == 'long_black') ? 'selected' : ''}}>Long Black</option>
+                                            <option value="white" {{($product->pod && $product->pod->variety == 'white') ? 'selected' : ''}}>White</option>
+                                            <option value="decaf" {{($product->pod && $product->pod->variety == 'decaf') ? 'selected' : ''}}>Decaf</option>
                                         </select>
                                     </div>
                                 </div>

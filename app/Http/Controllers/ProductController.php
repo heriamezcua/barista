@@ -51,8 +51,9 @@ class ProductController extends Controller
                 case 'pods':
                     // Validation of pods fields
                     $request->validate([
-                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
-                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                        'pod_quantity' => 'required_if:category,pods|in:8,16,24',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large',
+                        'pod_variety' => 'required_if:category,pods|in:espresso,long_black,white,decaf',
                     ]);
                     break;
                 case 'machines':
@@ -113,6 +114,7 @@ class ProductController extends Controller
                 $pod = new Pod();
                 $pod->quantity = $request->pod_quantity;
                 $pod->size = $request->pod_size;
+                $pod->variety = $request->pod_variety;
                 // Asocia el producto recién creado con el bean
                 $product->pod()->save($pod);
             } elseif ($request->category === 'machines') {
@@ -174,8 +176,9 @@ class ProductController extends Controller
                 case 'pods':
                     // Validation of beans fields
                     $request->validate([
-                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
-                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                        'pod_quantity' => 'required_if:category,pods|in:8,16,24',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large',
+                        'pod_variety' => 'required_if:category,pods|in:espresso,long_black,white,decaf',
                     ]);
                     break;
                 case 'machines':
@@ -237,6 +240,7 @@ class ProductController extends Controller
                     $pod = Pod::where('product_id', $product->id)->firstOrFail();
                     $pod->quantity = $request->pod_quantity;
                     $pod->size = $request->pod_size;
+                    $pod->variety = $request->pod_variety;
                     $product->pod()->save($pod);
                 } elseif ($request->category === 'machines') {
                     $machine = Machine::where('product_id', $product->id)->firstOrFail();

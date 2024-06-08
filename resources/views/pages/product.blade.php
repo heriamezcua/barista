@@ -4,9 +4,13 @@
 
 @section('content')
 
+    @props([
+    'ratingInfo' => $ratingInfo,
+    ])
+
     <section class="section-product-single">
 
-        <x-product-single :product="$product"/>
+        <x-product-single :product="$product" :ratingInfo="$ratingInfo"/>
 
     </section>
 
@@ -24,8 +28,9 @@
             <div class="products-box">
                 @foreach($relatedProducts as $relatedProduct)
 
-                    <x-product-card :product="$product"/>
-
+                    <div class="product-box">
+                        <x-product-card :product="$relatedProduct"/>
+                    </div>
                 @endforeach
             </div>
 
@@ -56,54 +61,9 @@
 
             <div class="reviews__content-box">
                 <div class="reviews__ratings">
-
-                    @php
-                        // calc average rating
-                        $rating = 0;
-                        $totalReviews= count($product->reviews->where('status', 'approved'));
-
-                        if($totalReviews!=0){
-                        foreach ($product->reviews->where('status', 'approved') as $review){
-                            $rating+= $review->rating / $totalReviews;
-                        }
-
-                        $rating = round($rating, 2);
-
-                            // calc each number of rating numbers
-                            $numRatingOne = $product->reviews->where('status', 'approved')->where('rating', 1)->count();
-                            $numRatingTwo = $product->reviews->where('status', 'approved')->where('rating', 2)->count();
-                            $numRatingThree = $product->reviews->where('status', 'approved')->where('rating', 3)->count();
-                            $numRatingFour = $product->reviews->where('status', 'approved')->where('rating', 4)->count();
-                            $numRatingFive = $product->reviews->where('status', 'approved')->where('rating', 5)->count();
-                        }
-                    @endphp
-
-                    <div class="u-margin-bottom-small">
-                        <h3 class="reviews__rating-heading">{{$rating}}</h3>
-                    </div>
-
-                    <div class="reviews__rating-box u-margin-bottom-small">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                             viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                             viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                             viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                             viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                    <div class="reviews__rating-box u-margin-bottom-small u-display-flex u-align-center">
+                        <h3 class="reviews__rating-heading">{{$ratingInfo['rating']}}</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="36px"
                              viewBox="0 0 24 24">
                             <path fill="currentColor"
                                   d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
@@ -111,7 +71,7 @@
                     </div>
 
                     <div class="u-margin-bottom-medium">
-                        <p class="text-normal">{{$totalReviews !== 0 ? 'Based on '. $totalReviews .' reviews' : 'There are no reviews yet, be the first to post one!'}}</p>
+                        <p class="text-normal">{{$ratingInfo['totalReviews'] !== 0 ? 'Based on '. $ratingInfo['totalReviews'] .' reviews' : 'There are no reviews yet, be the first to post one!!'}}</p>
                     </div>
 
                     <div class="progress">
@@ -128,14 +88,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingFive : 0}}"
+                                     aria-valuenow="{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingFive'] : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingFive / $totalReviews)*100 : 0}}%;"
-                                     aria-valuemax="{{$totalReviews}}">
+                                     style="width: {{$ratingInfo['totalReviews'] !== 0 ? ($ratingInfo['numRatingFive'] / $ratingInfo['totalReviews'])*100 : 0}}%;"
+                                     aria-valuemax="{{$ratingInfo['totalReviews']}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingFive : 0}}</p>
+                            <p class="progress__number">{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingFive'] : 0}}</p>
                         </div>
 
                         <!-- PROGRESS BOX -->
@@ -151,14 +111,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingFour : 0}}"
+                                     aria-valuenow="{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingFour'] : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingFour / $totalReviews)*100 : 0}}%;"
-                                     aria-valuemax="{{$totalReviews}}">
+                                     style="width: {{$ratingInfo['totalReviews'] !== 0 ? ($ratingInfo['numRatingFour'] / $ratingInfo['totalReviews'])*100 : 0}}%;"
+                                     aria-valuemax="{{$ratingInfo['totalReviews']}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingFour : 0}}</p>
+                            <p class="progress__number">{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingFour'] : 0}}</p>
                         </div>
 
                         <!-- PROGRESS BOX -->
@@ -174,14 +134,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingThree : 0}}"
+                                     aria-valuenow="{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingThree'] : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingThree / $totalReviews)*100 : 0}}%;"
-                                     aria-valuemax="{{$totalReviews}}">
+                                     style="width: {{$ratingInfo['totalReviews'] !== 0 ? ($ratingInfo['numRatingThree'] / $ratingInfo['totalReviews'])*100 : 0}}%;"
+                                     aria-valuemax="{{$ratingInfo['totalReviews']}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingThree : 0}}</p>
+                            <p class="progress__number">{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingThree'] : 0}}</p>
                         </div>
 
                         <!-- PROGRESS BOX -->
@@ -197,14 +157,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingTwo : 0}}"
+                                     aria-valuenow="{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingTwo'] : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingTwo / $totalReviews)*100 : 0}}%;"
-                                     aria-valuemax="{{$totalReviews}}">
+                                     style="width: {{$ratingInfo['totalReviews'] !== 0 ? ($ratingInfo['numRatingTwo'] / $ratingInfo['totalReviews'])*100 : 0}}%;"
+                                     aria-valuemax="{{$ratingInfo['totalReviews']}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingTwo : 0}}</p>
+                            <p class="progress__number">{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingTwo'] : 0}}</p>
                         </div>
 
                         <!-- PROGRESS BOX -->
@@ -220,14 +180,14 @@
 
                             <div class="progress__bar-box">
                                 <div class="progress__bar" role="progressbar"
-                                     aria-valuenow="{{$totalReviews !== 0 ? $numRatingOne : 0}}"
+                                     aria-valuenow="{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingOne'] : 0}}"
                                      aria-valuemin="0"
-                                     style="width: {{$totalReviews !== 0 ? ($numRatingOne / $totalReviews)*100 : 0}}%"
-                                     aria-valuemax="{{$totalReviews}}">
+                                     style="width: {{$ratingInfo['totalReviews'] !== 0 ? ($ratingInfo['numRatingOne'] / $ratingInfo['totalReviews'])*100 : 0}}%"
+                                     aria-valuemax="{{$ratingInfo['totalReviews']}}">
                                 </div>
                             </div>
 
-                            <p class="progress__number">{{$totalReviews !== 0 ? $numRatingOne : 0}}</p>
+                            <p class="progress__number">{{$ratingInfo['totalReviews'] !== 0 ? $ratingInfo['numRatingOne'] : 0}}</p>
                         </div>
                     </div>
                 </div>
@@ -237,6 +197,13 @@
                     @php
                         $reviews = $product->reviews()->where('status', 'approved')->paginate(1);
                     @endphp
+
+                    @if(!$reviews->count())
+                        <div class="reviews__no-comments-box">
+                            <p class="text text--normal">There are no reviews yet, be the first to post one!!</p>
+                        </div>
+                    @endif
+
                     @foreach($reviews as $review)
 
                         <div class="u-margin-bottom-big">
@@ -246,7 +213,7 @@
                     @endforeach
 
                     <div class="reviews__pagination">
-                        {{ $reviews->links('vendor.pagination.default') }}
+                        {{ $reviews->links() }}
                     </div>
                 </div>
             </div>
@@ -286,20 +253,19 @@
                     <div class="form-review__group u-display-flex u-align-center u-margin-bottom-medium">
                         <label>Rating <span class="text--red">*</span></label>
 
-                        <div class="rating-box">
+                        <div class="form-review__rating-box">
                             @for ($i = 1; $i <= 5; $i++)
-                                <div>
-                                    <input type="checkbox" name="rating" value="{{ $i }}"
-                                           id="rating-{{ $i }}">
-                                    <label class="rating-star-label" for="rating-{{ $i }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px"
+                                <div class="form-review__star-box">
+                                    <label class="form-review__star-label" for="rating-{{ $i }}">
+                                        <input type="checkbox" name="rating" value="{{ $i }}"
+                                               id="rating-{{ $i }}">
+
+                                        <svg class="star" xmlns="http://www.w3.org/2000/svg" width="32px" height="32px"
                                              viewBox="0 0 24 24">
-                                            <path fill="#000000"
-                                                  d="m12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"
-                                                  opacity="0.3"/>
-                                            <path fill="#cccccc"
-                                                  d="m22 9.24l-7.19-.62L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21L12 17.27L18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"/>
+                                            <path class="star-fill"
+                                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
                                         </svg>
+
                                     </label><br>
                                 </div>
                             @endfor
@@ -416,44 +382,32 @@
         });
     </script>
 
-    <!-- Script to select only 1 checkbox -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkboxEls = document.querySelectorAll('input[type="checkbox"]');
-
-            checkboxEls.forEach(checkboxEl => {
-                checkboxEl.addEventListener('change', function () {
-                    if (this.checked) {
-                        checkboxEls.forEach(checkboxEl => {
-                            if (checkboxEl !== this) {
-                                checkboxEl.checked = false;
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
+    <!-- Script for stars checkbox -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const ratingCheckboxes = document.querySelectorAll('input[type="checkbox"][name="rating"]');
+            const starLabels = document.querySelectorAll('.form-review__star-label');
 
-            // Iterar sobre cada checkbox
-            ratingCheckboxes.forEach(function (checkbox, index) {
-                // Agregar un evento de cambio
-                checkbox.addEventListener('change', function () {
-                    // Marcar todas las estrellas anteriores a la actual
+            // Add event listeners to the labels
+            starLabels.forEach((label, index) => {
+                label.addEventListener('click', function () {
+                    // Uncheck all checkboxes
+                    ratingCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                        checkbox.closest('label').querySelector('.star').classList.remove('star-active');
+                    });
+
+                    // Check all stars up to the clicked one
                     for (let i = 0; i <= index; i++) {
                         ratingCheckboxes[i].checked = true;
+                        ratingCheckboxes[i].closest('label').querySelector('.star').classList.add('star-active');
                     }
                 });
             });
-
         });
     </script>
 
-    <!-- Scrit to show more or less text btn -->
+    <!-- Script to show more or less text btn -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const reviews = document.querySelectorAll('.review');

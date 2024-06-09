@@ -8,6 +8,8 @@
 @import 'components/authForm';
 @import 'components/button';
 @import 'components/popUp';
+@import 'components/chev-box';
+@import 'components/pagination';
 @import 'components/home/category';
 @import 'components/product-card';
 @import 'components/product/progress';
@@ -18,6 +20,8 @@
 
 @import './pages/home';
 @import './pages/product';
+@import './pages/cart';
+@import './pages/checkout';
 
 // usar bootstrap
 //@import "~bootstrap/scss/bootstrap.scss";

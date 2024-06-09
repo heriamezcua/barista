@@ -34,9 +34,53 @@ class PageController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $relatedProducts = Product::limit(3)->get();
+        // Obtaining random products with the same category
+        $relatedProducts = Product::where('category', $product->category)->where('id', '<>', $product->id)->inRandomOrder()->limit(3)->get();
 
-        return view('pages.product', ['product' => $product, 'relatedProducts' => $relatedProducts]);
+        // Calc the avg rating based in the reviews of the product
+        $approvedReviews = $product->reviews->where('status', 'approved');
+
+        $totalReviews = $approvedReviews->count();
+        $rating = $totalReviews ? round($approvedReviews->avg('rating'), 2) : 0;
+
+        // Group by rating number
+        $numRatings = $approvedReviews->groupBy('rating')->map->count();
+
+        $numRatingOne = $numRatings->get(1, 0);
+        $numRatingTwo = $numRatings->get(2, 0);
+        $numRatingThree = $numRatings->get(3, 0);
+        $numRatingFour = $numRatings->get(4, 0);
+        $numRatingFive = $numRatings->get(5, 0);
+
+        // Star fill info
+        $fullStars = floor($rating);
+        $partialStar = $rating - $fullStars;
+
+        $partialFill = 0;
+        if ($partialStar > 0 && $partialStar <= 0.25) {
+            $partialFill = 0.25;
+        } elseif ($partialStar > 0.25 && $partialStar <= 0.75) {
+            $partialFill = 0.5;
+        } elseif ($partialStar > 0.75) {
+            $partialFill = 0.75;
+        }
+
+        return view('pages.product',
+            [
+                'product' => $product,
+                'relatedProducts' => $relatedProducts,
+                'ratingInfo' => [
+                    'totalReviews' => $totalReviews,
+                    'rating' => $rating,
+                    'numRatingOne' => $numRatingOne,
+                    'numRatingTwo' => $numRatingTwo,
+                    'numRatingThree' => $numRatingThree,
+                    'numRatingFour' => $numRatingFour,
+                    'numRatingFive' => $numRatingFive,
+                    'fullStars' => $fullStars,
+                    'partialFill' => $partialFill,
+                ]
+            ]);
     }
 
     public function checkout()

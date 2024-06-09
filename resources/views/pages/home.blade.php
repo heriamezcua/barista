@@ -8,10 +8,10 @@
         <div class="hero">
 
             <div class="hero__text-box">
-                <p class="heading-hero u-margin-bottom-medium">
+                <p class="heading-hero u-margin-bottom-small">
                     L'OR Barista Sublime
                 </p>
-                <p class="text-normal u-margin-bottom-medium">
+                <p class="text-normal u-margin-bottom-big">
                     Don't miss the opportunity and get the best double capacity coffee machine on the market.
                 </p>
                 <a href="#" class="btn btn--cta">Shop Now</a>
@@ -71,8 +71,8 @@
                     <!-- btn left -->
                     <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                                fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
-                </span>
+                                    fill="currentColor"
+                                    d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg></span>
                     <div class="product-box__products">
                         @foreach($products as $product)
 
@@ -82,9 +82,9 @@
                     </div>
                     <!-- btn right -->
                     <span class="chev-box chev-box--right" onclick="moveCarousel(1)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                        fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
-                </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
+                                fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+                    </span>
                 </div>
             </div>
         </div>
@@ -887,7 +887,7 @@
                 <!-- btn left -->
                 <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                                fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
+                                    fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
                 </span>
                 <div class="product-box__products">
                     @foreach($products as $product)

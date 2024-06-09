@@ -65,7 +65,6 @@
         background-position: center center;
         background-repeat: no-repeat;
         border: 1px solid var(--color-grey-dark-4);
-        cursor: pointer;
 
         &--active {
             border: 1px solid var(--color-primary);
@@ -101,40 +100,59 @@
         margin-right: 10px;
     }
 
+    &__total-reviews {
+        margin-left: .5rem;
+        font-size: var(--default-fs);
+    }
+
     .properties {
         display: flex;
         justify-content: space-between;
 
         padding-bottom: .5rem;
         border-bottom: 1px solid var(--color-primary);
-    }
 
-    .property {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        label {
-            font-size: var(--default-fs);
-            padding-right: .5rem;
-        }
-
-        select, option {
-            font-family: var(--font-primary);
-            font-size: var(--small-fs);
-            padding: 0.312rem 0.625rem;
-            background-color: var(--color-grey-light-2);
-            border: 1px solid var(--color-grey-light-2);
-        }
-
-        &__bean-icon-box {
+        .property {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            align-items: end;
+            padding-bottom: .5rem;
 
             svg {
-                flex: 0 0 36px;
-                margin-left: .75rem;
+                align-self: end;
             }
+
+            &__size {
+                &:not(:last-child) {
+                    margin-right: .25rem;
+                }
+            }
+
+            &__title {
+                padding-right: .5rem;
+                font-size: var(--default-fs);
+            }
+
+            .colors {
+                display: flex;
+
+                &__color {
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+
+                    &:not(:last-child) {
+                        margin-right: .5rem;
+                    }
+
+                    &--active {
+                        cursor: default;
+                        border: 1px solid var(--color-primary);
+                        box-shadow: 0 0 3px var(--color-primary);
+                    }
+                }
+            }
+
         }
     }
 
@@ -257,7 +275,7 @@
 
 .section-related {
     width: 100%;
-    padding: 7.812rem 5rem;
+    padding: 4rem 5rem;
 }
 
 .related {
@@ -277,7 +295,14 @@
 
 .products-box {
     display: flex;
-    justify-content: space-between;
+
+
+    .product-box {
+        flex: 0 0 33%;
+
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /*********************************
@@ -305,9 +330,15 @@
         }
     }
 
+    &__rating-heading {
+        font-size: var(--xl-fs);
+        margin-right: 0.5rem;
+    }
+
     &__content-box {
         display: flex;
         justify-content: space-between;
+        word-break: break-all;
     }
 
     &__ratings {
@@ -316,6 +347,13 @@
 
     &__comments {
         flex: 0 0 45%;
+    }
+
+    &__no-comments-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 
 }
@@ -376,8 +414,70 @@
         margin-right: 1rem;
     }
 
-    .rating-box {
+    &__rating-box {
         display: flex;
         align-items: center;
     }
+
+    &__star-box {
+        position: relative;
+        width: 48px;
+        height: 48px;
+
+        input {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -65%);
+            width: 0.1rem;
+            height: 0.1rem;
+            color: var(--color-black);
+            border: none;
+            z-index: 1;
+        }
+    }
+
+    &__star-label {
+        cursor: pointer;
+    }
+}
+
+.star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    .star-fill {
+        fill: #cccccc;
+    }
+
+}
+
+.star-active {
+    .star-fill {
+        fill: var(--color-primary) !important;
+    }
+}
+
+.main-star-container {
+    display: flex;
+}
+
+.main-star {
+    width: 1.5em;
+    height: 1.75em;
+    position: relative;
+    display: inline-block;
+}
+
+.main-star svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.main-star.full svg path {
+    fill: var(--color-primary);
 }

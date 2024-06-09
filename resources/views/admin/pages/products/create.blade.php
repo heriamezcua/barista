@@ -63,7 +63,7 @@
 
                                     <div class="form-group mb-3">
                                         <label for="price">Price</label>
-                                        <input type="number" name="price" id="price"
+                                        <input type="number" step="0.01" name="price" id="price"
                                                class="form-control @error('price') is-invalid @enderror"
                                                value="{{old('price')}}">
                                         @error('price')
@@ -117,9 +117,9 @@
                                         <label for="pod_quantity">Pods quantity</label>
                                         <select name="pod_quantity" id="pod_quantity" class="form-control">
                                             <option value="">-- Select Quantity --</option>
-                                            <option value="12">x12</option>
+                                            <option value="8">x8</option>
+                                            <option value="16">x16</option>
                                             <option value="24">x24</option>
-                                            <option value="36">x36</option>
                                         </select>
                                     </div>
                                 </div>
@@ -142,26 +142,12 @@
                                             <option value="espresso">Espresso</option>
                                             <option value="long_black">Long Black</option>
                                             <option value="white">White</option>
+                                            <option value="decaf">Decaf</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <!-- Machine options -->
-                                <div class="col-md-4 machine-options" style="display:none;">
-                                    <div class="form-group mb-6">
-                                        <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
-                                               class="form-check-input"
-                                               style="width: 24px; height: 24px; margin-right: 14px;">
-                                        <label class="form-check-label" for="machine_is_auto">Automatic</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 machine-options" style="display:none;">
-                                    <div class="form-group mb-6">
-                                        <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
-                                        <input type="number" min="0" max="9999" name="machine_capacity"
-                                               id="machine_capacity" class="form-control"/>
-                                    </div>
-                                </div>
                                 <div class="col-md-4 machine-options" style="display:none;">
                                     <div class="form-group mb-6">
                                         <p>Available Colors</p>
@@ -180,37 +166,23 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-                            </div> <!-- row -->
-
-                            <div class="row">
-                                <div class="col-md-12 machine-options" style="display:none;">
+                                <div class="col-md-4 machine-options" style="display:none;">
                                     <div class="form-group mb-6">
-                                        <label class="form-check-label" for="machine_specs">Specifications</label>
-                                        <table class="table table-bordered" id="specsTable">
-                                            <thead>
-                                            <tr>
-                                                <th>Specification Name</th>
-                                                <th>Value</th>
-                                                <th class="text-center">
-                                                    <button type="button" class="btn btn-primary" id="btnAddSpec">Add
-                                                        Spec
-                                                    </button>
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td><input type="text" name="specifications[0][name]"
-                                                           class="form-control"></td>
-                                                <td><input type="text" name="specifications[0][value]"
-                                                           class="form-control"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
+                                        <input type="number" min="0" max="9999" name="machine_capacity"
+                                               id="machine_capacity" class="form-control"/>
                                     </div>
                                 </div>
-                            </div><!-- row -->
+                                <div class="col-md-4 machine-options" style="display:none;">
+                                    <div class="form-group mb-6">
+                                        <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
+                                               class="form-check-input"
+                                               style="width: 24px; height: 24px; margin-right: 14px;">
+                                        <label class="form-check-label" for="machine_is_auto">Automatic</label>
+                                    </div>
+                                </div>
+
+                            </div> <!-- row -->
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
@@ -355,49 +327,6 @@
                         });
                     }
                 });
-            });
-        </script>
-
-        <!-- add and delete specs -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const btnAddSpecEl = document.querySelector('#btnAddSpec');
-
-                // Add specification functionality
-                let specsCount = 0;
-                btnAddSpecEl.addEventListener('click', function () {
-                    //Selecting table
-                    const tbodyEl = document.querySelector('#specsTable tbody');
-                    specsCount++;
-                    newSpecHtml = `
-                    <tr>
-                        <td>
-                            <input type="text" name="specifications[${specsCount}][name]"
-                                   class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" name="specifications[${specsCount}][value]"
-                                   class="form-control">
-                        </td>
-                        <td>
-                            <button type="button" class="btnDeleteSpec btn btn-danger">Remove</button>
-                        </td>
-                    </tr>
-                    `
-
-                    tbodyEl.insertAdjacentHTML('beforeend', newSpecHtml);
-
-                    // delete spec functionality
-                    const btnsDeleteEl = document.querySelectorAll('.btnDeleteSpec');
-
-                    btnsDeleteEl.forEach(btnDelete => {
-                        btnDelete.addEventListener('click', function () {
-                            const closestTrEl = btnDelete.closest('tr');
-                            closestTrEl.remove();
-                        });
-                    });
-                });
-
             });
         </script>
 @endsection

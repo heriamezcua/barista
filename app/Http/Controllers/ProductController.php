@@ -51,18 +51,15 @@ class ProductController extends Controller
                 case 'pods':
                     // Validation of pods fields
                     $request->validate([
-                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
-                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                        'pod_quantity' => 'required_if:category,pods|in:8,16,24',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large',
+                        'pod_variety' => 'required_if:category,pods|in:espresso,long_black,white,decaf',
                     ]);
                     break;
                 case 'machines':
                     // Validation of machines fields
                     $request->validate([
                         'machine_capacity' => 'required_if:category,machines|min:0|max:9999',
-                        // specs validation
-                        'specifications' => 'required|array',
-                        'specifications.*.name' => 'required|string|max:255',
-                        'specifications.*.value' => 'required|string|max:255',
                         'colors.*' => 'integer|exists:colors,id',
                     ]);
                     break;
@@ -113,6 +110,7 @@ class ProductController extends Controller
                 $pod = new Pod();
                 $pod->quantity = $request->pod_quantity;
                 $pod->size = $request->pod_size;
+                $pod->variety = $request->pod_variety;
                 // Asocia el producto recién creado con el bean
                 $product->pod()->save($pod);
             } elseif ($request->category === 'machines') {
@@ -120,7 +118,6 @@ class ProductController extends Controller
 
                 $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
                 $machine->capacity = $request->machine_capacity;
-                $machine->specs = json_encode($request->specifications);
 
                 $product->machine()->save($machine);
 
@@ -174,18 +171,15 @@ class ProductController extends Controller
                 case 'pods':
                     // Validation of beans fields
                     $request->validate([
-                        'pod_quantity' => 'required_if:category,pods|in:12,24,36',
-                        'pod_size' => 'required_if:category,pods|in:small,medium,large'
+                        'pod_quantity' => 'required_if:category,pods|in:8,16,24',
+                        'pod_size' => 'required_if:category,pods|in:small,medium,large',
+                        'pod_variety' => 'required_if:category,pods|in:espresso,long_black,white,decaf',
                     ]);
                     break;
                 case 'machines':
                     // Validation of beans fields
                     $request->validate([
                         'machine_capacity' => 'required_if:category,machines|min:0|max:9999',
-                        // specs validation
-                        'specifications' => 'required|array',
-                        'specifications.*.name' => 'required|string|max:255',
-                        'specifications.*.value' => 'required|string|max:255',
                         'colors.*' => 'integer|exists:colors,id',
                     ]);
                     break;
@@ -237,13 +231,13 @@ class ProductController extends Controller
                     $pod = Pod::where('product_id', $product->id)->firstOrFail();
                     $pod->quantity = $request->pod_quantity;
                     $pod->size = $request->pod_size;
+                    $pod->variety = $request->pod_variety;
                     $product->pod()->save($pod);
                 } elseif ($request->category === 'machines') {
                     $machine = Machine::where('product_id', $product->id)->firstOrFail();
 
                     $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
                     $machine->capacity = $request->machine_capacity;
-                    $machine->specs = json_encode($request->specifications);
 
                     $product->machine()->save($machine);
 
@@ -286,7 +280,6 @@ class ProductController extends Controller
 
                     $machine->isAuto = (isset($request->machine_is_auto) ? 1 : 0);
                     $machine->capacity = $request->machine_capacity;
-                    $machine->specs = json_encode($request->specifications);
 
                     $product->machine()->save($machine);
 

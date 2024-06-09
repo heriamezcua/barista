@@ -11,13 +11,15 @@ class productSingle extends Component
 {
 
     public $product;
+    public $ratingInfo;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(Product $product)
+    public function __construct(Product $product, $ratingInfo)
     {
         $this->product = $product;
+        $this->ratingInfo = $ratingInfo;
     }
 
     /**

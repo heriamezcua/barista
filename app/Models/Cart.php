@@ -19,10 +19,27 @@ class Cart
     public static function totalAmount()
     {
         $total = 0;
-        foreach (session('cart') as $item) {
-            $total += self::unitPrice($item);
+        $cart = session('cart');
+
+        if (is_array($cart) || is_object($cart)) {
+            foreach ($cart as $item) {
+                $total += self::unitPrice($item);
+            }
         }
         return $total;
+    }
+
+    public static function totalItems()
+    {
+        $quantity = 0;
+        $cart = session('cart');
+
+        if (is_array($cart) || is_object($cart)) {
+            foreach ($cart as $item) {
+                $quantity += $item['quantity'];
+            }
+        }
+        return $quantity;
     }
 
 }

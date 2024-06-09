@@ -37,12 +37,12 @@
             <div class="product__img"
                  style="background-image: url({{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $firstImage) :  asset('storage/products/' . 'no-image.png') }})">
             </div>
-                <!-- discount -->
-                @if($product->discount)
-                    <div class="product-single__discount-box">
-                        <p class="product-single__discount">-{{$product->discount}}%</p>
-                    </div>
-                @endif
+            <!-- discount -->
+            @if($product->discount)
+                <div class="product-single__discount-box">
+                    <p class="product-single__discount">-{{$product->discount}}%</p>
+                </div>
+            @endif
         </a>
     </div>
     <div class="product__content">
@@ -81,7 +81,7 @@
             <p class="product__category u-margin-bottom-small">{{ ucwords($product->category) }}</p>
         </div>
         <div class="product__content--2">
-{{--            <p class="product__price">{{$product->price / 100}} €</p>--}}
+            {{--            <p class="product__price">{{$product->price / 100}} €</p>--}}
 
             @if($product->discount !== 0)
                 <div class="product__price">

@@ -132,6 +132,27 @@
                 padding-right: .5rem;
                 font-size: var(--default-fs);
             }
+
+            .colors {
+                display: flex;
+
+                &__color {
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+
+                    &:not(:last-child) {
+                        margin-right: .5rem;
+                    }
+
+                    &--active {
+                        cursor: default;
+                        border: 1px solid var(--color-primary);
+                        box-shadow: 0 0 3px var(--color-primary);
+                    }
+                }
+            }
+
         }
     }
 

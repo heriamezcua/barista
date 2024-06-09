@@ -173,40 +173,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 pod-options" style="{{($product->pod) ? 'display:block' : 'display:none'}};">
+                                <div class="col-md-4 pod-options"
+                                     style="{{($product->pod) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
                                         <label for="pod_variety">Variety</label>
                                         <select name="pod_variety" id="pod_variety" class="form-control">
                                             <option value="">-- Select Variety --</option>
-                                            <option value="espresso" {{($product->pod && $product->pod->variety == 'espresso') ? 'selected' : ''}}>Espresso</option>
-                                            <option value="long_black" {{($product->pod && $product->pod->variety == 'long_black') ? 'selected' : ''}}>Long Black</option>
-                                            <option value="white" {{($product->pod && $product->pod->variety == 'white') ? 'selected' : ''}}>White</option>
-                                            <option value="decaf" {{($product->pod && $product->pod->variety == 'decaf') ? 'selected' : ''}}>Decaf</option>
+                                            <option
+                                                value="espresso" {{($product->pod && $product->pod->variety == 'espresso') ? 'selected' : ''}}>
+                                                Espresso
+                                            </option>
+                                            <option
+                                                value="long_black" {{($product->pod && $product->pod->variety == 'long_black') ? 'selected' : ''}}>
+                                                Long Black
+                                            </option>
+                                            <option
+                                                value="white" {{($product->pod && $product->pod->variety == 'white') ? 'selected' : ''}}>
+                                                White
+                                            </option>
+                                            <option
+                                                value="decaf" {{($product->pod && $product->pod->variety == 'decaf') ? 'selected' : ''}}>
+                                                Decaf
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <!-- Machine options -->
-                                <div class="col-md-4 machine-options"
-                                     style="{{($product->machine) ? 'display:block' : 'display:none'}};">
-                                    <div class="form-group mb-6">
-                                        <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
-                                               class="form-check-input"
-                                               {{($product->machine && $product->machine->isAuto) ? 'checked' : ''}}
-                                               style="width: 24px; height: 24px; margin-right: 14px;">
-                                        <label class="form-check-label" for="machine_is_auto">Automatic</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 machine-options"
-                                     style="{{($product->machine) ? 'display:block' : 'display:none'}};">
-                                    <div class="form-group mb-6">
-                                        <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
-                                        <input type="number" min="0" max="9999"
-                                               value="{{($product->machine) ? $product->machine->capacity : ''}}"
-                                               name="machine_capacity"
-                                               id="machine_capacity" class="form-control"/>
-                                    </div>
-                                </div>
                                 <div class="col-md-4 machine-options"
                                      style="{{($product->machine) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
@@ -231,123 +224,97 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div> <!-- row -->
-
-                            <div class="row">
-                                <div class="col-md-12 machine-options"
+                                <div class="col-md-4 machine-options"
                                      style="{{($product->machine) ? 'display:block' : 'display:none'}};">
                                     <div class="form-group mb-6">
-                                        <label class="form-check-label" for="machine_specs">Specifications</label>
-                                        <table class="table table-bordered" id="specsTable">
-                                            <thead>
-                                            <tr>
-                                                <th>Specification Name</th>
-                                                <th>Value</th>
-                                                <th class="text-center">
-                                                    <button type="button" class="btn btn-primary" id="btnAddSpec">Add
-                                                        Spec
-                                                    </button>
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            @if($product->machine)
-                                                @foreach(json_decode($product->machine->specs) as $index => $spec)
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="specifications[{{$index}}][name]"
-                                                                   class="form-control" value="{{$spec->name}}">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="specifications[{{$index}}][value]"
-                                                                   class="form-control" value="{{$spec->value}}">
-                                                        </td>
-                                                        @if($index!==0)
-                                                            <td>
-                                                                <button type="button"
-                                                                        class="btnDeleteSpec btn btn-danger">Remove
-                                                                </button>
-                                                            </td>
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-
-                                            </tbody>
-                                        </table>
+                                        <label class="form-check-label" for="machine_capacity">Capacity (ml)</label>
+                                        <input type="number" min="0" max="9999"
+                                               value="{{($product->machine) ? $product->machine->capacity : ''}}"
+                                               name="machine_capacity"
+                                               id="machine_capacity" class="form-control"/>
                                     </div>
                                 </div>
-                            </div><!-- row -->
-
-                            <div class="row mb-3 d-flex align-items-end">
-
-                                <div class="col-md-6">
-                                    <div id="images-group" class="form-group mb-3">
-                                        <label for="images[]">Images:</label>
-                                        {{--                                        <div class="image-upload-group">--}}
-                                        @foreach(json_decode($product->images) as $index => $image)
-                                            @php
-                                                $folderName = !empty($image) ? explode('_', $image)[0] : 'no-image.png';
-                                            @endphp
-                                            <div class="image-upload-group">
-                                                <label for="images[]">Image {{$index + 1}}:</label>
-                                                <input type="file" name="images[]" accept="image/*"
-                                                       class="edit-image-input"
-                                                       value="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}">
-                                                <img
-                                                    src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
-                                                    alt="Image {{$index + 1}}" style="height: 100px;">
-                                                @if($index!== 0)
-                                                    <button type="button"
-                                                            class="btn btn-danger delete-image-button">Delete
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                        {{--                                        </div>--}}
+                                <div class="col-md-4 machine-options"
+                                     style="{{($product->machine) ? 'display:block' : 'display:none'}};">
+                                    <div class="form-group mb-6">
+                                        <input type="checkbox" name="machine_is_auto" id="machine_is_auto"
+                                               class="form-check-input"
+                                               {{($product->machine && $product->machine->isAuto) ? 'checked' : ''}}
+                                               style="width: 24px; height: 24px; margin-right: 14px;">
+                                        <label class="form-check-label" for="machine_is_auto">Automatic</label>
                                     </div>
-                                    <button type="button" id="add-image-button" class="btn btn-primary">Add
-                                        image
-                                    </button>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="description">Discount</label>
-                                        <input type="number" name="discount" id="discount" min="0" max="99" step="1"
-                                               value="{{$product->discount}}"
-                                               class="form-control @error('discount') is-invalid @enderror"
-                                               value="{{old('discount')}}">
-                                        @error('discount')
-                                        <span class="invalid-feedback">
+                                <!-- row -->
+
+                                <div class="row mb-3 d-flex align-items-end">
+
+                                    <div class="col-md-6">
+                                        <div id="images-group" class="form-group mb-3">
+                                            <label for="images[]">Images:</label>
+                                            {{--                                        <div class="image-upload-group">--}}
+                                            @foreach(json_decode($product->images) as $index => $image)
+                                                @php
+                                                    $folderName = !empty($image) ? explode('_', $image)[0] : 'no-image.png';
+                                                @endphp
+                                                <div class="image-upload-group">
+                                                    <label for="images[]">Image {{$index + 1}}:</label>
+                                                    <input type="file" name="images[]" accept="image/*"
+                                                           class="edit-image-input"
+                                                           value="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}">
+                                                    <img
+                                                        src="{{ !($folderName === 'no-image.png') ? asset('storage/products/' . $folderName . '/' . $image) :  asset('storage/products/' . 'no-image.png') }}"
+                                                        alt="Image {{$index + 1}}" style="height: 100px;">
+                                                    @if($index!== 0)
+                                                        <button type="button"
+                                                                class="btn btn-danger delete-image-button">Delete
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                            {{--                                        </div>--}}
+                                        </div>
+                                        <button type="button" id="add-image-button" class="btn btn-primary">Add
+                                            image
+                                        </button>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="description">Discount</label>
+                                            <input type="number" name="discount" id="discount" min="0" max="99" step="1"
+                                                   value="{{$product->discount}}"
+                                                   class="form-control @error('discount') is-invalid @enderror"
+                                                   value="{{old('discount')}}">
+                                            @error('discount')
+                                            <span class="invalid-feedback">
                                             <strong>{{$product->discount}}</strong>
                                         </span>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                            </div><!-- row -->
+                                </div><!-- row -->
 
-                            <div class="row mb-3">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="description">Description</label> &nbsp; &nbsp;
-                                        <textarea name="description" id="description" cols="30" rows="10"
-                                                  class="form-control @error('description') is-invalid @enderror"
-                                        >{{$product->description}}</textarea>
-                                        @error('description')
-                                        <span class="invalid-feedback">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description">Description</label> &nbsp; &nbsp;
+                                            <textarea name="description" id="description" cols="30" rows="10"
+                                                      class="form-control @error('description') is-invalid @enderror"
+                                            >{{$product->description}}</textarea>
+                                            @error('description')
+                                            <span class="invalid-feedback">
                                             <strong>{{$message}}</strong>
                                         </span>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
+                                </div><!-- row -->
+
+
+                                <div class="form-group text-end">
+                                    <button type="submit" class="btn btn-primary">Edit</button>
                                 </div>
-                            </div><!-- row -->
-
-
-                            <div class="form-group text-end">
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -438,52 +405,6 @@
                         });
                     }
                 });
-            });
-        </script>
-
-        <!-- add and delete specs -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const btnAddSpecEl = document.querySelector('#btnAddSpec');
-                let btnsDeleteEl = document.querySelectorAll('.btnDeleteSpec');
-
-
-                // Add specification functionality
-                let specsCount = 0;
-                btnAddSpecEl.addEventListener('click', function () {
-                    //Selecting table
-                    const tbodyEl = document.querySelector('#specsTable tbody');
-                    specsCount++;
-                    newSpecHtml = `
-                    <tr>
-                        <td>
-                            <input type="text" name="specifications[${specsCount}][name]"
-                                   class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" name="specifications[${specsCount}][value]"
-                                   class="form-control">
-                        </td>
-                        <td>
-                            <button type="button" class="btnDeleteSpec btn btn-danger">Remove</button>
-                        </td>
-                    </tr>
-                    `
-
-                    tbodyEl.insertAdjacentHTML('beforeend', newSpecHtml);
-
-                    // delete spec functionality
-                    btnsDeleteEl = document.querySelectorAll('.btnDeleteSpec');
-                });
-
-                // delete spec functionality
-                btnsDeleteEl.forEach(btnDelete => {
-                    btnDelete.addEventListener('click', function () {
-                        const closestTrEl = btnDelete.closest('tr');
-                        closestTrEl.remove();
-                    });
-                });
-
             });
         </script>
 @endsection

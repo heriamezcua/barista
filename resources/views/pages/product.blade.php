@@ -436,4 +436,31 @@
             });
         });
     </script>
+
+    <!-- Script to handle machine colors -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if the product is a machine
+            if (document.querySelector('.colors')) {
+
+                const colorsEls = document.querySelectorAll('.colors__color');
+
+                // by default select the first
+                colorsEls[0].classList.add('colors__color--active');
+
+                colorsEls.forEach(color => {
+                    color.addEventListener('click', function () {
+                        // unselect all colors
+                        colorsEls.forEach(color => {
+                            color.classList.remove('colors__color--active');
+                        });
+
+                        color.classList.add('colors__color--active');
+                    });
+                });
+
+            }
+        });
+    </script>
+
 @endsection

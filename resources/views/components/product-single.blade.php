@@ -195,6 +195,18 @@
                             <path class="shape"
                                   d="M2.1,2.6l1.3,8c0.2,0.9,1.1,1.5,2.1,1.5h11.4c1,0,1.9-0.6,2.1-1.5l1.3-8"/>
                         </svg>
+
+                    @elseif($product->category === 'machines')
+                        <p class="property__title">Available colors:</p>
+                        <div class="colors">
+                            @foreach($product->machine->colors as $color)
+
+                                <div class="colors__color"
+                                     style="background-color: {{$color->code}}"></div>
+
+                            @endforeach
+                        </div>
+
                     @endif
                 </div>
                 <div class="property">
@@ -354,6 +366,12 @@
                                 </g>
                             </g>
                                 </svg>
+
+                    @elseif($product->category === 'machines')
+                        <p>{{$product->machine->isAuto ? 'Automatic' : 'Manual'}}</p>
+                        <span>&nbsp;|&nbsp;</span>
+                        <p>{{$product->machine->capacity <= 1000 ? $product->machine->capacity . 'ml' : $product->machine->capacity/1000 . 'L'}}</p>
+
                     @endif
                 </div>
             </div>
@@ -377,7 +395,6 @@
                         <p>{{intdiv($product->price, 100)}},{{str_pad($product->price%100, 2, '0', STR_PAD_LEFT)}}€</p>
                     </div>
                 @endif
-
             </div>
 
             <div class="product-single__actions">

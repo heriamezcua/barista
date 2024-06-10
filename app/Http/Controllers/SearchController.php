@@ -21,7 +21,7 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
@@ -43,7 +43,7 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
@@ -65,7 +65,7 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
@@ -87,7 +87,7 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
@@ -109,7 +109,7 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
@@ -132,12 +132,42 @@ class SearchController extends Controller
         $allProducts = $products->get();
         $numResults = count($allProducts);
 
-        $products = $products->paginate(2)->appends([
+        $products = $products->paginate(6)->appends([
             'searchTerm' => $searchTerm,
             'products' => $products
         ]);
 
         return view('pages.search', ['products' => $products, 'searchTerm' => $searchTerm, 'numResults' => $numResults, 'active' => 'newest']);
+    }
+
+    public function filter(Request $request)
+    {
+        $query = Product::query();
+
+        if ($request->has('category')) {
+            $query->whereIn('category', $request->category);
+        }
+
+        if ($request->has('coffee_type')) {
+            $query->whereIn('coffee_type', $request->coffee_type);
+        }
+
+        if ($request->has('variety')) {
+            $query->whereIn('variety', $request->variety);
+        }
+
+        if ($request->has('caffeine')) {
+            $query->whereIn('caffeine', $request->caffeine);
+        }
+
+        $searchTerm = $request->input('searchTerm', '');
+        $numResults = $request->input('numResults', 10);
+        $active = '';
+
+        $products = $query->paginate($numResults);
+
+
+        return view('pages.search', compact('products', 'searchTerm', 'numResults', 'active'));
     }
 
 

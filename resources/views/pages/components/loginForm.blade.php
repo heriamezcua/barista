@@ -8,7 +8,9 @@
                 <form action="{{route('login')}}" method="post">
                     @csrf
                     <div class="field">
-                        <label for="email">Email</label>
+                        <div class="u-margin-bottom-small">
+                            <label for="email">Email</label>
+                        </div>
                         <input type="text" id="email" name="email" class="@error('email') has-error @enderror"
                                placeholder="John@gmail.com">
                         @error('email')
@@ -17,7 +19,9 @@
                     </div>
 
                     <div class="field">
-                        <label for="password">Password</label>
+                        <div class="u-margin-bottom-small">
+                            <label for="password">Password</label>
+                        </div>
                         <input type="password" id="password" name="password"
                                class="@error('password') has-error @enderror" placeholder="***********">
                         @error('password')
@@ -26,10 +30,13 @@
                     </div>
 
                     <div class="field">
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button type="submit" class="btn btn--primary">Login</button>
                     </div>
 
-                    <a href="{{route('register')}}">New user? Register now!</a>
+                    <p class="form__text">
+                        New user?
+                        <a class="btn" href="{{route('register')}}"> Register now!</a>
+                    </p>
 
                 </form>
             </div>

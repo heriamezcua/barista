@@ -63,6 +63,9 @@ Route::group(['prefix' => 'search'], function () {
     Route::get('/newest', [SearchController::class, 'newest'])->name('search.newest');
 });
 
+// Filters
+Route::get('/filter-products', [SearchController::class, 'filter'])->name('filter.products');
+
 // Product Reviews
 Route::post('product/{id}/reviews', [ReviewController::class, 'store'])->name('product.reviews.store');
 Route::get('reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');

@@ -13,7 +13,6 @@
             color: #fff;
             background-color: white;
             border: var(--bs-border-width) solid var(--bs-border-color);
-            border-radius: 5px;
             /*box-shadow: 0 1px 3px #e6ebf1;*/
             -webkit-transition: box-shadow 150ms ease;
             transition: box-shadow 150ms ease;

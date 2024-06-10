@@ -1,0 +1,27 @@
+.filters {
+    padding: 1rem;
+
+    &__title {
+        font-weight: 500;
+    }
+
+    &__list {
+        list-style: none;
+    }
+
+}
+
+.menu-item {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+.checkboxes {
+    display: none;
+    padding-left: 10px;
+}
+.checkboxes input {
+    background-color: var(--color-primary-dark);
+    margin-right: 10px;
+}

@@ -10,7 +10,7 @@
             height: 40px;
             padding: 10px 12px;
             width: 100%;
-            color: #32325d;
+            color: #fff;
             background-color: white;
             border: var(--bs-border-width) solid var(--bs-border-color);
             border-radius: 5px;
@@ -21,10 +21,10 @@
 
         .StripeElement--focus {
             color: var(--bs-body-color);
-            background-color: var(--bs-body-bg);
-            border-color: #86b7fe;
+            background-color: #ffffff;
+            border-color: var(--color-primary);
             outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(216, 161, 104, .6);
         }
 
         .StripeElement--invalid {
@@ -90,6 +90,8 @@
                         <select class="form-select" name="country" id="country">
                             <option value="">-- Select Country --</option>
                             <option value="Spain">Spain</option>
+                            <option value="Spain">Italy</option>
+                            <option value="Spain">France</option>
                         </select>
                         @error('country')
                         <span class="field-error">{{$message}}</span>

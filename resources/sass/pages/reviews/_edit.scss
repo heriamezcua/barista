@@ -1,0 +1,38 @@
+/*********************************
+*          SECTION EDIT          *
+*********************************/
+
+.section-edit {
+    width: 100%;
+    padding: 8rem 8rem;
+}
+
+.edit {
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.heading-secondary a {
+    text-decoration: underline;
+    transition: all 0.2s;
+    color: var(--color-grey-light-4);
+
+    &:hover {
+        color: var(--color-grey-dark-4);
+    }
+}
+
+.alert {
+    color: var(--color-white);
+    padding: 0.4rem 0.8rem;
+    font-weight: 400;
+
+    &--success {
+        background-color: #007654;
+    }
+
+
+    &--error {
+        background-color: #ff4d2c;
+    }
+}

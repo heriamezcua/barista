@@ -3,32 +3,36 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="accounts-page">
-        <div class="container">
-            <section class="u-box d-flex justify-content-between py-3">
+
+    <section class="section-account">
+
+        <div class="account">
+
+            <div class="account__user-box u-margin-bottom-big">
+
                 <div>
-                    <p class="fs-3">
-                        {{auth()->user()->name}}
-                    </p>
-                    <p class="fs-5">
-                        {{auth()->user()->email}}
-                    </p>
+                    <div class="u-margin-bottom-small">
+                        <p class="heading-secondary">Welcome, {{auth()->user()->name}}</p>
+                    </div>
+                    <p class="text">{{auth()->user()->email}}</p>
                 </div>
 
-                <div class="user-btn">
+                <div>
                     <form action="{{route('logout')}}" method="post">
                         @csrf
-                        <button class="btn btn-primary">logout</button>
+                        <button class="btn btn--primary">logout</button>
                     </form>
                 </div>
-            </section>
+            </div>
 
-            <section class="py-3">
-                <p class="fs-3">Recent Orders</p>
+            <div class="account__orders u-margin-bottom-big">
+                <div class="u-margin-bottom-small">
+                    <h3 class="heading-tertiary">My orders</h3>
+                </div>
 
                 <table class="table">
                     <thead>
-                    <tr class="table-secondary">
+                    <tr>
                         <th>ID</th>
                         <th>Items</th>
                         <th>Total</th>
@@ -44,25 +48,33 @@
                                 <td>{{$order->id}}</td>
                                 <td>{{$order->items->count()}}</td>
                                 <td>${{$order->total / 100}}</td>
-                                <td>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y')}}</td>
-                                <td>{{$order->status}}</td>
+                                <td>{{\Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i')}}</td>
+                                <td>
+                                    <span
+                                        class="status status--{{$order->status}}">{{$order->status}}</span>
+                                </td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" style="text-align: center">No orders</td>
+                            <td colspan="5">No orders</td>
                         </tr>
                     @endif
                     </tbody>
                 </table>
-            </section>
 
-            <section class="py-3">
-                <h2>Recent reviews</h2>
+            </div>
+
+            <div class="account__reviews">
+
+
+                <div class="u-margin-bottom-small">
+                    <h3 class="heading-tertiary">My reviews</h3>
+                </div>
 
                 <table class="table">
                     <thead>
-                    <tr class="table-secondary">
+                    <tr>
                         <th>Product</th>
                         <th>Summary</th>
                         <th>Review</th>
@@ -77,23 +89,24 @@
                     @if(auth()->user()->reviews && auth()->user()->reviews->count())
                         @foreach(auth()->user()->reviews as $review)
                             <tr>
-                                <td>{{$review->product_id}}</td>
+                                <td><a href="{{route('product', $review->product_id)}}">{{$review->product_id}}</a></td>
                                 <td>{{$review->summary}}</td>
                                 <td>{{ Str::limit($review->review, 60) }}</td>
                                 <td>{{$review->rating}}</td>
-                                <td>{{\Carbon\Carbon::parse($review->created_at)->format('d/m/Y')}}</td>
+                                <td>{{\Carbon\Carbon::parse($review->created_at)->format('d/m/Y H:i')}}</td>
                                 <td>
-                                    <span>{{($review->status == 'under_review') ? 'Under review': $review->status}}</span>
+                                    <span
+                                        class="status status--{{$review->status}}">{{($review->status == 'under_review') ? 'Under review': $review->status}}</span>
                                 </td>
                                 <td>
-                                    <div class="d-flex" style="gap: 5px">
+                                    <div class="actions-box">
                                         <a href="{{route('reviews.edit', $review->id)}}"
-                                           class="btn btn-secondary">Edit</a>
+                                           class="btn btn--edit">Edit</a>
                                         <form action="{{route('reviews.destroy', $review->id)}}"
                                               method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
+                                            <button type="submit" class="btn btn--delete">Delete</button>
                                         </form>
                                     </div>
                                 </td>
@@ -101,13 +114,12 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" style="text-align: center">No reviews</td>
+                            <td colspan="6">No reviews</td>
                         </tr>
                     @endif
                     </tbody>
                 </table>
-            </section>
-
+            </div>
         </div>
-    </div>
+    </section>
 @endsection

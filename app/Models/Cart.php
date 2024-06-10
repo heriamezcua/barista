@@ -12,7 +12,10 @@ class Cart
 
     public static function unitPrice($item)
     {
-        // return price * quantity
+        // return price * quantity and check if has discount
+        if ($item['product']['discount']) {
+            return (new self)->centsToPrice($item['product']['price'] * $item['quantity'] - ($item['product']['price'] * $item['quantity'] * $item['product']['discount'] / 100));
+        }
         return (new self)->centsToPrice($item['product']['price'] * $item['quantity']);
     }
 

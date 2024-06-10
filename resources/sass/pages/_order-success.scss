@@ -1,0 +1,38 @@
+/*********************************
+*       SECTION SUCCESS          *
+*********************************/
+
+.section-success {
+    width: 100%;
+    padding: 10rem 8rem;
+}
+
+.success {
+    max-width: 87.5rem;
+    height: 15.625rem;
+    margin: 0 auto;
+
+    border: 2px solid var(--color-primary);
+    padding: 2rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    &__text-box {
+        flex: 0 0 25%;
+
+        h2 {
+            font-weight: 400;
+        }
+
+    }
+
+    .btn {
+        max-width: fit-content;
+    }
+
+    &__id {
+        color: var(--color-primary);
+        font-weight: 400;
+    }
+}

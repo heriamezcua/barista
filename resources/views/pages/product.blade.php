@@ -225,13 +225,13 @@
 
             @if(auth()->user())
                 @if(session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert--success u-margin-bottom-small">
                         {{session('success')}}
                     </div>
                 @endif
 
                 @if(session('error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert--error u-margin-bottom-small">
                         {{session('error')}}
                     </div>
                 @endif

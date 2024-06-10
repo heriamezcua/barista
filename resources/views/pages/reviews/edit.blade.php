@@ -3,112 +3,126 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="accounts-page">
-        <div class="container">
-            <section class="u-box d-flex justify-content-between py-3">
-                <div>
-                    <p class="fs-3">
-                        {{auth()->user()->name}}
-                    </p>
-                    <p class="fs-5">
-                        {{auth()->user()->email}}
-                    </p>
+
+    <section class="section-edit">
+
+        <div class="edit">
+            <div class="edit__form-box">
+
+                @if(session('success'))
+                    <div class="alert alert--success u-margin-bottom-small">
+                        {{session('success')}}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert--error u-margin-bottom-small">
+                        {{session('error')}}
+                    </div>
+                @endif
+
+                <div class="heading-box u-margin-bottom-big">
+                    <div class="u-margin-bottom-small">
+                        <h2 class="heading-secondary">Editing review for product <a
+                                href="{{route('product', \App\Models\Product::findOrFail($review->product_id))}}">{{\App\Models\Product::findOrFail($review->product_id)->title}}</a>
+                        </h2>
+                    </div>
+
+                    <p class="text text--small">Required fields are marked with an <span
+                            class="text text--small text--red">*</span></p>
+
                 </div>
 
-                <div class="user-btn">
-                    <form action="{{route('logout')}}" method="post">
-                        @csrf
-                        <button class="btn btn-primary">logout</button>
-                    </form>
-                </div>
-            </section>
+                <form class="form-review" action="{{route('reviews.update', $review->id)}}" method="post">
+                    @method('PUT')
+                    @csrf
 
-            <section class="py-3">
+                    <!-- rating -->
+                    <div class="form-review__group u-display-flex u-align-center u-margin-bottom-medium">
+                        <label>Rating <span class="text--red">*</span></label>
 
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{session('success')}}
-                        </div>
-                    @endif
+                        <div class="form-review__rating-box">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <div class="form-review__star-box">
+                                    <label class="form-review__star-label" for="rating-{{ $i }}">
+                                        <input type="checkbox" name="rating" value="{{ $i }}"
+                                               id="rating-{{ $i }} {{($review->rating >= $i) ? 'checked' : ''}}">
 
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{session('error')}}
-                        </div>
-                    @endif
+                                        <svg class="star {{($review->rating >= $i) ? 'star-active' : ''}}"
+                                             xmlns="http://www.w3.org/2000/svg" width="32px" height="32px"
+                                             viewBox="0 0 24 24">
+                                            <path class="star-fill"
+                                                  d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"/>
+                                        </svg>
 
-                    <div class="row pb-4">
-                        <div class="col-md-6 mx-auto">
-                            <h3>Editing review for product <a href="{{route('product', \App\Models\Product::findOrFail($review->product_id))}}">{{\App\Models\Product::findOrFail($review->product_id)->title}}</a></h3>
-                            <p class="text-secondary">Required fields are marked with an <span
-                                    class="text-danger">*</span></p>
-
-                            <form action="{{route('reviews.update', $review->id)}}" method="post">
-                                @method('PUT')
-                                @csrf
-
-                                <!-- rating -->
-                                <div class="form-group mb-4">
-                                    <label>Rating <span class="text-danger">*</span></label>
-                                    <div class="d-flex">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <div style="margin-right: 10px;">
-                                                <input type="checkbox" name="rating" value="{{ $i }}"
-                                                       id="rating-{{ $i }}" {{($review->rating === $i) ? 'checked' : ''}}>
-                                                <label for="rating-{{ $i }}">{{ $i }}</label><br>
-                                            </div>
-                                        @endfor
-                                    </div>
+                                    </label><br>
                                 </div>
-
-                                <!-- summary -->
-                                <div class="form-group mb-4">
-                                    <label class="mb-2" for="summary">Summary <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="summary" style="width: 100%"
-                                           value="{{$review->summary}}">
-                                </div>
-
-                                <!-- review -->
-                                <div class="form-group mb-4">
-                                    <label class="mb-2" for="review">Review</label>
-                                    <input type="text" name="review" style="width: 100%" value="{{$review->review}}">
-                                </div>
-
-                                <!-- nickname -->
-                                <div class="form-group mb-4">
-                                    <label class="mb-2" for="nickname">Nickname <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="nickname" style="width: 100%"
-                                           value="{{$review->nickname}}">
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-primary">Submit review</button>
-                                </div>
-                            </form>
-
+                            @endfor
                         </div>
                     </div>
 
-            </section>
+                    <!-- summary -->
+                    <div class="form-review__group u-margin-bottom-medium">
+                        <label for="summary">Summary <span
+                                class="text--red">*</span></label>
+                        <input id="summary" type="text" name="summary"
+                               value="{{$review->summary}}">
+                    </div>
 
+                    <!-- review -->
+                    <div class="form-review__group u-margin-bottom-medium">
+                        <label for="review">Review</label>
+                        <textarea id="review" type="text" name="review"
+                        >{{$review->review}}</textarea>
+                    </div>
+
+                    <!-- nickname -->
+                    <div class="form-review__group u-margin-bottom-medium">
+                        <label for="nickname">Nickname <span
+                                class="text--red">*</span></label>
+                        <input id="nickname" type="text" name="nickname" style="width: 100%"
+                               value="{{$review->nickname}}">
+                    </div>
+
+                    <div class="form-review__group u-text-center u-margin-top-big">
+                        <button type="submit" class="btn btn--primary">Edit review</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Script to select only 1 checkbox -->
+    <!-- Script for stars checkbox -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkboxEls = document.querySelectorAll('input[type="checkbox"]');
+        document.addEventListener('DOMContentLoaded', function () {
+            const ratingCheckboxes = document.querySelectorAll('input[type="checkbox"][name="rating"]');
+            const starLabels = document.querySelectorAll('.form-review__star-label');
 
-            checkboxEls.forEach(checkboxEl => {
-                checkboxEl.addEventListener('change', function() {
-                    if (this.checked) {
-                        checkboxEls.forEach(checkboxEl => {
-                            if (checkboxEl !== this) {
-                                checkboxEl.checked = false;
+            // Add event listeners to the labels
+            starLabels.forEach((label, index) => {
+                label.addEventListener('click', function () {
+                    // Uncheck all checkboxes
+                    ratingCheckboxes.forEach(checkbox => {
+                        const labelElement = checkbox.closest('label');
+                        if (labelElement) {
+                            const starElement = labelElement.querySelector('.star');
+                            if (starElement) {
+                                starElement.classList.remove('star-active');
                             }
-                        });
+                            checkbox.checked = false;
+                        }
+                    });
+
+                    // Check all stars up to the clicked one
+                    for (let i = 0; i <= index; i++) {
+                        ratingCheckboxes[i].checked = true;
+                        const labelElement = ratingCheckboxes[i].closest('label');
+                        if (labelElement) {
+                            const starElement = labelElement.querySelector('.star');
+                            if (starElement) {
+                                starElement.classList.add('star-active');
+                            }
+                        }
                     }
                 });
             });

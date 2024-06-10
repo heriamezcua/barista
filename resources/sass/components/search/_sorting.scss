@@ -1,0 +1,21 @@
+/********* SORTING *************/
+
+.sorting {
+    display: flex;
+    justify-content: center;
+
+    &__form {
+        &:not(:last-child) {
+            margin-right: .5rem;
+        }
+
+        button[type="submit"] {
+            color: var(--color-white);
+        }
+    }
+
+    .active {
+        background-color: var(--color-black);
+        border: 1px solid var(--color-primary);
+    }
+}

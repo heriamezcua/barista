@@ -60,7 +60,7 @@ class CartController extends Controller
             $cart = session()->get('cart');
             array_splice($cart, $key, 1);
             session()->put('cart', $cart);
-            return back()->with('success', 'Product Removed From Cart');
+            return back();
         }
 
         return back();

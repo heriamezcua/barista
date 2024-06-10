@@ -1,15 +1,22 @@
 @extends('layouts.master')
 @section('title', 'Success')
 @section('content')
-    <header class="page-header text-center">
-        <h1>Order Successfully Placed</h1>
-    </header>
 
-    <section class="page-success mt-3">
-        <div class="container text-center">
-            <h1 class="fs-3">Your Order Has Successfully Been Placed</h1>
-            <h2 class="fs-2" style="color: #3a1c09">Your order ID is: {{$order->id}}</h2>
+    <div class="section-success">
+
+        <div class="success">
+
+            <div class="u-margin-bottom-medium">
+                <h2 class="heading-secondary">Your Order Has Successfully Been Placed</h2>
+            </div>
+
+            <div class="success__text-box u-margin-bottom-medium">
+                <p class="success__text">Your order ID is: <span class="success__id">{{$order->id}}</span></p>
+            </div>
+
+            <a href="{{route('home')}}" class="btn btn--primary">Continue shopping</a>
+
         </div>
-    </section>
 
+    </div>
 @endsection

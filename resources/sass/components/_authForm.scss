@@ -24,7 +24,16 @@
         .field {
             margin-bottom: 25px;
 
+            label {
+                font-size: var(--default-fs);
+                color: var(--color-black);
+                font-weight: 400;
+            }
+
             input {
+                font-size: var(--default-fs);
+                color: var(--color-black);
+                font-weight: 300;
                 width: 100%;
                 padding: 10px 15px;
                 border-radius: 3px;
@@ -35,6 +44,16 @@
                 border-color: red;
             }
         }
+
+        .form__text {
+            color: var(--color-black);
+
+            a {
+                color: var(--color-black);
+                text-decoration: underline;
+            }
+        }
+
 
         .field-error {
             color: red;

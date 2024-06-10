@@ -58,8 +58,20 @@
             font-size: var(--default-fs);
         }
 
+        &__price-box {
+            display: flex;
+            align-items: center;
+        }
+
         &__price {
             margin-bottom: .25rem;
+            margin-right: .5rem;
+        }
+
+        &__price-discount {
+            text-decoration: line-through;
+            color: #ff0000;
+            font-size: var(--small-fs);
         }
 
         &__price-unit {
@@ -121,7 +133,36 @@
         height: fit-content;
         padding: 1.5rem;
     }
-
 }
 
 
+.pop-up {
+    width: 100%;
+    padding: 10rem 8rem;
+
+    &__box {
+        width: 30rem;
+        height: 15.625rem;
+        padding: 1rem;
+        margin: 0 auto;
+        background-color: var(--color-white);
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+
+    &__title {
+        color: var(--color-grey-dark-1);
+        text-align: center;
+    }
+
+    &__actions{
+        width: 100%;
+        align-self: end;
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+}

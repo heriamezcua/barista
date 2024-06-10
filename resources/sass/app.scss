@@ -14,6 +14,8 @@
 @import 'components/product-card';
 @import 'components/product/progress';
 @import 'components/product/review';
+@import 'components/search/sorting';
+@import 'components/search/sidebarFilters';
 
 @import './layout/footer';
 @import "./layout/header";
@@ -22,6 +24,11 @@
 @import './pages/product';
 @import './pages/cart';
 @import './pages/checkout';
+@import './pages/order-success';
+@import './pages/wishlist';
+@import './pages/account';
+@import './pages/reviews/edit';
+@import './pages/search';
 
 // usar bootstrap
 //@import "~bootstrap/scss/bootstrap.scss";

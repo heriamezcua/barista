@@ -39,9 +39,19 @@
     max-width: 87.5rem;
     margin: 0 auto;
 
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    form {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+
+        button {
+            background: none;
+            color: var(--color-white);
+
+        }
+
+    }
+
 }
 
 /*********************************
@@ -87,6 +97,8 @@
         font-size: var(--medium-font-size);
         transition: all 0.2s;
         text-align: center;
+        color: var(--color-white);
+        background: none;
 
         &:hover {
             color: var(--color-grey-dark-4);

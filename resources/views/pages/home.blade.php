@@ -24,29 +24,43 @@
 
         <div class="categories">
 
-            <!-- CATEGORY -->
-            <div class="category">
-                <div class="category__img-box category__img-box--1 u-margin-bottom-small"></div>
-                <a class="category__link" href="#">Coffee Beans</a>
-            </div>
+            <form action="{{route('filter.products')}}" method="get">
+                @csrf
 
-            <!-- CATEGORY -->
-            <div class="category">
-                <div class="category__img-box category__img-box--2 u-margin-bottom-small"></div>
-                <a class="category__link" href="#">Coffee Pods</a>
-            </div>
+                <!-- CATEGORY -->
+                <div class="category">
 
-            <!-- CATEGORY -->
-            <div class="category">
-                <div class="category__img-box category__img-box--3 u-margin-bottom-small"></div>
-                <a class="category__link" href="#">Machines</a>
-            </div>
+                    <button  type="submit" name="category[]" value="beans">
+                        <div class="category__img-box category__img-box--1 u-margin-bottom-small"></div>
+                        <span class="text text--normal">Coffee Beans</span>
+                    </button>
+                </div>
 
-            <!-- CATEGORY -->
-            <div class="category">
-                <div class="category__img-box category__img-box--4 u-margin-bottom-small"></div>
-                <a class="category__link" href="#">Accesories</a>
-            </div>
+                <!-- CATEGORY -->
+                <div class="category">
+                    <button  type="submit" name="category[]" value="pods">
+                        <div class="category__img-box category__img-box--2 u-margin-bottom-small"></div>
+                        <span class="text text--normal">Pods</span>
+                    </button>
+                </div>
+
+                <!-- CATEGORY -->
+                <div class="category">
+                    <button  type="submit" name="category[]" value="machines">
+                        <div class="category__img-box category__img-box--3 u-margin-bottom-small"></div>
+                        <span class="text text--normal">Machines</span>
+                    </button>
+                </div>
+
+                <!-- CATEGORY -->
+                <div class="category">
+                    <button  type="submit" name="category[]" value="accesories">
+                        <div class="category__img-box category__img-box--4 u-margin-bottom-small"></div>
+                        <span class="text text--normal">Accesories</span>
+                    </button>
+                </div>
+
+            </form>
         </div>
     </section>
 
@@ -62,19 +76,35 @@
 
             <div class="product-box">
                 <div class="product-box__categories u-margin-bottom-medium">
-                    <a class="product-box__category product-box__category--active" href="#">Coffee</a>
-                    <a class="product-box__category" href="#">Pods</a>
-                    <a class="product-box__category" href="#">Machines</a>
-                    <a class="product-box__category" href="#">Accessories</a>
+                    <form action="{{ route('home') }}" method="get">
+                        @csrf
+
+                        <button type="submit" name="category" value="beans"
+                                class="product-box__category @if($filterCategory == 'beans') product-box__category--active @endif">
+                            Coffee Beans
+                        </button>
+                        <button type="submit" name="category" value="pods"
+                                class="product-box__category @if($filterCategory == 'pods') product-box__category--active @endif">
+                            Pods
+                        </button>
+                        <button type="submit" name="category" value="machines"
+                                class="product-box__category @if($filterCategory == 'machines') product-box__category--active @endif">
+                            Machines
+                        </button>
+                        <button type="submit" name="category" value="accessories"
+                                class="product-box__category @if($filterCategory == 'accessories') product-box__category--active @endif">
+                            Accessories
+                        </button>
+                    </form>
                 </div>
                 <div class="product-box__carousel">
                     <!-- btn left -->
                     <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                                    fill="currentColor"
-                                    d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg></span>
+                                fill="currentColor"
+                                d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg></span>
                     <div class="product-box__products">
-                        @foreach($products as $product)
+                        @foreach($topProducts as $product)
 
                             <x-product-card :product="$product"/>
 
@@ -83,7 +113,7 @@
                     <!-- btn right -->
                     <span class="chev-box chev-box--right" onclick="moveCarousel(1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                                fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+                            fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
                     </span>
                 </div>
             </div>
@@ -887,10 +917,10 @@
                 <!-- btn left -->
                 <span class="chev-box chev-box--left" onclick="moveCarousel(-1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path
-                                    fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
+                                fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
                 </span>
                 <div class="product-box__products">
-                    @foreach($products as $product)
+                    @foreach($bestsellers as $product)
 
                         <x-product-card :product="$product"/>
 
@@ -984,21 +1014,21 @@
     </script>
 
     <!-- Activate category link -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const categoryLinks = document.querySelectorAll('.product-box__category');
+    {{--    <script>--}}
+    {{--        document.addEventListener('DOMContentLoaded', function () {--}}
+    {{--            const categoryLinks = document.querySelectorAll('.product-box__category');--}}
 
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault(); // Prevent the default link behavior
+    {{--            categoryLinks.forEach(link => {--}}
+    {{--                link.addEventListener('click', function (event) {--}}
+    {{--                    event.preventDefault(); // Prevent the default link behavior--}}
 
-                    // Remove the active class from all links
-                    categoryLinks.forEach(link => link.classList.remove('product-box__category--active'));
+    {{--                    // Remove the active class from all links--}}
+    {{--                    categoryLinks.forEach(link => link.classList.remove('product-box__category--active'));--}}
 
-                    // Add the active class to the clicked link
-                    this.classList.add('product-box__category--active');
-                });
-            });
-        });
-    </script>
+    {{--                    // Add the active class to the clicked link--}}
+    {{--                    this.classList.add('product-box__category--active');--}}
+    {{--                });--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
 @endsection

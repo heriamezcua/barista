@@ -2,16 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
-        $products = Product::orderBy('created_at', 'desc')->get();
-        return view('pages.home', ['products' => $products]);
+
+        // Select the first 7 products from DB based on category filter
+        $filterCategory = $request->query('category', 'beans');
+
+        // Start eloquent query
+        $topProducts = Product::query();
+
+        // Finally select the products
+        $topProducts = $topProducts->orderBy('created_at', 'desc')
+            ->whereIn('category', (array)$filterCategory)
+            ->limit(7)
+            ->get();
+
+        // Bestsellers products
+        $bestItems = Item::select('product_id', DB::raw('SUM(quantity) as total_quantity_sold'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity_sold')
+            ->limit(10)
+            ->get();
+
+        // Select all products from DB
+        $bestsellers = [];
+        foreach ($bestItems as $item) {
+            try {
+                $product = Product::findOrFail($item->product_id);
+                $bestsellers[] = $product;
+            } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+                // Handle the case where product is not found
+            }
+        }
+
+        return view('pages.home', [
+            'topProducts' => $topProducts,
+            'bestsellers' => $bestsellers,
+            'filterCategory' => $filterCategory,
+        ]);
     }
 
     public function cart()

@@ -54,9 +54,9 @@
 
                 <!-- CATEGORY -->
                 <div class="category">
-                    <button  type="submit" name="category[]" value="accesories">
+                    <button  type="submit" name="category[]" value="accessories">
                         <div class="category__img-box category__img-box--4 u-margin-bottom-small"></div>
-                        <span class="text text--normal">Accesories</span>
+                        <span class="text text--normal">Accessories</span>
                     </button>
                 </div>
 

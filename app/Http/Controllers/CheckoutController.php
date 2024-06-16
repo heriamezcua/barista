@@ -34,7 +34,7 @@ class CheckoutController extends Controller
                 $intent = PaymentIntent::create([
                     'payment_method' => $request->payment_method_id,
                     'amount' => Cart::totalAmount() * 100,
-                    'currency' => 'usd',
+                    'currency' => 'eur',
                     'confirmation_method' => 'manual',
                     'confirm' => true,
                     'return_url' => route('success'),

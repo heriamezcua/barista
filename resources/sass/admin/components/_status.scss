@@ -1,0 +1,15 @@
+.status{
+    padding: .25rem;
+
+    &--under_review{
+        background-color: #efef5b;
+    }
+
+    &--approved{
+        background-color: #5bef74;
+    }
+
+    &--rejected{
+        background-color: #ff4d2c;
+    }
+}

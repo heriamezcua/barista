@@ -2,13 +2,16 @@
 @section('title', 'Orders')
 
 @section('content')
-    <h1 class="page-title">Orders</h1>
+    <h1 style="padding: 1rem;">Orders</h1>
 
     <div class="container">
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h5>Orders</h5>
+                    </div>
                     <div class="card-body">
                         <table class="table table-stripped">
                             <thead>
@@ -51,6 +54,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="orders__pagination">
+                            {{ $orders->links('vendor.pagination.bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>

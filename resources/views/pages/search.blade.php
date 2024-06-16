@@ -3,7 +3,6 @@
 @section('title', 'Search | Barista.com')
 
 @section('content')
-
     <section class="section-search">
         <div class="search">
             <div class="search__term-box u-margin-bottom-medium">

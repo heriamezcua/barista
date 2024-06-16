@@ -2,7 +2,8 @@
 @section('title', 'Edit Product')
 
 @section('content')
-    <h1 class="page-title">Edit Product</h1>
+    <h1 style="padding: 1rem;">Edit Product</h1>
+
     <div class="container">
         <div class="row mb-5">
             <div class="col-12">

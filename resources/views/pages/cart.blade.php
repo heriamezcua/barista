@@ -48,7 +48,7 @@
 
                                         <div class="item__price-box">
                                             <p class="item__price">
-                                                {{($product->price * $item['quantity'] / 100) - ($product->price * $item['quantity'] / 100 * $product->discount / 100)}}
+                                                {{round(($product->price * $item['quantity'] / 100) - ($product->price * $item['quantity'] / 100 * $product->discount / 100), 2)}}
                                                 €
                                             </p>
 
@@ -60,19 +60,19 @@
 
                                         @if($item['quantity']!=1)
                                             <p class="item__price-unit">Price by
-                                                unit {{$product->price / 100 - ($product->price / 100 * $product->discount/100)}}
+                                                unit {{round($product->price / 100 - ($product->price / 100 * $product->discount/100), 2)}}
                                                 €</p>
                                         @endif
 
                                     @else
 
                                         <p class="item__price">
-                                            {{$product->price * $item['quantity'] / 100}}€
+                                            {{round($product->price * $item['quantity'] / 100, 2)}}€
                                         </p>
 
                                         @if($item['quantity']!=1)
                                             <p class="item__price-unit">Price by
-                                                unit {{$product->price / 100 - ($product->price / 100 * $product->discount/100)}}
+                                                unit {{round($product->price / 100 - ($product->price / 100 * $product->discount/100), 2)}}
                                                 €</p>
                                         @endif
 

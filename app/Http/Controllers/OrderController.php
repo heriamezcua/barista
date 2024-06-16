@@ -9,7 +9,10 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('user')->orderBy('created_at', 'desc')->get();
+        $orders = Order::with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('admin.pages.orders.index', ['orders' => $orders]);
     }
 

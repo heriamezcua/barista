@@ -2,7 +2,8 @@
 @section('title', 'Create Product')
 
 @section('content')
-    <h1 class="page-title">Create Product</h1>
+    <h1 style="padding: 1rem;">Create Product</h1>
+
     <div class="container">
         <div class="row mb-5">
             <div class="col-12">

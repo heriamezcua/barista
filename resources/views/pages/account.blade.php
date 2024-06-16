@@ -30,7 +30,7 @@
                     <h3 class="heading-tertiary">My orders</h3>
                 </div>
 
-                <table class="table">
+                <table class="table u-margin-bottom-medium">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -43,7 +43,10 @@
                     <tbody>
 
                     @if(auth()->user()->orders && auth()->user()->orders->count())
-                        @foreach(auth()->user()->orders as $order)
+                        @php
+                            $orders = auth()->user()->orders()->paginate(10);
+                        @endphp
+                        @foreach($orders as $order)
                             <tr>
                                 <td>{{$order->id}}</td>
                                 <td>{{$order->items->count()}}</td>
@@ -55,6 +58,7 @@
                                 </td>
                             </tr>
                         @endforeach
+
                     @else
                         <tr>
                             <td colspan="5">No orders</td>
@@ -62,6 +66,9 @@
                     @endif
                     </tbody>
                 </table>
+                <div>
+                    {{ $orders->links() }}
+                </div>
 
             </div>
 

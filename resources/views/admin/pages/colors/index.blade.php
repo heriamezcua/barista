@@ -2,7 +2,7 @@
 @section('title', 'Colors')
 
 @section('content')
-    <h1 class="page-title">Colors</h1>
+    <h1 style="padding: 1rem;">Colors</h1>
 
     <div class="container">
 
@@ -55,7 +55,7 @@
             <div class="col-9">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Products</h5>
+                        <h5>Colors</h5>
                     </div>
                     <div class="card-body">
                         <table class="table table-stripped">
@@ -91,6 +91,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div>
+                            {{ $colors->links('vendor.pagination.bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>

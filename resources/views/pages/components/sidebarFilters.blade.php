@@ -3,7 +3,7 @@
         <div class="u-margin-bottom-small">
             <p class="filters__title">Filter by</p>
         </div>
-        <ul class="filters__list">
+        <ul class="filters__list u-margin-bottom-medium">
             {{-- CATEGORY --}}
             <li class="filters__item u-margin-bottom-medium">
                 <div class="menu-item" id="category">Category <span><svg xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -49,11 +49,11 @@
                                                                          height="1em" viewBox="0 0 32 32"><path
                                 fill="currentColor" d="M16 22L6 12l1.4-1.4l8.6 8.6l8.6-8.6L26 12z"/></svg></span></div>
                 <div class="checkboxes" id="checkboxes-caffeine">
-                    <label><input type="checkbox" name="caffeine[]" value="caffeinated"> Caffeinated</label><br>
-                    <label><input type="checkbox" name="caffeine[]" value="decaffeinated"> Decaffeinated</label><br>
+                    <label><input type="checkbox" name="caffeine[]" value="0"> Caffeinated</label><br>
+                    <label><input type="checkbox" name="caffeine[]" value="1"> Decaffeinated</label><br>
                 </div>
             </li>
         </ul>
-        <button type="submit">Filter</button>
+        <button class="btn btn--primary" type="submit">Filter</button>
     </div>
 </form>

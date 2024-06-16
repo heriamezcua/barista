@@ -5,5 +5,7 @@
 @import './base/_utilities.scss';
 @import './base/_animations.scss';
 
+@import "./admin/components/status";
+
 // usar bootstrap
 @import "~bootstrap/scss/bootstrap.scss";

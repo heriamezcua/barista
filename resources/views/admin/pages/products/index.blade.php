@@ -2,7 +2,7 @@
 @section('title', 'Products')
 
 @section('content')
-    <h1 class="page-title">Products</h1>
+    <h1 style="padding: 1rem;">Products</h1>
 
     <div class="container">
 
@@ -68,6 +68,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div>
+                            {{$products->links('vendor.pagination.bootstrap-5')}}
+                        </div>
                     </div>
                 </div>
             </div>

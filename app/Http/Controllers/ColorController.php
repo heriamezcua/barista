@@ -9,7 +9,7 @@ class ColorController extends Controller
 {
 
     public function index(){
-        $colors = Color::orderBy('created_at', 'desc')->get();
+        $colors = Color::orderBy('created_at', 'desc')->paginate(5);
 
         return view('admin.pages.colors.index', ['colors' => $colors]);
     }

@@ -7,6 +7,11 @@
     flex-flow: column nowrap;
     justify-content: space-between;
 
+    @include respond(phone){
+        flex: 0 0 250px;
+        height: 400px;
+    }
+
     &:not(:last-child) {
         margin-right: 1.5rem;
     }

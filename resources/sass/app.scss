@@ -1,9 +1,9 @@
-@import './abstract/mixins';
+@import 'abstract/mixins';
 
-@import './base/base';
-@import './base/typography';
-@import './base/utilities';
-@import './base/animations';
+@import 'base/base';
+@import 'base/typography';
+@import 'base/utilities';
+@import 'base/animations';
 
 @import 'components/authForm';
 @import 'components/button';
@@ -16,6 +16,8 @@
 @import 'components/product/review';
 @import 'components/search/sorting';
 @import 'components/search/sidebarFilters';
+@import 'components/mobile';
+
 
 @import './layout/footer';
 @import "./layout/header";

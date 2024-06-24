@@ -68,9 +68,11 @@
                             @endif
                             </tbody>
                         </table>
-                        <div>
-                            {{ $reviews->links('vendor.pagination.bootstrap-5') }}
-                        </div>
+                        @if(\App\Models\Review::all()->count() !== 0)
+                            <div>
+                                {{ $reviews->links('vendor.pagination.bootstrap-5') }}
+                            </div>
+                        @endif
 
 
                     </div>

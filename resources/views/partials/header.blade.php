@@ -18,4 +18,8 @@
 
     {{-- Navigation --}}
     @include('pages.components.header-nav')
+
+    {{-- Mobile --}}
+    @include('pages.components.header-mobile')
+
 </header>

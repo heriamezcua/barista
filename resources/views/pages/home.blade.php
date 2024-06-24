@@ -1013,6 +1013,22 @@
         }
     </script>
 
+    <script>
+          /****************************************************************
+           *       CERRAR MOBILE NAVIGATION AL HACER CLIK EN EN LINK      *
+           ***************************************************************/
+            const navLinkEl = document.querySelectorAll('.navigation__link');
+            const navCheckboxEl = document.querySelector('.navigation__checkbox');
+
+            navLinkEl.forEach((link) => {
+                link.addEventListener('click', function () {
+                setTimeout(() => {
+                    navCheckboxEl.checked = false;
+                }, 500);
+                });
+            });
+    </script>
+
     <!-- Activate category link -->
     {{--    <script>--}}
     {{--        document.addEventListener('DOMContentLoaded', function () {--}}
